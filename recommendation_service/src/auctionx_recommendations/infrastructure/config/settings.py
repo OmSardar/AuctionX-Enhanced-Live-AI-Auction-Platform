@@ -96,6 +96,8 @@ class Settings:
     @property
     def cors_origins(self) -> List[str]:
         known_production = [
+            "https://auctionx-enhanced.omslabs.tech",
+            "https://omslabs.tech",
             "https://auction-x-enhanced-live-ai-auction.vercel.app",
             "https://auction-x-enhanced-live-ai-auction.onrender.com",
             "https://auctionx-client.onrender.com",

@@ -120,5 +120,15 @@ class TestRecommendationServiceCORS(unittest.TestCase):
         self.assertIsNone(response.headers.get("access-control-allow-origin"))
 
 
+    def test_custom_domain_omslabs_tech_cors(self):
+        """Verify requests from custom domain https://auctionx-enhanced.omslabs.tech succeed with CORS headers."""
+        response = self.client.get(
+            "/api/recommendations?count=4",
+            headers={"Origin": "https://auctionx-enhanced.omslabs.tech"}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.headers.get("access-control-allow-origin"), "https://auctionx-enhanced.omslabs.tech")
+
+
 if __name__ == "__main__":
     unittest.main()

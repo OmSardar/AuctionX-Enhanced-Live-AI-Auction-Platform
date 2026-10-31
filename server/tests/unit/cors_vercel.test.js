@@ -22,6 +22,13 @@ describe("Vercel & Multi-Origin CORS Integration Tests", () => {
       expect(isOriginAllowed("https://auctionx-client.onrender.com")).toBe(true);
     });
 
+    it("allows custom omslabs.tech domain origins", () => {
+      expect(isOriginAllowed("https://auctionx-enhanced.omslabs.tech")).toBe(true);
+      expect(isOriginAllowed("https://auctionx-enhanced.omslabs.tech/")).toBe(true);
+      expect(isOriginAllowed("https://omslabs.tech")).toBe(true);
+      expect(isOriginAllowed("https://app.omslabs.tech")).toBe(true);
+    });
+
     it("allows requests with no Origin header (curl / native apps / same-origin)", () => {
       expect(isOriginAllowed(undefined)).toBe(true);
       expect(isOriginAllowed(null)).toBe(true);
@@ -65,6 +72,16 @@ describe("Vercel & Multi-Origin CORS Integration Tests", () => {
 
       expect(res.status).toBe(200);
       expect(res.headers["access-control-allow-origin"]).toBe(VERCEL_PREVIEW);
+      expect(res.headers["access-control-allow-credentials"]).toBe("true");
+    });
+
+    it("returns Access-Control-Allow-Origin for custom domain https://auctionx-enhanced.omslabs.tech", async () => {
+      const res = await request(app)
+        .get("/api/csrf-token")
+        .set("Origin", "https://auctionx-enhanced.omslabs.tech");
+
+      expect(res.status).toBe(200);
+      expect(res.headers["access-control-allow-origin"]).toBe("https://auctionx-enhanced.omslabs.tech");
       expect(res.headers["access-control-allow-credentials"]).toBe("true");
     });
 

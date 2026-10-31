@@ -56,18 +56,21 @@ const paymentWebhookRoutes = require("../../modules/payments/routes/paymentWebho
 const soapTransactionRoutes = require("../../modules/integrations/soap/soapTransactionRoutes");
 
 const KNOWN_ALLOWED_ORIGINS = [
+  "https://auctionx-enhanced.omslabs.tech",
+  "https://omslabs.tech",
   "https://auction-x-enhanced-live-ai-auction.vercel.app",
   "https://auction-x-enhanced-live-ai-auction.onrender.com",
   "https://auctionx-client.onrender.com",
 ];
 
 const VERCEL_AUCTIONX_REGEX = /^https:\/\/auction-x-enhanced-live-ai-auction.*\.vercel\.app$/;
+const OMSLABS_REGEX = /^https:\/\/(.*\.)?omslabs\.tech$/;
 const LOCALHOST_REGEX = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
 
 /**
  * Validates whether an incoming HTTP/WS request Origin header is permitted by CORS policy.
  * Supports explicit configured origins, known production domains, dynamic Vercel deployments,
- * and standard local development ports.
+ * omslabs.tech custom domains, and standard local development ports.
  *
  * @param {string|undefined} origin
  * @param {string[]} [explicitAllowedOrigins]
@@ -92,7 +95,12 @@ function isOriginAllowed(origin, explicitAllowedOrigins = []) {
     return true;
   }
 
-  // 4. In development/testing environments, permit all localhost / loopback ports
+  // 4. Match any omslabs.tech domain or subdomain (custom production domains)
+  if (OMSLABS_REGEX.test(normalized)) {
+    return true;
+  }
+
+  // 5. In development/testing environments, permit all localhost / loopback ports
   if (process.env.NODE_ENV !== "production") {
     if (LOCALHOST_REGEX.test(normalized)) {
       return true;

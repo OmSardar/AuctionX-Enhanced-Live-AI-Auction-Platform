@@ -8,6 +8,10 @@ paths = [
   '''server/tests/unit/stage4_payment_settlement\.test\.js''',
   '''server/tests/unit/stage3_lifecycle_scheduler\.test\.js''',
   '''server/tests/unit/stage1_security_validation\.test\.js''',
+  '''server/tests/unit/wallet_escrow_independent_verification\.test\.js''',
+  '''server/tests/unit/wallet_escrow_settlement\.test\.js''',
   '''server/tests/integration/admin/adminStage21Reliability\.test\.js''',
+  '''server/tests/integration/stage5_end_to_end_settlement\.test\.js''',
+  '''server/tests/smoke/smoke\.test\.js''',
 ]
 

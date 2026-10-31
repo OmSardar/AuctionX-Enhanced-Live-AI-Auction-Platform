@@ -36,7 +36,7 @@ jobs:
 
       - name: Run Gitleaks Full History Scan
         run: |
-          gitleaks git --verbose --redact --exit-code 1
+          gitleaks git --config=.gitleaks.toml --gitleaks-ignore-path=.gitleaksignore --verbose --redact --exit-code 1
 
   # ============================================================================
   # Backend Tests (Node.js Express + MongoDB 7.0 + Redis 7)

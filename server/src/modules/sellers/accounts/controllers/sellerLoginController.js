@@ -72,7 +72,10 @@ const register = async (req, res) => {
     );
 
     // Set the token in HTTP-only cookies
-    const isProduction = process.env.NODE_ENV === "production";
+    const isProduction =
+      process.env.NODE_ENV === "production" ||
+      req.secure ||
+      req.headers["x-forwarded-proto"] === "https";
     const cookieOptions = {
       httpOnly: true,
       secure: isProduction,
@@ -160,7 +163,10 @@ const Login = async (req, res) => {
       { expiresIn: "24h" }
     );
 
-    const isProduction = process.env.NODE_ENV === "production";
+    const isProduction =
+      process.env.NODE_ENV === "production" ||
+      req.secure ||
+      req.headers["x-forwarded-proto"] === "https";
     const cookieOptions = {
       httpOnly: true,
       secure: isProduction,
@@ -201,7 +207,10 @@ const Login = async (req, res) => {
 // authController.js
 const Logout = async (req, res) => {
   try {
-    const isProduction = process.env.NODE_ENV === "production";
+    const isProduction =
+      process.env.NODE_ENV === "production" ||
+      req.secure ||
+      req.headers["x-forwarded-proto"] === "https";
     const cookieOptions = {
       httpOnly: true,
       secure: isProduction,

@@ -531,7 +531,10 @@ const verify2faLogin = async (req, res) => {
       { expiresIn: "24h" }
     );
 
-    const isProduction = process.env.NODE_ENV === "production";
+    const isProduction =
+      process.env.NODE_ENV === "production" ||
+      req.secure ||
+      req.headers["x-forwarded-proto"] === "https";
     res.cookie("token", token, {
       httpOnly: true,
       secure: isProduction,
@@ -648,7 +651,10 @@ const verifyEmailOtpLogin = async (req, res) => {
       { expiresIn: "24h" }
     );
 
-    const isProduction = process.env.NODE_ENV === "production";
+    const isProduction =
+      process.env.NODE_ENV === "production" ||
+      req.secure ||
+      req.headers["x-forwarded-proto"] === "https";
     res.cookie("token", token, {
       httpOnly: true,
       secure: isProduction,

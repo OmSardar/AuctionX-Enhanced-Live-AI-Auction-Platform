@@ -68,7 +68,10 @@ const register = async (req, res) => {
     );
 
     // Set the token in an HTTP-only cookie
-    const isProduction = process.env.NODE_ENV === "production";
+    const isProduction =
+      process.env.NODE_ENV === "production" ||
+      req.secure ||
+      req.headers["x-forwarded-proto"] === "https";
     res.cookie("token", token, {
       httpOnly: true,
       secure: isProduction,
@@ -90,6 +93,7 @@ const register = async (req, res) => {
     res.status(201).json({
       success: true,
       message: "User registered successfully",
+      token,
       newUser: {
         id: newUser._id,
         name: newUser.name,
@@ -257,7 +261,10 @@ const Login = async (req, res) => {
       { expiresIn: "24h" }
     );
 
-    const isProduction = process.env.NODE_ENV === "production";
+    const isProduction =
+      process.env.NODE_ENV === "production" ||
+      req.secure ||
+      req.headers["x-forwarded-proto"] === "https";
     res.cookie("token", token, {
       httpOnly: true,
       secure: isProduction,
@@ -285,6 +292,7 @@ const Login = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Login successful",
+      token,
       user: {
         id: user._id,
         name: user.name,

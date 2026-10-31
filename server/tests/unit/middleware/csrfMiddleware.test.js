@@ -158,6 +158,39 @@ describe("csrfMiddleware Unit Tests", () => {
       );
       expect(nextFn).not.toHaveBeenCalled();
     });
+
+    it("should allow unsafe POST request with signed HMAC header token when _csrf cookie is missing (cross-origin 3P cookie blocking)", () => {
+      const { generateToken } = require("../../../src/infrastructure/security/csrfMiddleware");
+      const signedToken = generateToken();
+
+      mockReq.method = "POST";
+      mockReq.cookies = {}; // Third-party cookie blocked by browser
+      mockReq.headers["x-csrf-token"] = signedToken;
+
+      csrfProtection(mockReq, mockRes, nextFn);
+
+      expect(nextFn).toHaveBeenCalled();
+      expect(mockRes.status).not.toHaveBeenCalledWith(403);
+    });
+
+    it("should reject unsafe POST request with forged signed HMAC header token when _csrf cookie is missing", () => {
+      const forgedToken = "fake-nonce.1700000000000.bad-hmac-signature";
+
+      mockReq.method = "POST";
+      mockReq.cookies = {};
+      mockReq.headers["x-csrf-token"] = forgedToken;
+
+      csrfProtection(mockReq, mockRes, nextFn);
+
+      expect(mockRes.status).toHaveBeenCalledWith(403);
+      expect(mockRes.json).toHaveBeenCalledWith(
+        expect.objectContaining({
+          success: false,
+          message: "CSRF token missing",
+        })
+      );
+      expect(nextFn).not.toHaveBeenCalled();
+    });
   });
 
   describe("csrfTokenRoute endpoint handler", () => {

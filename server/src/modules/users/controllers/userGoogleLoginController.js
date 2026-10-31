@@ -37,7 +37,10 @@ const handleGoogleCallback = (req, res) => {
   const { token, user } = req.user;
 
   // Set the JWT in an HTTP-only cookie
-  const isProduction = process.env.NODE_ENV === "production";
+  const isProduction =
+    process.env.NODE_ENV === "production" ||
+    req.secure ||
+    req.headers["x-forwarded-proto"] === "https";
   res.cookie("token", token, {
     httpOnly: true,
     secure: isProduction,

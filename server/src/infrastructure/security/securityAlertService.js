@@ -1,4 +1,4 @@
-const nodemailer = require("nodemailer");
+const { sendEmail } = require("../../common/utilities/email");
 const { resolveAuthenticClientIp } = require("../../common/utilities/ipResolver");
 
 // Simple in-memory deduplication cache for login alert events (stores eventKey -> timestamp)
@@ -170,21 +170,13 @@ const sendLoginSecurityAlert = async (user, options = {}) => {
     </div>
   `;
 
-  // Transporter fallback / mocked in test environment
+  // Send email alert through centralized EmailService (non-blocking)
   try {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER || "security@auctionx.com",
+    await sendEmail({
       to: user.email,
       subject: `[Security Alert] New sign-in to AuctionX (${safeMethod})`,
       html: htmlContent,
+      category: "security_alert",
     });
 
     return { success: true };

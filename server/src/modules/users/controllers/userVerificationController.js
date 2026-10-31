@@ -308,15 +308,29 @@ const sendOtp = async (req, res) => {
       { upsert: true, new: true }
     );
 
-    // Send OTP email with graceful dev/test fallback
+    // Send OTP email with production failure enforcement
     try {
       await sendOtpEmail(email, otp);
     } catch (mailError) {
       console.warn(`[OTP] Email delivery failed for ${email}: ${mailError.message}`);
-      console.log(`\n==========================================\n[DEV OTP] For ${email}: ${otp}\n==========================================\n`);
+      const isProduction = process.env.NODE_ENV === "production";
+      const isResend = (process.env.EMAIL_PROVIDER || "").toLowerCase() === "resend";
+
+      if (isProduction || isResend) {
+        // In production, do not leak OTP and do not return false-positive HTTP 200
+        await Otp.deleteOne({ email, otp });
+        return res.status(500).json({
+          success: false,
+          message: "Failed to send verification email. Please try again later.",
+        });
+      }
+
+      if (process.env.NODE_ENV === "development") {
+        console.log(`[DEV OTP] For ${email}: ${otp}`);
+      }
     }
 
-    res.status(200).json({ message: "OTP sent successfully" });
+    res.status(200).json({ success: true, message: "OTP sent successfully" });
   } catch (error) {
     console.error("Error sending OTP:", error);
     res
@@ -408,9 +422,23 @@ const resendOtp = async (req, res) => {
       await sendOtpEmail(email, newOtp);
     } catch (mailError) {
       console.warn(`[OTP] Resend email delivery failed for ${email}: ${mailError.message}`);
-      console.log(`\n==========================================\n[DEV OTP RESEND] For ${email}: ${newOtp}\n==========================================\n`);
+      const isProduction = process.env.NODE_ENV === "production";
+      const isResend = (process.env.EMAIL_PROVIDER || "").toLowerCase() === "resend";
+
+      if (isProduction || isResend) {
+        // In production, do not leak OTP and do not return false-positive HTTP 200
+        await Otp.deleteOne({ email, otp: newOtp });
+        return res.status(500).json({
+          success: false,
+          message: "Failed to send verification email. Please try again later.",
+        });
+      }
+
+      if (process.env.NODE_ENV === "development") {
+        console.log(`[DEV OTP RESEND] For ${email}: ${newOtp}`);
+      }
     }
-    res.status(200).json({ message: "OTP resent successfully" });
+    res.status(200).json({ success: true, message: "OTP resent successfully" });
   } catch (error) {
     console.error("Error in resendOtp:", error.message);
     res

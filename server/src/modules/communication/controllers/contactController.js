@@ -1,6 +1,6 @@
 // controllers/UserControllers/contactController/contactController.js
-const nodemailer = require("nodemailer");
 const Contact = require("../models/Contact");
+const { sendEmail } = require("../../../common/utilities/email");
 
 const submitContact = async (req, res) => {
   try {
@@ -24,45 +24,39 @@ const submitContact = async (req, res) => {
     });
     await newContact.save();
 
-    // Send email (best effort, do not fail submission if SMTP is unconfigured or fails)
-    if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
-      try {
-        const transporter = nodemailer.createTransport({
-          service: "gmail",
-          auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS,
-          },
-        });
-
-        const emailHTML = `
-          <div style="background-color: #1a1a1a; padding: 20px; font-family: Arial, sans-serif; color: #f1f1f1; border-radius: 10px;">
-            <h2 style="color: #e2b714;">New Contact Form Submission</h2>
-            <hr style="border-top: 1px solid #333;">
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> <a href="mailto:${email}" style="color: #f1f1f1; text-decoration: underline;">${email}</a></p>
-            <p><strong>Subject:</strong> ${subject}</p>
-            <p><strong>Message:</strong></p>
-            <div style="background-color: #333; padding: 15px; border-radius: 5px; color: #d3d3d3;">
-              ${message.replace(/\n/g, "<br>")}
-            </div>
-            <hr style="border-top: 1px solid #333;">
-            <p style="font-size: 12px; color: #666;">This message was sent from your website contact form.</p>
+    // Send email (best effort, do not fail submission if email provider fails)
+    try {
+      const emailHTML = `
+        <div style="background-color: #1a1a1a; padding: 20px; font-family: Arial, sans-serif; color: #f1f1f1; border-radius: 10px;">
+          <h2 style="color: #e2b714;">New Contact Form Submission</h2>
+          <hr style="border-top: 1px solid #333;">
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> <a href="mailto:${email}" style="color: #f1f1f1; text-decoration: underline;">${email}</a></p>
+          <p><strong>Subject:</strong> ${subject}</p>
+          <p><strong>Message:</strong></p>
+          <div style="background-color: #333; padding: 15px; border-radius: 5px; color: #d3d3d3;">
+            ${message.replace(/\n/g, "<br>")}
           </div>
-        `;
+          <hr style="border-top: 1px solid #333;">
+          <p style="font-size: 12px; color: #666;">This message was sent from your website contact form.</p>
+        </div>
+      `;
 
-        const mailOptions = {
-          from: process.env.EMAIL_USER,
-          to: process.env.EMAIL_USER,
-          subject: `Contact Form Submission: ${subject}`,
-          text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`,
-          html: emailHTML,
-        };
+      const recipientAddress =
+        process.env.EMAIL_USER ||
+        process.env.EMAIL_REPLY_TO ||
+        "support@mail.omslabs.tech";
 
-        await transporter.sendMail(mailOptions);
-      } catch (mailErr) {
-        console.warn("Contact form notification email failed:", mailErr.message);
-      }
+      await sendEmail({
+        to: recipientAddress,
+        subject: `Contact Form Submission: ${subject}`,
+        text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`,
+        html: emailHTML,
+        replyTo: email,
+        category: "contact_submission",
+      });
+    } catch (mailErr) {
+      console.warn("Contact form notification email failed:", mailErr.message);
     }
 
     res.status(201).json({

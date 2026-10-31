@@ -496,6 +496,15 @@ const verify2faLogin = async (req, res) => {
         await sendOtpEmail(user.email, otp);
       } catch (mailError) {
         console.warn(`[Login OTP] Email delivery failed for ${user.email}: ${mailError.message}`);
+        const isProduction = process.env.NODE_ENV === "production";
+        const isResend = (process.env.EMAIL_PROVIDER || "").toLowerCase() === "resend";
+        if (isProduction || isResend) {
+          await Otp.deleteOne({ email: user.email, otp });
+          return res.status(500).json({
+            success: false,
+            message: "Failed to send email verification code. Please try again.",
+          });
+        }
       }
 
       const nextChallengeToken = jwt.sign(
@@ -745,6 +754,15 @@ const resendLoginEmailOtp = async (req, res) => {
       await sendOtpEmail(decoded.email, newOtp);
     } catch (mailError) {
       console.warn(`[Login OTP Resend] Delivery error for ${decoded.email}: ${mailError.message}`);
+      const isProduction = process.env.NODE_ENV === "production";
+      const isResend = (process.env.EMAIL_PROVIDER || "").toLowerCase() === "resend";
+      if (isProduction || isResend) {
+        await Otp.deleteOne({ email: decoded.email, otp: newOtp });
+        return res.status(500).json({
+          success: false,
+          message: "Failed to send verification code. Please try again.",
+        });
+      }
     }
 
     return res.status(200).json({

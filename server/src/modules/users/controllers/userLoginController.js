@@ -226,6 +226,15 @@ const Login = async (req, res) => {
         await sendOtpEmail(user.email, otp);
       } catch (mailError) {
         console.warn(`[Login OTP] Email delivery failed for ${user.email}: ${mailError.message}`);
+        const isProduction = process.env.NODE_ENV === "production";
+        const isResend = (process.env.EMAIL_PROVIDER || "").toLowerCase() === "resend";
+        if (isProduction || isResend) {
+          await Otp.deleteOne({ email: user.email, otp });
+          return res.status(500).json({
+            success: false,
+            message: "Failed to send login verification code. Please try again.",
+          });
+        }
       }
 
       const challengeToken = jwt.sign(

@@ -1,4 +1,4 @@
-const nodemailer = require("nodemailer");
+const { sendEmail, getEmailConfig } = require("./email");
 
 const handleContactSubmission = async (req, res) => {
   const { name, email, subject, message } = req.body;
@@ -14,14 +14,7 @@ const handleContactSubmission = async (req, res) => {
   }
 
   try {
-    // Configure the transporter
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
+    const config = getEmailConfig();
 
     // Create the HTML content for a professional-looking dark theme email
     const emailHTML = `
@@ -40,17 +33,19 @@ const handleContactSubmission = async (req, res) => {
       </div>
     `;
 
-    // Configure the email options
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER,
-      subject: `Contact Form Submission: ${subject}`,
-      text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`, // Plain text fallback
-      html: emailHTML, // HTML version for a professional look
-    };
+    const recipientAddress =
+      process.env.EMAIL_USER ||
+      process.env.EMAIL_REPLY_TO ||
+      "support@mail.omslabs.tech";
 
-    // Send the email
-    await transporter.sendMail(mailOptions);
+    await sendEmail({
+      to: recipientAddress,
+      subject: `Contact Form Submission: ${subject}`,
+      html: emailHTML,
+      text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`,
+      replyTo: email,
+      category: "contact_us",
+    });
 
     // Respond with a success message
     res.status(200).json({
@@ -61,14 +56,14 @@ const handleContactSubmission = async (req, res) => {
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    console.error("Error sending email:", error);
+    console.error("Error sending contact email:", error.message);
     res.status(500).json({
       code: "ERROR",
       message:
         "Oops! An error occurred while sending your message. Please try again later.",
       theme: "dark",
       timestamp: new Date().toISOString(),
-      errorDetail: error.message, // Optional: for logging detailed error if needed
+      errorDetail: error.message,
     });
   }
 };

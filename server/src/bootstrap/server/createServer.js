@@ -5,6 +5,7 @@ const seedDatabase = require("../../../scripts/data/seedData");
 const socketRoutes = require("../../modules/auctions/routes/socketRoutes");
 const { startScheduler, stopScheduler } = require("../../infrastructure/scheduling/schedulerService");
 const { startOutboxWorker, stopOutboxWorker } = require("../../infrastructure/messaging/recommendationTrackingService");
+const { isOriginAllowed } = require("../application/createApplication");
 
 function createServer(app, options = {}) {
   const PORT = process.env.PORT || 3000;
@@ -13,8 +14,14 @@ function createServer(app, options = {}) {
 
   const io = socketIo(server, {
     cors: {
-      origin: allowedOrigins,
-      methods: ["GET", "POST", "DELETE", "PATCH", "PUT"],
+      origin: (origin, callback) => {
+        if (isOriginAllowed(origin, allowedOrigins)) {
+          callback(null, true);
+        } else {
+          callback(null, false);
+        }
+      },
+      methods: ["GET", "POST", "DELETE", "PATCH", "PUT", "OPTIONS"],
       allowedHeaders: [
         "Content-Type",
         "x-csrf-token",

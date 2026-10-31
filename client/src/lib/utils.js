@@ -53,5 +53,7 @@ export function formatDate(input) {
  * Generate absolute URL with API base
  */
 export function absoluteUrl(path) {
-  return `${import.meta.env.VITE_API_URL || ""}${path}`;
+  const base = (import.meta.env.VITE_API_URL || "").trim().replace(/\/+$/, "");
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+  return `${base}${normalizedPath}`;
 }

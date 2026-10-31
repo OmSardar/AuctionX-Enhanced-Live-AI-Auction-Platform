@@ -55,9 +55,56 @@ const sellerSubscriptionRoutes = require("../../modules/sellers/subscriptions/ro
 const paymentWebhookRoutes = require("../../modules/payments/routes/paymentWebhookRoutes");
 const soapTransactionRoutes = require("../../modules/integrations/soap/soapTransactionRoutes");
 
+const KNOWN_ALLOWED_ORIGINS = [
+  "https://auction-x-enhanced-live-ai-auction.vercel.app",
+  "https://auction-x-enhanced-live-ai-auction.onrender.com",
+  "https://auctionx-client.onrender.com",
+];
+
+const VERCEL_AUCTIONX_REGEX = /^https:\/\/auction-x-enhanced-live-ai-auction.*\.vercel\.app$/;
+const LOCALHOST_REGEX = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
+
+/**
+ * Validates whether an incoming HTTP/WS request Origin header is permitted by CORS policy.
+ * Supports explicit configured origins, known production domains, dynamic Vercel deployments,
+ * and standard local development ports.
+ *
+ * @param {string|undefined} origin
+ * @param {string[]} [explicitAllowedOrigins]
+ * @returns {boolean}
+ */
+function isOriginAllowed(origin, explicitAllowedOrigins = []) {
+  if (!origin) return true; // Server-to-server, curl, Postman, native mobile
+  const normalized = origin.trim().replace(/\/+$/, "");
+
+  // 1. Direct match against explicitly configured origins (env or options)
+  if (explicitAllowedOrigins.some((o) => o && o.trim().replace(/\/+$/, "") === normalized)) {
+    return true;
+  }
+
+  // 2. Direct match against known production domains
+  if (KNOWN_ALLOWED_ORIGINS.some((o) => o.replace(/\/+$/, "") === normalized)) {
+    return true;
+  }
+
+  // 3. Match any AuctionX Vercel production or preview deployment branch URL
+  if (VERCEL_AUCTIONX_REGEX.test(normalized)) {
+    return true;
+  }
+
+  // 4. In development/testing environments, permit all localhost / loopback ports
+  if (process.env.NODE_ENV !== "production") {
+    if (LOCALHOST_REGEX.test(normalized)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 function getAllowedOrigins() {
   const configuredOrigins = process.env.ALLOWED_ORIGINS
-    ? process.env.ALLOWED_ORIGINS.split(",").map((origin) => origin.trim())
+    ? process.env.ALLOWED_ORIGINS.split(",").map((origin) => origin.trim().replace(/\/+$/, ""))
     : [];
 
   const devOrigins =
@@ -72,11 +119,14 @@ function getAllowedOrigins() {
         ]
       : [];
 
+  const clientUrl = process.env.CLIENT_URL ? process.env.CLIENT_URL.trim().replace(/\/+$/, "") : null;
+
   return Array.from(
     new Set([
+      ...KNOWN_ALLOWED_ORIGINS,
       ...configuredOrigins,
       ...devOrigins,
-      process.env.CLIENT_URL,
+      clientUrl,
     ].filter(Boolean))
   );
 }
@@ -198,20 +248,37 @@ function createApplication(options = {}) {
   app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser());
 
-  // CORS
-  app.use(
-    cors({
-      methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
-      allowedHeaders: [
-        "Content-Type",
-        "x-csrf-token",
-        "X-CSRF-Token",
-        "Authorization",
-      ],
-      credentials: true,
-      origin: allowedOrigins,
-    })
-  );
+  // CORS — robust cross-origin support for production Vercel frontend, local dev, and API consumers
+  const corsOptions = {
+    origin: (origin, callback) => {
+      if (isOriginAllowed(origin, allowedOrigins)) {
+        callback(null, true);
+      } else {
+        if (logger) {
+          logger.warn(`[CORS] Rejected request from unauthorized origin: ${origin}`);
+        }
+        callback(null, false);
+      }
+    },
+    methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: [
+      "Content-Type",
+      "x-csrf-token",
+      "X-CSRF-Token",
+      "Authorization",
+      "x-idempotency-key",
+      "idempotency-key",
+      "x-requested-with",
+      "Accept",
+      "Origin",
+    ],
+    exposedHeaders: ["x-csrf-token", "X-CSRF-Token", "Content-Disposition"],
+    credentials: true,
+    maxAge: 86400,
+  };
+
+  app.use(cors(corsOptions));
+  app.options("*", cors(corsOptions));
 
   // NoSQL injection protection
   app.use(
@@ -609,4 +676,4 @@ function setupRecommendationRoutes(app) {
   app.get("/api/recommendations/:email", handleRecommendationsRoute);
 }
 
-module.exports = { createApplication, getAllowedOrigins };
+module.exports = { createApplication, getAllowedOrigins, isOriginAllowed, KNOWN_ALLOWED_ORIGINS };

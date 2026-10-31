@@ -139,6 +139,7 @@ def create_app(settings: Optional[Settings] = None) -> FastAPI:
     app.add_middleware(
         CORSMiddleware,
         allow_origins=app_settings.cors_origins,
+        allow_origin_regex=r"^https://auction-x-enhanced-live-ai-auction.*\.vercel\.app$",
         allow_credentials=True,
         allow_methods=["GET", "POST", "OPTIONS", "HEAD"],
         allow_headers=["*"],

@@ -1,8 +1,8 @@
 // src/services/authService.js - Updated to work with https-only cookies
 import axios from "axios";
 
-// Base URL for API calls
-const API_URL = import.meta.env.VITE_API_URL || "";
+// Base URL for API calls (normalized without trailing slashes)
+const API_URL = (import.meta.env.VITE_API_URL || "").trim().replace(/\/+$/, "");
 // Create axios instance with credentials enabled
 const api = axios.create({
   baseURL: API_URL || undefined,

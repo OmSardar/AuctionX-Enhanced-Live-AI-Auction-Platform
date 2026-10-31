@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const API_URL = import.meta.env.VITE_API_URL || "";
+const API_URL = (import.meta.env.VITE_API_URL || "").trim().replace(/\/+$/, "");
 
 // Async action to fetch CSRF token
 export const fetchCsrfToken = createAsyncThunk(

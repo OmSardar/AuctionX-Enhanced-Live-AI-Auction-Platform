@@ -95,12 +95,17 @@ class Settings:
 
     @property
     def cors_origins(self) -> List[str]:
+        known_production = [
+            "https://auction-x-enhanced-live-ai-auction.vercel.app",
+            "https://auction-x-enhanced-live-ai-auction.onrender.com",
+            "https://auctionx-client.onrender.com",
+        ]
         configured = [
             o.strip().rstrip("/")
             for o in self.allowed_origins_raw.split(",")
             if o.strip()
         ]
-        origins = list(dict.fromkeys(configured + ([self.client_url] if self.client_url else [])))
+        origins = list(dict.fromkeys(known_production + configured + ([self.client_url] if self.client_url else [])))
 
         # In non-production, ensure standard development frontend origins are allowed
         if not self.is_production:

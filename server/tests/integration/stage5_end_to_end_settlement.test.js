@@ -279,16 +279,24 @@ describe("Stage 5 — End-to-End Integration & Production-Readiness Suite", () =
       expect(endedProduct.finalPrice).toBe(2000);
       expect(endedProduct.winnerId.toString()).toBe(bidderA._id.toString());
 
-      // Step 7: Verify exactly one Order created with 24h deadline
+      // Step 7: Verify exactly one Order created, automatically settled via wallet escrow
       const orders = await Order.find({ productId: product._id });
       expect(orders.length).toBe(1);
       const order = orders[0];
-      expect(order.status).toBe("PENDING");
+      expect(order.status).toBe("PAID");
+      expect(order.paymentMethod).toBe("WALLET");
+      expect(order.walletSettled).toBe(true);
       expect(order.finalPrice).toBe(2000);
       expect(order.userEmail).toBe(bidderA.email);
 
-      const expectedDeadline = new Date(expiryTime.getTime() + 24 * 60 * 60 * 1000);
-      expect(order.paymentDeadline.getTime()).toBe(expectedDeadline.getTime());
+      // Verify wallet balances: Bidder A had 2000 captured (50000 -> 48000), Bidder B had 1500 released (50000)
+      const freshBidderA = await User.findById(bidderA._id);
+      expect(freshBidderA.amount).toBe(48000);
+      expect(freshBidderA.reservedAmount).toBe(0);
+
+      const freshBidderB = await User.findById(bidderB._id);
+      expect(freshBidderB.amount).toBe(50000);
+      expect(freshBidderB.reservedAmount).toBe(0);
 
       // Step 8: Authorization: Bidder B (loser) attempts payment initiation -> HTTP 403 Forbidden
       const csrf = createCsrfCredentials();
@@ -301,12 +309,58 @@ describe("Stage 5 — End-to-End Integration & Production-Readiness Suite", () =
       expect(imposterRes.status).toBe(403);
       expect(imposterRes.body.code).toBe("UNAUTHORIZED_PAYER");
 
-      // Step 9: Bidder A (winner) initiates payment -> creates Razorpay order for ₹2,000 (200,000 paise)
-      const payInitRes = await request(app)
+      // Step 9: Bidder A (winner) attempts payment initiation -> rejected because already paid via wallet escrow
+      const doublePayRes = await request(app)
         .post("/api/payment/create-order")
         .set("Cookie", [`token=${bidderAToken}`, csrf.cookie])
         .set("X-CSRF-Token", csrf.token)
         .send({ orderId: order._id.toString() });
+
+      expect(doublePayRes.status).toBe(400);
+      expect(doublePayRes.body.code).toBe("ORDER_ALREADY_PAID");
+
+      // Step 10: Manual/Pending Order Checkout: Verify Razorpay checkout flow for eligible pending orders
+      const manualProduct = await Product.create({
+        name: "Manual Settlement Item",
+        email: sellerUser.email,
+        category: "Collectibles",
+        description: [{ name: "Condition", description: "Mint" }],
+        images: [{ secure_url: "https://example.com/mint.jpg", public_id: "m1" }],
+        mobileNumber: "9876543210",
+        biddingStartDate: new Date(Date.now() - 7200000),
+        biddingStartTime: "00:00",
+        biddingEndDate: new Date(Date.now() - 3600000),
+        biddingEndTime: "01:00",
+        biddingStartPrice: 1000,
+        currentPrice: 2000,
+        finalPrice: 2000,
+        status: "ENDED",
+        winnerId: bidderA._id,
+      });
+
+      const pendingOrder = await Order.create({
+        productId: manualProduct._id,
+        winnerId: bidderA._id,
+        title: manualProduct.name,
+        name: bidderA.name,
+        userEmail: bidderA.email,
+        sellerEmail: sellerUser.email,
+        category: manualProduct.category,
+        images: manualProduct.images,
+        biddingStartPrice: 1000,
+        highestBid: 2000,
+        finalPrice: 2000,
+        phoneNo: "9876543210",
+        address: "Address on File",
+        status: "PENDING",
+        paymentDeadline: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      });
+
+      const payInitRes = await request(app)
+        .post("/api/payment/create-order")
+        .set("Cookie", [`token=${bidderAToken}`, csrf.cookie])
+        .set("X-CSRF-Token", csrf.token)
+        .send({ orderId: pendingOrder._id.toString() });
 
       expect(payInitRes.status).toBe(200);
       expect(payInitRes.body.amount).toBe(200000);
@@ -314,7 +368,7 @@ describe("Stage 5 — End-to-End Integration & Production-Readiness Suite", () =
       const providerOrderId = payInitRes.body.razorpayOrderId;
       expect(providerOrderId).toBeDefined();
 
-      // Step 10: Complete checkout payment via browser verification
+      // Step 11: Complete checkout payment via browser verification
       const paymentId = `pay_e2e_${Date.now()}`;
       const validCheckoutSig = computeCheckoutSignature(providerOrderId, paymentId);
 
@@ -330,7 +384,7 @@ describe("Stage 5 — End-to-End Integration & Production-Readiness Suite", () =
         .set("Cookie", [`token=${bidderAToken}`, csrf.cookie])
         .set("X-CSRF-Token", csrf.token)
         .send({
-          orderId: order._id.toString(),
+          orderId: pendingOrder._id.toString(),
           razorpayOrderId: providerOrderId,
           razorpayPaymentId: paymentId,
           razorpaySignature: validCheckoutSig,
@@ -340,20 +394,17 @@ describe("Stage 5 — End-to-End Integration & Production-Readiness Suite", () =
       expect(verifyRes.body.success).toBe(true);
       expect(verifyRes.body.order.status).toBe("PAID");
 
-      // Verify DB persistence: Order is PAID, Product is SETTLED, Payment is CAPTURED
-      const paidOrder = await Order.findById(order._id);
+      // Verify DB persistence: Order is PAID, Payment is CAPTURED
+      const paidOrder = await Order.findById(pendingOrder._id);
       expect(paidOrder.status).toBe("PAID");
       expect(paidOrder.razorpayPaymentId).toBe(paymentId);
-
-      const settledProduct = await Product.findById(product._id);
-      expect(settledProduct.status).toBe("SETTLED");
 
       const capturedPayment = await Payment.findOne({ razorpayPaymentId: paymentId });
       expect(capturedPayment).toBeDefined();
       expect(capturedPayment.status).toBe("CAPTURED");
       expect(capturedPayment.amount).toBe(200000);
 
-      // Step 11: Subsequent incoming webhook for this captured payment is safely deduplicated
+      // Step 12: Subsequent incoming webhook for this captured payment is safely deduplicated
       const webhookPayload = JSON.stringify({
         id: `evt_e2e_wh_${Date.now()}`,
         event: "payment.captured",
@@ -378,11 +429,9 @@ describe("Stage 5 — End-to-End Integration & Production-Readiness Suite", () =
       expect(webhookRes.status).toBe(200);
       expect(webhookRes.body.success).toBe(true);
 
-      // Order and Product remain consistently settled without corruption
-      const recheckedOrder = await Order.findById(order._id);
+      // Order remains consistently settled without corruption
+      const recheckedOrder = await Order.findById(pendingOrder._id);
       expect(recheckedOrder.status).toBe("PAID");
-      const recheckedProduct = await Product.findById(product._id);
-      expect(recheckedProduct.status).toBe("SETTLED");
     });
   });
 

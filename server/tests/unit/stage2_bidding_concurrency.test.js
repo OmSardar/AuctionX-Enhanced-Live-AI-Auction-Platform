@@ -15,6 +15,8 @@ const mongoose = require("mongoose");
 const { app } = require("../../server");
 const Product = require("../../src/modules/products/models/productSchema");
 const Bid = require("../../src/modules/bidding/models/bidSchema");
+const User = require("../../src/modules/users/models/user");
+const WalletReservation = require("../../src/modules/bidding/models/walletReservationSchema");
 const {
   placeBid,
   getBidHistory,
@@ -34,14 +36,22 @@ describe("Stage 2 — Authoritative Bidding & Concurrency Remediation Suite", ()
     await Bid.init();
     await Product.init();
     sellerUser = await createTestUser({ email: "seller_stage2@test.com", name: "Stage 2 Seller" });
-    bidderA = await createTestUser({ email: "bidder_a@test.com", name: "Bidder Alpha" });
-    bidderB = await createTestUser({ email: "bidder_b@test.com", name: "Bidder Beta" });
-    bidderC = await createTestUser({ email: "bidder_c@test.com", name: "Bidder Gamma" });
+    bidderA = await createTestUser({ email: "bidder_a@test.com", name: "Bidder Alpha", amount: 50000 });
+    bidderB = await createTestUser({ email: "bidder_b@test.com", name: "Bidder Beta", amount: 50000 });
+    bidderC = await createTestUser({ email: "bidder_c@test.com", name: "Bidder Gamma", amount: 50000 });
+  });
+
+  beforeEach(async () => {
+    await User.updateMany(
+      { _id: { $in: [bidderA.user._id, bidderB.user._id, bidderC.user._id] } },
+      { $set: { amount: 50000, reservedAmount: 0 } }
+    );
   });
 
   afterEach(async () => {
     await Product.deleteMany({ email: "seller_stage2@test.com" });
     await Bid.deleteMany({});
+    await WalletReservation.deleteMany({});
   });
 
   async function createFixtureProduct(overrides = {}) {

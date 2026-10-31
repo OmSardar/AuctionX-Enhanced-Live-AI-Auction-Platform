@@ -1,8 +1,70 @@
 const Transaction = require("../models/transaction");
+const { runWalletReconciliation } = require("../../../payments/services/walletReconciliationService");
+
+// @desc    Run wallet reconciliation & escrow invariant scan
+// @route   GET /api/transactions/wallet-reconciliation
+// @access  Private (Admin)
+exports.getWalletReconciliation = async (req, res) => {
+  try {
+    // Strictly read-only audit: autoRepair is forced to false
+    const autoRepair = false;
+    const report = await runWalletReconciliation({ autoRepair });
+    res.json({
+      success: true,
+      ...report,
+    });
+  } catch (err) {
+    console.error("Error running wallet reconciliation:", err);
+    res.status(500).json({
+      success: false,
+      error: "Failed to run wallet reconciliation",
+      details: err.message,
+    });
+  }
+};
 
 // @desc    Get all transactions with pagination
 // @route   GET /api/transactions
 // @access  Private
+// @desc    Execute authorized, audited wallet reconciliation repair
+// @route   POST /api/transactions/wallet-reconciliation/repair
+// @access  Private (Admin only)
+exports.postWalletReconciliationRepair = async (req, res) => {
+  try {
+    const report = await runWalletReconciliation({ autoRepair: true });
+
+    const adminEmail = req.admin?.email || req.user?.email || "admin@auctionx.com";
+    await Transaction.create([
+      {
+        userId: req.admin?._id || req.user?._id,
+        userEmail: adminEmail,
+        name: req.admin?.name || req.user?.name || "Administrator",
+        type: "ADMIN_RECONCILIATION_REPAIR",
+        amount: 0,
+        reference: `Executed wallet escrow reconciliation repair (${report.summary.discrepancyCount} discrepancies investigated)`,
+        metadata: {
+          adminEmail,
+          discrepancyCount: report.summary.discrepancyCount,
+          repairedAt: new Date().toISOString(),
+        },
+      },
+    ]);
+
+    res.json({
+      success: true,
+      message: "Wallet reconciliation repair executed and audited successfully",
+      ...report,
+    });
+  } catch (err) {
+    console.error("Error executing wallet reconciliation repair:", err);
+    res.status(500).json({
+      success: false,
+      error: "Failed to execute wallet reconciliation repair",
+      details: err.message,
+    });
+  }
+};
+
 exports.getTransactions = async (req, res) => {
   try {
     // Pagination

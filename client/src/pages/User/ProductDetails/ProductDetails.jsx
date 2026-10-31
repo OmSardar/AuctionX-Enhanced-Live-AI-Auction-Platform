@@ -34,6 +34,11 @@ const ProductDetails = () => {
   const [bidderName, setBidderName] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
   const [userMoney, setUserMoney] = useState(0);
+  const [userWallet, setUserWallet] = useState({
+    totalBalance: 0,
+    reservedBalance: 0,
+    availableBalance: 0,
+  });
   const [profilePicUrl, setProfilePicUrl] = useState("");
   const [sellerName, setSellerName] = useState("");
   const [productDeleted, setProductDeleted] = useState(false);
@@ -116,6 +121,28 @@ const ProductDetails = () => {
     socketInstance.on("auctionEnded", (data) => {
       if (data.productId === id) {
         fetchProductData(true);
+      }
+    });
+
+    socketInstance.on("outbid", (data) => {
+      if (data.productId === id) {
+        toast.error(
+          `You have been outbid! ₹${data.releasedAmount || ""} has been returned to your available balance.`
+        );
+        fetchAmount();
+      }
+    });
+
+    socketInstance.on("walletBalanceUpdated", (data) => {
+      if (data.availableBalance !== undefined) {
+        setUserWallet({
+          totalBalance: data.totalBalance,
+          reservedBalance: data.reservedBalance,
+          availableBalance: data.availableBalance,
+        });
+        setUserMoney(data.availableBalance);
+      } else {
+        fetchAmount();
       }
     });
 
@@ -233,7 +260,15 @@ const ProductDetails = () => {
       try {
         const response = await axiosWithAuth.get("/auth/get-amount");
         if (response.data && response.data.amount !== undefined) {
-          setUserMoney(response.data.amount);
+          const total = Number(response.data.totalBalance ?? response.data.amount) || 0;
+          const reserved = Number(response.data.reservedBalance) || 0;
+          const available = Number(response.data.availableBalance ?? (total - reserved)) || 0;
+          setUserWallet({
+            totalBalance: total,
+            reservedBalance: reserved,
+            availableBalance: available,
+          });
+          setUserMoney(available);
         }
       } catch (error) {
         console.error("Error fetching amount:", error);
@@ -283,7 +318,27 @@ const ProductDetails = () => {
 
     try {
       const enteredAmount = parseFloat(bidAmount);
-      const minimumAmount = currentBid + 50;
+      const minIncrement = carData.minIncrement || 50;
+      const minimumAmount =
+        currentBid > 0
+          ? currentBid + minIncrement
+          : carData.startingPrice || carData.biddingStartPrice || 0;
+
+      const isCurrentHighestBidder =
+        carData.tempuseremail &&
+        userEmail &&
+        carData.tempuseremail.toLowerCase() === userEmail.toLowerCase();
+
+      const requiredAvailable = isCurrentHighestBidder
+        ? Math.max(0, enteredAmount - currentBid)
+        : enteredAmount;
+
+      if (userWallet.availableBalance < requiredAvailable) {
+        setAlertMessage(
+          `Insufficient available balance. You need ₹${requiredAvailable.toLocaleString()} available in your wallet to place this bid (Available: ₹${userWallet.availableBalance.toLocaleString()}).`
+        );
+        return;
+      }
 
       if (isNaN(enteredAmount) || enteredAmount < minimumAmount) {
         setAlertMessage(
@@ -739,14 +794,42 @@ const ProductDetails = () => {
             </div>
 
             <div className="mt-6 bg-surface border border-border-subtle rounded-lg shadow-card p-6">
-              <div className="flex items-center space-x-2 text-foreground font-numeric">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center space-x-2 text-foreground font-numeric">
                 <MdAccountBalanceWallet className="text-xl text-action-primary" />
-                <span>Balance: ₹{userMoney}</span>
+                <span className="font-semibold text-sm">Wallet Balance</span>
               </div>
+              <button
+                type="button"
+                onClick={() => navigate("/payment")}
+                className="text-xs text-action-primary hover:underline font-semibold cursor-pointer"
+              >
+                + Add Funds
+              </button>
             </div>
 
-            <div className="mt-6 bg-surface border border-border-subtle rounded-lg shadow-card p-6">
-              <h5 className="text-xl font-bold mb-4 text-foreground">
+            <div className="grid grid-cols-2 gap-3 pt-2 border-t border-border-subtle text-xs">
+              <div className="p-2.5 rounded-lg bg-surface-subtle">
+                <span className="text-foreground-muted block text-[10px] uppercase font-bold">
+                  Available to Bid
+                </span>
+                <span className="text-sm font-bold text-foreground">
+                  ₹{userWallet.availableBalance.toLocaleString()}
+                </span>
+              </div>
+              <div className="p-2.5 rounded-lg bg-surface-subtle">
+                <span className="text-foreground-muted block text-[10px] uppercase font-bold">
+                  Locked in Bids
+                </span>
+                <span className="text-sm font-bold text-amber-400">
+                  ₹{userWallet.reservedBalance.toLocaleString()}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 bg-surface border border-border-subtle rounded-lg shadow-card p-6">
+            <h5 className="text-xl font-bold mb-4 text-foreground">
                 About Seller
               </h5>
               <div

@@ -33,6 +33,15 @@ const orderSchema = new mongoose.Schema({
     enum: ['PENDING', 'PAID', 'CANCELLED', 'REFUNDED', 'EXPIRED'],
     default: 'PENDING',
   },
+  paymentMethod: {
+    type: String,
+    enum: ['WALLET', 'RAZORPAY', 'ONLINE', 'COD', null],
+    default: null,
+  },
+  walletSettled: {
+    type: Boolean,
+    default: false,
+  },
   paymentDeadline: {
     type: Date,
   },
@@ -101,4 +110,3 @@ orderSchema.index({ createdAt: -1 });
 
 // Export the Order model
 module.exports = mongoose.models.Order || mongoose.model('Order', orderSchema);
-

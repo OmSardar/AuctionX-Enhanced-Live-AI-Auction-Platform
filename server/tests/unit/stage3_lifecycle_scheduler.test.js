@@ -28,6 +28,7 @@ const Product = require("../../src/modules/products/models/productSchema");
 const Bid = require("../../src/modules/bidding/models/bidSchema");
 const Order = require("../../src/modules/orders/models/orderSchema");
 const User = require("../../src/modules/users/models/user");
+const WalletReservation = require("../../src/modules/bidding/models/walletReservationSchema");
 const { placeBid, BidError } = require("../../src/modules/bidding/services/bidService");
 const {
   startScheduledAuctions,
@@ -61,14 +62,18 @@ describe("Stage 3 — Production-Grade Auction Lifecycle & Scheduler Suite", () 
     await Order.init();
 
     sellerUser = await createTestUser({ email: "seller_stage3@test.com", name: "Stage 3 Seller" });
-    bidderA = await createTestUser({ email: "bidder_stage3_a@test.com", name: "Bidder 3A" });
-    bidderB = await createTestUser({ email: "bidder_stage3_b@test.com", name: "Bidder 3B" });
-    bidderC = await createTestUser({ email: "bidder_stage3_c@test.com", name: "Bidder 3C" });
+    bidderA = await createTestUser({ email: "bidder_stage3_a@test.com", name: "Bidder 3A", amount: 50000 });
+    bidderB = await createTestUser({ email: "bidder_stage3_b@test.com", name: "Bidder 3B", amount: 50000 });
+    bidderC = await createTestUser({ email: "bidder_stage3_c@test.com", name: "Bidder 3C", amount: 50000 });
   });
 
   beforeEach(async () => {
     resetTimeProvider();
     await stopScheduler();
+    await User.updateMany(
+      { _id: { $in: [bidderA.user._id, bidderB.user._id, bidderC.user._id] } },
+      { $set: { amount: 50000, reservedAmount: 0 } }
+    );
   });
 
   afterEach(async () => {
@@ -77,6 +82,7 @@ describe("Stage 3 — Production-Grade Auction Lifecycle & Scheduler Suite", () 
     await Product.deleteMany({ email: { $in: ["seller_stage3@test.com", "legacy_seller@test.com"] } });
     await Bid.deleteMany({});
     await Order.deleteMany({});
+    await WalletReservation.deleteMany({});
   });
 
   afterAll(async () => {
@@ -514,7 +520,8 @@ describe("Stage 3 — Production-Grade Auction Lifecycle & Scheduler Suite", () 
       expect(order.winnerId.toString()).toBe(bidderC.user._id.toString());
       expect(order.userEmail).toBe(bidderC.user.email);
       expect(order.highestBid).toBe(1350);
-      expect(order.status).toBe("PENDING");
+      expect(order.status).toBe("PAID");
+      expect(order.paymentMethod).toBe("WALLET");
     });
 
     it("Inconsistent ledger/product state fails safely and is observable", async () => {
@@ -796,7 +803,8 @@ describe("Stage 3 — Production-Grade Auction Lifecycle & Scheduler Suite", () 
       expect(orderAfter).toBeDefined();
       expect(orderAfter.winnerId.toString()).toBe(bidderA.user._id.toString());
       expect(orderAfter.finalPrice).toBe(1500);
-      expect(orderAfter.status).toBe("PENDING");
+      expect(orderAfter.status).toBe("PAID");
+      expect(orderAfter.paymentMethod).toBe("WALLET");
 
       // 4. Verify deadline immutability: MUST match original 24h deadline, NOT recoveryTime + 24h
       expect(orderAfter.paymentDeadline.toISOString()).toBe(originalDeadline.toISOString());

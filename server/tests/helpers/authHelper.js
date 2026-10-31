@@ -36,6 +36,8 @@ async function createTestUser(overrides = {}) {
     isVerified: overrides.isVerified !== undefined ? overrides.isVerified : true,
     address: overrides.address || "123 Test St",
     phoneNo: overrides.phoneNo || "9876543210",
+    amount: overrides.amount !== undefined ? overrides.amount : 50000,
+    reservedAmount: overrides.reservedAmount !== undefined ? overrides.reservedAmount : 0,
     ...overrides,
   });
 

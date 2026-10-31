@@ -9,6 +9,9 @@
 const mongoose = require("mongoose");
 const Product = require("../../products/models/productSchema");
 const Bid = require("../models/bidSchema");
+const User = require("../../users/models/user");
+const WalletReservation = require("../models/walletReservationSchema");
+const walletService = require("../../payments/services/walletService");
 const { parseAuctionTimeBoundaries } = require("../middleware/checkTimeRestriction");
 const { logger } = require("../../../infrastructure/logging/loggerMiddleware");
 const { recordAuthoritativeInteraction, enqueueAuthoritativeEvent } = require("../../../infrastructure/messaging/recommendationTrackingService");
@@ -319,6 +322,45 @@ async function placeBid({
     );
   }
 
+  // 11.5 Enforce Authoritative Available Wallet Balance Pre-Check
+  const existingActiveRes = await WalletReservation.findOne({
+    productId,
+    status: "ACTIVE",
+    userId: bidder._id,
+  });
+
+  const existingReservedAmount = existingActiveRes ? existingActiveRes.amount : 0;
+  const additionalRequired = Math.round((roundedAmount - existingReservedAmount) * 100) / 100;
+
+  const bidderUser = await User.findById(bidder._id);
+  if (!bidderUser) {
+    throw new BidError("Bidder account not found", 404, "USER_NOT_FOUND");
+  }
+
+  const totalBal =
+    typeof bidderUser.amount === "number" && !isNaN(bidderUser.amount) ? bidderUser.amount : 0;
+  const reservedBal =
+    typeof bidderUser.reservedAmount === "number" && !isNaN(bidderUser.reservedAmount)
+      ? bidderUser.reservedAmount
+      : 0;
+  const availableBal = Math.max(0, Math.round((totalBal - reservedBal) * 100) / 100);
+
+  if (additionalRequired > 0 && availableBal < additionalRequired) {
+    throw new BidError(
+      "Insufficient available wallet balance to place this bid.",
+      400,
+      "INSUFFICIENT_AVAILABLE_BALANCE",
+      {
+        requiredAmount: roundedAmount,
+        requiredAdditional: additionalRequired,
+        availableBalance: availableBal,
+        totalBalance: totalBal,
+        reservedBalance: reservedBal,
+        currency: "INR",
+      }
+    );
+  }
+
   // 12. Anti-Sniping Dynamic Extension Evaluation (Decision A)
   // Window: Final 2 minutes (<= 120,000 ms before currentEndTime)
   // Extension: 2 minutes (120,000 ms)
@@ -437,6 +479,7 @@ async function placeBid({
   // 14. Dual Consistency Architecture Execution
   let updatedProduct = null;
   let newBid = null;
+  let walletReservationOutcome = null;
 
   if (isReplicaSetTopology()) {
     // =========================================================================
@@ -472,6 +515,25 @@ async function placeBid({
           { session }
         );
         newBid = bids[0];
+
+        // Reserve wallet funds atomically inside transaction
+        try {
+          walletReservationOutcome = await walletService.reserveBidFunds({
+            userId: bidder._id,
+            userEmail: bidder.email,
+            userName: bidder.name || bidder.email,
+            productId,
+            bidId: newBid._id,
+            bidAmount: roundedAmount,
+            idempotencyKey: sanitizedIdempotencyKey,
+            session,
+          });
+        } catch (resErr) {
+          if (resErr.code === 11000 || resErr.name === "MongoServerError" || resErr.code === "CONCURRENT_RESERVATION_COLLISION") {
+            throw new BidError("OUTBID", 409, "BID_OUTBID");
+          }
+          throw resErr;
+        }
 
         // Link product directly to winning bid record
         await Product.updateOne(
@@ -584,14 +646,39 @@ async function placeBid({
       throw insertError;
     }
 
+    // Step 1.5: Atomically hold bidder funds (Phase 1)
+    let holdOutcome;
+    try {
+      holdOutcome = await walletService.holdBidderFunds({
+        userId: bidder._id,
+        productId,
+        bidAmount: roundedAmount,
+      });
+    } catch (walletErr) {
+      await Bid.updateOne({ _id: newBid._id }, { $set: { status: "REJECTED" } }).catch(() => {});
+      throw walletErr;
+    }
+
     // Step 2: Atomic update on Product, durably referencing newBid._id
     updateSet.lastBidId = newBid._id;
 
-    updatedProduct = await Product.findOneAndUpdate(
-      atomicFilter,
-      updateOperations,
-      { new: true }
-    );
+    try {
+      updatedProduct = await Product.findOneAndUpdate(
+        atomicFilter,
+        updateOperations,
+        { new: true }
+      );
+    } catch (productUpdateErr) {
+      await walletService.releaseBidderHold({
+        userId: bidder._id,
+        amount: holdOutcome.heldAmount,
+      });
+      await Bid.updateOne(
+        { _id: newBid._id },
+        { $set: { status: "REJECTED" } }
+      ).catch(() => {});
+      throw productUpdateErr;
+    }
 
     // Step 3: Transition Bid state based on atomic write outcome
     if (!updatedProduct) {
@@ -601,6 +688,12 @@ async function placeBid({
         { $set: { status: "REJECTED" } }
       ).catch((err) => {
         logger.warn("Failed to mark pending bid as REJECTED:", { error: err.message });
+      });
+
+      // Rollback ONLY this bidder's hold! Previous bidder was NEVER touched!
+      await walletService.releaseBidderHold({
+        userId: bidder._id,
+        amount: holdOutcome.heldAmount,
       });
 
       const latest = await Product.findById(productId);
@@ -614,6 +707,37 @@ async function placeBid({
           minimumNextBid: calculateMinimumNextBid(latest || product),
         }
       );
+    }
+
+    // Product update SUCCEEDED! Now commit the reservation (Phase 2)
+    try {
+      walletReservationOutcome = await walletService.commitBidReservation({
+        userId: bidder._id,
+        userEmail: bidder.email,
+        userName: bidder.name || bidder.email,
+        productId,
+        bidId: newBid._id,
+        bidAmount: roundedAmount,
+        heldAmount: holdOutcome.heldAmount,
+        isSelfIncrease: holdOutcome.isSelfIncrease,
+        idempotencyKey: sanitizedIdempotencyKey,
+      });
+    } catch (commitErr) {
+      logger.error("Failed to commit wallet reservation after product update:", {
+        productId,
+        bidId: newBid._id,
+        error: commitErr.message,
+      });
+      await Product.updateOne(
+        { _id: productId },
+        {
+          $set: {
+            reconciliationRequired: true,
+            reconciliationNotes: `Reservation commit failed after product write: ${commitErr.message}`,
+          },
+        }
+      ).catch(() => {});
+      throw commitErr;
     }
 
     // Bid succeeded: finalize status to ACCEPTED
@@ -641,6 +765,10 @@ async function placeBid({
     bid: newBid,
     wasExtended,
     newEndTime: wasExtended ? effectiveNewEndTime : undefined,
+    walletReservation: walletReservationOutcome?.reservation || null,
+    releasedPreviousBidder: walletReservationOutcome?.releasedPreviousBidder || null,
+    availableBalance: walletReservationOutcome?.availableBalance,
+    reservedBalance: walletReservationOutcome?.reservedBalance,
     broadcastData: {
       productId: updatedProduct._id.toString(),
       currentBid: updatedProduct.currentPrice,

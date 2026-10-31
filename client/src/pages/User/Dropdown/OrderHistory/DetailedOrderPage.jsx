@@ -647,7 +647,7 @@ const DetailedOrderPage = () => {
             </div>
 
             <div className="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
-              <span>Carrier: BlueDart Express</span>
+              <span>Carrier: BlueDart Express (Simulated Partner)</span>
               <span className="text-emerald-400 font-semibold">Standard Insured</span>
             </div>
           </div>
@@ -789,6 +789,19 @@ const DetailedOrderPage = () => {
                   </span>
                 </div>
               </div>
+
+              {order.status === "PAID" && (
+                <div className="mb-4 p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl flex items-center gap-2.5 text-xs text-emerald-400">
+                  <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>
+                    {order.paymentMethod === "WALLET" || order.walletSettled
+                      ? "Paid via AuctionX Wallet Escrow — No second payment required"
+                      : "Paid via Online Payment Gateway"}
+                  </span>
+                </div>
+              )}
 
               {/* Payment Verification / Error Feedback */}
               {isVerifying && (
@@ -1035,15 +1048,20 @@ const DetailedOrderPage = () => {
                 🚚
               </div>
               <div>
-                <h3 className="text-xl font-bold text-white">Live Package Tracking</h3>
-                <p className="text-xs text-slate-400">Carrier: BlueDart Express Domestic</p>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-xl font-bold text-white">Order Tracking</h3>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/30 uppercase tracking-wide">
+                    Simulated Demo
+                  </span>
+                </div>
+                <p className="text-xs text-slate-400">Carrier: BlueDart Express (Simulated Preview)</p>
               </div>
             </div>
 
             {/* AWB Code Box */}
-            <div className="bg-slate-950 p-4 rounded-2xl border border-slate-800 mb-6 flex items-center justify-between">
+            <div className="bg-slate-950 p-4 rounded-2xl border border-slate-800 mb-4 flex items-center justify-between">
               <div>
-                <span className="text-[11px] uppercase tracking-wider text-slate-400 block">AWB Tracking Number</span>
+                <span className="text-[11px] uppercase tracking-wider text-slate-400 block">AWB Tracking Number (Simulated)</span>
                 <span className="font-mono text-base font-bold text-orange-400">
                   AX-TRK-{order._id.slice(-8).toUpperCase()}
                 </span>
@@ -1054,6 +1072,14 @@ const DetailedOrderPage = () => {
               >
                 {copiedTracking ? "Copied! ✓" : "Copy"}
               </button>
+            </div>
+
+            {/* Truthful Carrier Notice */}
+            <div className="mb-5 p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 text-[11px] text-slate-400 flex items-start gap-2.5">
+              <span className="text-blue-400 text-sm mt-0.5">ℹ️</span>
+              <p>
+                <span className="text-slate-300 font-semibold">Simulated Tracking Notice:</span> Live carrier dispatch tracking requires production 3PL logistics API integration. When live carrier tracking is unavailable, milestone events reflect simulated order progress.
+              </p>
             </div>
 
             {/* Tracking Milestones */}
@@ -1089,10 +1115,10 @@ const DetailedOrderPage = () => {
                     order.status === "PAID" ? "bg-blue-500" : "bg-slate-700"
                   }`}
                 ></span>
-                <h4 className="text-sm font-bold text-white">Dispatched from Seller Facility</h4>
+                <h4 className="text-sm font-bold text-white">Shipment & Carrier Handover</h4>
                 <p className="text-xs text-slate-400">
                   {order.status === "PAID"
-                    ? "In Transit — Routed through National Fulfillment Hub"
+                    ? "Live carrier tracking unavailable for this test order (Simulated Preview: Queued for seller dispatch)"
                     : "Scheduled upon settlement"}
                 </p>
               </div>
@@ -1101,7 +1127,9 @@ const DetailedOrderPage = () => {
                 <span className="absolute -left-6 top-0 w-4 h-4 rounded-full bg-slate-800 border-2 border-slate-900"></span>
                 <h4 className="text-sm font-bold text-slate-400">Delivered to Destination</h4>
                 <p className="text-xs text-slate-400">
-                  Estimated 2–4 business days to {deliveryAddress.formatted}
+                  {order.status === "PAID"
+                    ? `Estimated 2–4 business days post-dispatch to ${deliveryAddress.formatted}`
+                    : "Estimated upon dispatch"}
                 </p>
               </div>
             </div>

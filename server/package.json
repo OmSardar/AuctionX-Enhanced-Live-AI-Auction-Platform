@@ -23,6 +23,7 @@
     "seed:demo:clear": "node scripts/data/seedDemoData.js --clear",
     "seed:demo:catalogue": "node scripts/data/seedDemoCatalogue.js",
     "seed:demo:auctions": "node scripts/data/seedLiveDemoAuctions.js",
+    "seed:demo:wallet": "node scripts/data/seedWalletDemoAuctions.js",
     "admin:bootstrap": "node scripts/administration/bootstrapAdmin.js",
     "dr:verify": "node scripts/backup/backupAndRecoveryVerify.js"
   },

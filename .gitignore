@@ -45,6 +45,7 @@ e2e/storage_*.json
 storage_*.json
 
 # Local security audit outputs & scanner caches
+docs/audits/
 security-audit-output/
 audit-output/
 .audit-cache/

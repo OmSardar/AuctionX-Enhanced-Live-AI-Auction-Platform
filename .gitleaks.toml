@@ -1,0 +1,13 @@
+# Gitleaks Configuration for AuctionX
+# Extends default Gitleaks rules with allowlist for test fixtures
+
+[allowlist]
+description = "AuctionX test fixtures and synthetic test credentials allowlist"
+paths = [
+  '''server/tests/unit/stage4_wallet_payment\.test\.js''',
+  '''server/tests/unit/stage4_payment_settlement\.test\.js''',
+  '''server/tests/unit/stage3_lifecycle_scheduler\.test\.js''',
+  '''server/tests/unit/stage1_security_validation\.test\.js''',
+  '''server/tests/integration/admin/adminStage21Reliability\.test\.js''',
+]
+

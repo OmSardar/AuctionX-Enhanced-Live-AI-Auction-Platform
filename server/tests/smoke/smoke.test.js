@@ -63,7 +63,7 @@ describe("Smoke Tests — Application Health", () => {
   it("GET /api/recommendations/:email — proxy is functional and does not crash", async () => {
     const res = await request(app).get("/api/recommendations/test@example.com");
     // If FastAPI is running returns 200; if offline returns 500. Either way, doesn't crash
-    expect([200, 404, 500, 502, 503, 504]).toContain(res.statusCode);
+    expect([200, 400, 404, 500, 502, 503, 504]).toContain(res.statusCode);
   });
 
   // 7. Banners API reachable

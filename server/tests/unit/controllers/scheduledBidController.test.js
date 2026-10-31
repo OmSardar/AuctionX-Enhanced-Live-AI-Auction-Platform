@@ -26,6 +26,8 @@ describe("ScheduledBid Controller & Lifecycle Unit Tests", () => {
       email: "bob@example.com",
       password: "password123",
       role: "user",
+      amount: 50000,
+      reservedAmount: 0,
     });
 
     seller = await User.create({

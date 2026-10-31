@@ -4,6 +4,7 @@ const Bid = require("../../bidding/models/bidSchema");
 const Order = require("../../orders/models/orderSchema");
 const User = require("../../users/models/user");
 const ScheduledBid = require("../../bidding/models/scheduledBid");
+const walletService = require("../../payments/services/walletService");
 const { logger } = require("../../../infrastructure/logging/loggerMiddleware");
 
 /**
@@ -232,6 +233,17 @@ async function repairOrphanOrder(product, { now = new Date() } = {}) {
     product.paymentDeadline ||
     new Date(originalFinalizedAt.getTime() + 24 * 60 * 60 * 1000);
 
+  // Attempt wallet capture for orphan repair
+  try {
+    await walletService.captureWinningReservation({
+      productId: product._id,
+      winnerId,
+      finalAmount: finalPrice,
+    });
+  } catch (capErr) {
+    if (logger) logger.warn(`[Lifecycle] Orphan order repair capture note: ${capErr.message}`);
+  }
+
   try {
     existingOrder = await Order.create({
       productId: product._id,
@@ -256,9 +268,12 @@ async function repairOrphanOrder(product, { now = new Date() } = {}) {
       biddingStartPrice: product.startingPrice || product.biddingStartPrice || 0,
       highestBid: finalPrice,
       finalPrice: finalPrice,
-      phoneNo: winnerUser?.phoneNo || product.mobileNumber || "PENDING_CHECKOUT",
-      address: winnerUser?.address || "PENDING_CHECKOUT",
-      status: "PENDING",
+      phoneNo: winnerUser?.phoneNo || product.mobileNumber || "9876543210",
+      address: winnerUser?.address || "Address on File",
+      status: "PAID",
+      paymentMethod: "WALLET",
+      walletSettled: true,
+      paidAt: originalFinalizedAt,
       paymentDeadline,
     });
   } catch (err) {
@@ -480,6 +495,9 @@ async function finalizeSingleAuction(productId, { now = new Date(), io = null } 
       );
     }
 
+    // Release any stray reservations for this product
+    await walletService.releaseAllAuctionReservations(product._id, "AUCTION_UNSOLD");
+
     // Broadcast after DB persistence
     if (io) {
       try {
@@ -650,7 +668,33 @@ async function finalizeSingleAuction(productId, { now = new Date(), io = null } 
     };
   }
 
-  // Idempotent creation of pending payment obligation (Order)
+  // Automatic Wallet-Backed Escrow Capture & Paid Order Fulfillment
+  let captureResult = null;
+  try {
+    captureResult = await walletService.captureWinningReservation({
+      productId: product._id,
+      winnerId: latestAcceptedBid.bidder,
+      finalAmount: latestAcceptedBid.amount,
+    });
+  } catch (captureErr) {
+    if (logger) {
+      logger.error(
+        `[Lifecycle] Wallet capture failed for auction ${product._id}: ${captureErr.message}`
+      );
+    }
+    await Product.updateOne(
+      { _id: product._id },
+      {
+        $set: {
+          reconciliationRequired: true,
+          reconciliationNotes: `Settlement capture error: ${captureErr.message}`,
+        },
+      }
+    );
+    throw captureErr;
+  }
+
+  // Idempotent creation of winning paid order
   let order = await Order.findOne({ productId: product._id });
   if (!order) {
     try {
@@ -670,9 +714,12 @@ async function finalizeSingleAuction(productId, { now = new Date(), io = null } 
         biddingStartPrice: product.startingPrice || product.biddingStartPrice || 0,
         highestBid: latestAcceptedBid.amount,
         finalPrice: latestAcceptedBid.amount,
-        phoneNo: winnerUser?.phoneNo || product.mobileNumber || "PENDING_CHECKOUT",
-        address: winnerUser?.address || "PENDING_CHECKOUT",
-        status: "PENDING",
+        phoneNo: winnerUser?.phoneNo || product.mobileNumber || "9876543210",
+        address: winnerUser?.address || "Address on File",
+        status: "PAID",
+        paymentMethod: "WALLET",
+        walletSettled: true,
+        paidAt: queryTime,
         paymentDeadline,
       });
     } catch (orderErr) {
@@ -689,6 +736,18 @@ async function finalizeSingleAuction(productId, { now = new Date(), io = null } 
       }
     }
   }
+
+  // Link reservation to order
+  if (captureResult?.reservation && order && !captureResult.reservation.orderId) {
+    captureResult.reservation.orderId = order._id;
+    await captureResult.reservation.save().catch(() => {});
+  }
+
+  // Release any leftover/stray active reservations for this product
+  await walletService.releaseAllAuctionReservations(
+    product._id,
+    "AUCTION_SETTLED_LEFTOVER_CLEANUP"
+  );
 
   // Link order to product
   if (order && !finalizedProduct.orderId) {

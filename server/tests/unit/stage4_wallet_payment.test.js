@@ -121,6 +121,7 @@ describe("Stage 4 — Wallet Add-Funds Payment Architecture", () => {
       name: "Imposter User",
       email: `imposter_${Date.now()}_${Math.random().toString(36).substring(7)}@example.com`,
       role: "user",
+      amount: 0,
     });
     imposterUser = imposterData.user;
     imposterToken = imposterData.token;

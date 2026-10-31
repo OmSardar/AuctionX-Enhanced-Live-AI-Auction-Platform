@@ -78,6 +78,13 @@ const userSchema = new mongoose.Schema(
     amount: {
       type: Number,
       required: false,
+      default: 0,
+      min: 0,
+    },
+    reservedAmount: {
+      type: Number,
+      default: 0,
+      min: 0,
     },
     creditedPayments: {
       type: [String],
@@ -165,6 +172,16 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// Virtual for available wallet funds: availableAmount = amount - reservedAmount
+userSchema.virtual("availableAmount").get(function () {
+  const total = typeof this.amount === "number" && !isNaN(this.amount) ? this.amount : 0;
+  const reserved = typeof this.reservedAmount === "number" && !isNaN(this.reservedAmount) ? this.reservedAmount : 0;
+  return Math.round((total - reserved) * 100) / 100;
+});
+
+userSchema.set("toJSON", { virtuals: true });
+userSchema.set("toObject", { virtuals: true });
 
 // Check if the model already exists
 const UserModel = mongoose.models.User || mongoose.model("User", userSchema);

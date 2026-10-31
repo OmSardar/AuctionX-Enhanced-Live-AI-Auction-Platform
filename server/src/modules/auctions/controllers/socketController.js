@@ -129,6 +129,25 @@ const socketController = (io) => {
           bidCount: result.broadcastData.bidCount,
         });
 
+        // Notify if previous highest bidder was outbid and funds released
+        if (result.releasedPreviousBidder) {
+          io.emit("outbid", {
+            productId,
+            outbidUserId: result.releasedPreviousBidder.userId,
+            outbidEmail: result.releasedPreviousBidder.email,
+            releasedAmount: result.releasedPreviousBidder.releasedAmount,
+            newHighestBid: result.broadcastData.currentBid,
+          });
+        }
+
+        // Notify placing bidder of updated wallet balances
+        if (result.availableBalance !== undefined) {
+          socket.emit("walletBalanceUpdated", {
+            availableBalance: result.availableBalance,
+            reservedBalance: result.reservedBalance,
+          });
+        }
+
         if (result.wasExtended) {
           io.to(productId).emit("auctionExtended", {
             productId,

@@ -1,0 +1,165 @@
+name: AuctionX CD (Render Continuous Delivery)
+
+on:
+  workflow_run:
+    workflows: ["AuctionX CI"]
+    branches: [main]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      target_service:
+        description: "Select service to deploy"
+        required: true
+        default: "all"
+        type: choice
+        options:
+          - all
+          - backend
+          - frontend
+          - recommendation-service
+      dry_run:
+        description: "Dry run (validate configuration without triggering webhooks)"
+        required: true
+        default: false
+        type: boolean
+
+concurrency:
+  group: cd-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy to Render Services
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # Only execute if triggered manually OR if the CI workflow completed with success on main
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Evaluate Deployment Target
+        id: eval_target
+        run: |
+          TARGET="${{ github.event.inputs.target_service || 'all' }}"
+          DRY_RUN="${{ github.event.inputs.dry_run || 'false' }}"
+          echo "Target service: $TARGET"
+          echo "Dry run: $DRY_RUN"
+          echo "target=$TARGET" >> "$GITHUB_OUTPUT"
+          echo "dry_run=$DRY_RUN" >> "$GITHUB_OUTPUT"
+
+      # ------------------------------------------------------------------------
+      # Deploy Backend (Node.js Express / Socket.io)
+      # ------------------------------------------------------------------------
+      - name: Deploy Backend Service (auctionx-server)
+        if: steps.eval_target.outputs.target == 'all' || steps.eval_target.outputs.target == 'backend'
+        env:
+          HOOK_URL: ${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }}
+          DRY_RUN: ${{ steps.eval_target.outputs.dry_run }}
+        run: |
+          echo "=== Deploying auctionx-server ==="
+          if [ -z "$HOOK_URL" ]; then
+            echo "::warning::RENDER_BACKEND_DEPLOY_HOOK secret is not configured in GitHub repository secrets."
+            echo "To enable automated backend deployment:"
+            echo "1. Go to your Render Dashboard -> auctionx-server -> Settings -> Deploy Hook"
+            echo "2. Copy the Deploy Hook URL"
+            echo "3. Add it as 'RENDER_BACKEND_DEPLOY_HOOK' in GitHub Settings -> Secrets and variables -> Actions"
+          elif [ "$DRY_RUN" = "true" ]; then
+            echo "Dry run enabled. Skipping webhook trigger for backend."
+          else
+            echo "Triggering Render deploy hook for auctionx-server..."
+            RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X POST "$HOOK_URL")
+            HTTP_STATUS=$(echo "$RESPONSE" | grep "HTTP_STATUS" | cut -d':' -f2)
+            echo "Render response status: $HTTP_STATUS"
+            if [ "$HTTP_STATUS" -ne 200 ] && [ "$HTTP_STATUS" -ne 201 ]; then
+              echo "::error::Render deploy hook failed with status $HTTP_STATUS"
+              exit 1
+            fi
+            echo "Backend deploy initiated successfully."
+          fi
+
+      # ------------------------------------------------------------------------
+      # Deploy Frontend (React / Vite Static Site)
+      # ------------------------------------------------------------------------
+      - name: Deploy Frontend Service (auctionx-client)
+        if: steps.eval_target.outputs.target == 'all' || steps.eval_target.outputs.target == 'frontend'
+        env:
+          HOOK_URL: ${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK }}
+          DRY_RUN: ${{ steps.eval_target.outputs.dry_run }}
+        run: |
+          echo "=== Deploying auctionx-client ==="
+          if [ -z "$HOOK_URL" ]; then
+            echo "::warning::RENDER_FRONTEND_DEPLOY_HOOK secret is not configured in GitHub repository secrets."
+            echo "To enable automated frontend deployment:"
+            echo "1. Go to your Render Dashboard -> auctionx-client -> Settings -> Deploy Hook"
+            echo "2. Copy the Deploy Hook URL"
+            echo "3. Add it as 'RENDER_FRONTEND_DEPLOY_HOOK' in GitHub Settings -> Secrets and variables -> Actions"
+          elif [ "$DRY_RUN" = "true" ]; then
+            echo "Dry run enabled. Skipping webhook trigger for frontend."
+          else
+            echo "Triggering Render deploy hook for auctionx-client..."
+            RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X POST "$HOOK_URL")
+            HTTP_STATUS=$(echo "$RESPONSE" | grep "HTTP_STATUS" | cut -d':' -f2)
+            echo "Render response status: $HTTP_STATUS"
+            if [ "$HTTP_STATUS" -ne 200 ] && [ "$HTTP_STATUS" -ne 201 ]; then
+              echo "::error::Render deploy hook failed with status $HTTP_STATUS"
+              exit 1
+            fi
+            echo "Frontend deploy initiated successfully."
+          fi
+
+      # ------------------------------------------------------------------------
+      # Deploy Recommendation Service (Python FastAPI)
+      # ------------------------------------------------------------------------
+      - name: Deploy Recommendation Service (auctionx-recommendation-service)
+        if: steps.eval_target.outputs.target == 'all' || steps.eval_target.outputs.target == 'recommendation-service'
+        env:
+          HOOK_URL: ${{ secrets.RENDER_REC_SERVICE_DEPLOY_HOOK }}
+          DRY_RUN: ${{ steps.eval_target.outputs.dry_run }}
+        run: |
+          echo "=== Deploying auctionx-recommendation-service ==="
+          if [ -z "$HOOK_URL" ]; then
+            echo "::warning::RENDER_REC_SERVICE_DEPLOY_HOOK secret is not configured in GitHub repository secrets."
+            echo "To enable automated recommendation-service deployment:"
+            echo "1. Go to your Render Dashboard -> auctionx-recommendation-service -> Settings -> Deploy Hook"
+            echo "2. Copy the Deploy Hook URL"
+            echo "3. Add it as 'RENDER_REC_SERVICE_DEPLOY_HOOK' in GitHub Settings -> Secrets and variables -> Actions"
+          elif [ "$DRY_RUN" = "true" ]; then
+            echo "Dry run enabled. Skipping webhook trigger for recommendation service."
+          else
+            echo "Triggering Render deploy hook for auctionx-recommendation-service..."
+            RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X POST "$HOOK_URL")
+            HTTP_STATUS=$(echo "$RESPONSE" | grep "HTTP_STATUS" | cut -d':' -f2)
+            echo "Render response status: $HTTP_STATUS"
+            if [ "$HTTP_STATUS" -ne 200 ] && [ "$HTTP_STATUS" -ne 201 ]; then
+              echo "::error::Render deploy hook failed with status $HTTP_STATUS"
+              exit 1
+            fi
+            echo "Recommendation service deploy initiated successfully."
+          fi
+
+      # ------------------------------------------------------------------------
+      # Post-Deployment Health Verification (Optional Smoke Checks)
+      # ------------------------------------------------------------------------
+      - name: Post-Deployment Smoke Verification
+        if: steps.eval_target.outputs.dry_run != 'true'
+        env:
+          BACKEND_URL: ${{ secrets.RENDER_BACKEND_URL }}
+          REC_URL: ${{ secrets.RENDER_REC_SERVICE_URL }}
+        run: |
+          echo "=== Post-Deployment Health Check Verification ==="
+          if [ -n "$BACKEND_URL" ]; then
+            echo "Checking backend health at $BACKEND_URL/ ..."
+            curl -f -s -m 15 "$BACKEND_URL/" || echo "::warning::Backend health check did not respond immediately (service may still be building on Render)."
+          fi
+          if [ -n "$REC_URL" ]; then
+            echo "Checking recommendation service health at $REC_URL/health ..."
+            curl -f -s -m 15 "$REC_URL/health" || echo "::warning::Recommendation service health check did not respond immediately (service may still be building on Render)."
+          fi
+          echo "Deployment workflow completed."

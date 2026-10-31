@@ -1,0 +1,66 @@
+.SmoothHovering-container {
+  display: flex;
+  margin-top: 50px;
+}
+
+.SmoothHovering-item {
+  position: relative;
+  display: block;
+  flex: 1 1 0px;
+  transition: transform 500ms;
+}
+
+.SmoothHovering-container:focus-within .SmoothHovering-item,
+.SmoothHovering-container:hover .SmoothHovering-item {
+  transform: translateX(-25%);
+}
+
+.SmoothHovering-item:focus ~ .SmoothHovering-item,
+.SmoothHovering-item:hover ~ .SmoothHovering-item {
+  transform: translateX(25%);
+}
+
+.SmoothHovering-container .SmoothHovering-item:focus,
+.SmoothHovering-container .SmoothHovering-item:hover {
+  transform: scale(1.5);
+  z-index: 1;
+}
+
+.SmoothHovering-item img {
+  display: block;
+  max-width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .SmoothHovering-container {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .SmoothHovering-item {
+    flex: 0 0 48%; /* Two items per row with some spacing */
+    margin: 1%;
+    transition: transform 300ms;
+  }
+
+  .SmoothHovering-container:hover .SmoothHovering-item,
+  .SmoothHovering-container:focus-within .SmoothHovering-item {
+    transform: none;
+  }
+
+  .SmoothHovering-item:hover ~ .SmoothHovering-item,
+  .SmoothHovering-item:focus ~ .SmoothHovering-item {
+    transform: none;
+  }
+
+  .SmoothHovering-container .SmoothHovering-item:hover,
+  .SmoothHovering-container .SmoothHovering-item:focus {
+    transform: scale(1.1);
+  }
+}
+
+@media (max-width: 600px) {
+  .SmoothHovering-item {
+    flex: 0 0 48%; /* Still two per row on smaller screens */
+  }
+}

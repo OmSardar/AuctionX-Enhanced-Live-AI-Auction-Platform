@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="pBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3A322C"/>
+      <stop offset="100%" stop-color="#1E1916"/>
+    </linearGradient>
+  </defs>
+  <rect width="500" height="500" fill="url(#pBg)" rx="16"/>
+  <!-- Vinyl record graphic -->
+  <circle cx="250" cy="250" r="180" fill="#14110F" stroke="#2D2622" stroke-width="4"/>
+  <circle cx="250" cy="250" r="140" stroke="#241E1A" stroke-width="2"/>
+  <circle cx="250" cy="250" r="100" stroke="#241E1A" stroke-width="2"/>
+  <circle cx="250" cy="250" r="60" fill="#C25E38"/>
+  <circle cx="250" cy="250" r="16" fill="#14110F"/>
+  <text x="250" y="440" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#E8E2DB" letter-spacing="1">
+    AUCTIONX STORE SOUNDTRACK
+  </text>
+  <text x="250" y="465" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#9E8F81">
+    Curated Vinyl &amp; Store Ambience
+  </text>
+</svg>

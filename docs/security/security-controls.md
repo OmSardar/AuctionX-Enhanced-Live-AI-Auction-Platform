@@ -1,0 +1,67 @@
+# AuctionX — Security Controls & Hardening Guide
+
+> **Document Classification:** Defense-in-Depth Security Specification  
+> **Status:** Active / Normative  
+> **Last Verified:** October 2026  
+
+---
+
+## 1. Network & HTTP Perimeter Controls
+
+### 1.1 HTTP Security Headers (Helmet)
+AuctionX configures `helmet` middleware in `server/server.js` to enforce secure browser behavior:
+- `X-Content-Type-Options: nosniff` — Prevents MIME-type sniffing.
+- `X-Frame-Options: SAMEORIGIN` — Mitigates clickjacking attacks.
+- `Strict-Transport-Security: max-age=15552000; includeSubDomains` — Enforces HTTPS in production.
+- `Content-Security-Policy` — Restricts script and asset execution domains.
+- `X-Powered-By` header is explicitly removed.
+
+### 1.2 CORS Origin Allowlisting
+- Allowed origins are read strictly from `CLIENT_URL` and `ALLOWED_ORIGINS` environment variables.
+- In production, wildcard origins (`*`) are disallowed when `credentials: true` is enabled.
+- Recommendation service enforces strict origin matching and disallows arbitrary browser origins.
+
+### 1.3 Reverse Proxy Trust
+- In staging and production on Render or Nginx, `app.set("trust proxy", 1)` is enabled only when `NODE_ENV` is set to `staging` or `production` or `TRUST_PROXY` is explicitly configured.
+- Rate limiters evaluate the real client IP forwarded by the trusted edge proxy.
+
+---
+
+## 2. Mutating Request & Application Controls
+
+### 2.1 Double-Submit CSRF Protection
+- All mutating endpoints (`POST`, `PUT`, `PATCH`, `DELETE`) require a cryptographically matching `x-csrf-token` header and `csrfToken` cookie.
+- Token generation is decoupled from user session state via `GET /api/csrf-token`.
+
+### 2.2 NoSQL Injection Sanitization
+- `express-mongo-sanitize` recursively strips or replaces dollar signs (`$`) and dots (`.`) from incoming `req.body`, `req.query`, and `req.params`.
+- Schema fields are strictly cast by Mongoose models; query operators submitted as JSON keys are sanitized.
+
+### 2.3 Rate Limiting & Abuse Prevention
+- `express-rate-limit` enforces IP-based rate limiting on sensitive routes:
+  - `loginLimiter`: 10 requests per 15 minutes on user and seller login endpoints.
+  - `telemetryLimiter`: 60 requests per minute on interaction tracking proxy endpoints.
+
+---
+
+## 3. Container & Operational Hardening
+
+### 3.1 Non-Root Container Execution
+All production container images enforce least-privilege non-root execution:
+- **Client Container (`client/Dockerfile`):** Multi-stage build copies static assets into an Nginx unprivileged Alpine image or drops privileges.
+- **Backend Container (`server/Dockerfile`):** Executes under non-root user `node` (`USER node`).
+- **Recommendation Container (`recommendation_service/Dockerfile`):** Creates and runs under `appuser` (`USER 1000`).
+- **Redis Container (`compose.prod.yaml`):** Drops root privileges during entrypoint execution and runs under `redis` user.
+
+### 3.2 Network Isolation & Unpublished Ports
+- In production Compose (`compose.prod.yaml`), Redis and internal microservices attach exclusively to the private `internal` Docker bridge network.
+- Redis host port `6379` is **never published to the host machine**. All communication occurs internally within Docker networking.
+- Redis requires a 64-character hexadecimal password configured via `REDIS_PASSWORD`.
+
+---
+
+## 4. Secret Management & Repository Hygiene
+
+1. **No Real Secrets in Version Control:** Real `.env` files, `.pem` certificates, private keys, and operational credentials are excluded via root `.gitignore`.
+2. **Sanitized Templates:** All `.env.example`, `.env.docker.example`, `server/.env.example`, and `recommendation_service/.env.example` templates contain only non-confidential placeholder strings.
+3. **Frontend Bundle Hygiene:** CI automated workflows inspect the compiled `client/dist/` bundle on every build to guarantee no backend variables (such as `JWT_SECRET`, `RAZORPAY_KEY_SECRET`, or `CLOUDINARY_API_SECRET`) are leaked into public client JavaScript.

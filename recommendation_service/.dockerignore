@@ -1,0 +1,23 @@
+# Python cache and build
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv/
+.pytest_cache/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# IDE and OS
+.git
+.vscode
+.idea
+.DS_Store
+Thumbs.db

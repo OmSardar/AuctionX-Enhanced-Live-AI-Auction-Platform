@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradients -->
+    <radialGradient id="bgGrad" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#18233c"/>
+      <stop offset="50%" stop-color="#0c1222"/>
+      <stop offset="100%" stop-color="#05070e"/>
+    </radialGradient>
+    <linearGradient id="spotlightBeam" x1="50%" y1="0%" x2="50%" y2="85%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.22"/>
+      <stop offset="50%" stop-color="#f59e0b" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#d97706" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Metallic Gold Gradients -->
+    <linearGradient id="goldLuster" x1="20%" y1="10%" x2="90%" y2="90%">
+      <stop offset="0%" stop-color="#fffbeb"/>
+      <stop offset="25%" stop-color="#fde047"/>
+      <stop offset="55%" stop-color="#d97706"/>
+      <stop offset="80%" stop-color="#92400e"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </linearGradient>
+    <linearGradient id="goldTrim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="50%" stop-color="#eab308"/>
+      <stop offset="100%" stop-color="#a16207"/>
+    </linearGradient>
+
+    <!-- Ball Shading Gradients -->
+    <radialGradient id="ballSphereShade" cx="38%" cy="32%" r="65%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.5"/>
+      <stop offset="30%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="70%" stop-color="#030712" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#020617" stop-opacity="0.95"/>
+    </radialGradient>
+    <radialGradient id="darkLeather" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="45%" stop-color="#1e293b"/>
+      <stop offset="85%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </radialGradient>
+
+    <!-- Pedestal Gradients -->
+    <linearGradient id="pedestalTop" x1="0%" y1="0%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="50%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="pedestalSide" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="40%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="24" result="blur"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.7 0"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1024" height="1024" fill="url(#bgGrad)"/>
+
+  <!-- Spotlight Cone -->
+  <polygon points="512,20 180,820 844,820" fill="url(#spotlightBeam)"/>
+
+  <!-- Background Ambient Aura -->
+  <circle cx="512" cy="450" r="320" fill="#f59e0b" opacity="0.06" filter="url(#goldGlow)"/>
+  <circle cx="512" cy="450" r="220" fill="#38bdf8" opacity="0.04" filter="url(#goldGlow)"/>
+
+  <!-- Floating Golden Particles / Bokeh -->
+  <circle cx="340" cy="280" r="4" fill="#fde047" opacity="0.4"/>
+  <circle cx="680" cy="240" r="5" fill="#fde047" opacity="0.5"/>
+  <circle cx="270" cy="420" r="3" fill="#fde047" opacity="0.3"/>
+  <circle cx="750" cy="460" r="6" fill="#fde047" opacity="0.4"/>
+  <circle cx="420" cy="180" r="3" fill="#fde047" opacity="0.6"/>
+  <circle cx="590" cy="160" r="4" fill="#fde047" opacity="0.5"/>
+  <circle cx="310" cy="620" r="3" fill="#fde047" opacity="0.3"/>
+  <circle cx="710" cy="640" r="4" fill="#fde047" opacity="0.4"/>
+
+  <!-- Pedestal Base Shadow -->
+  <ellipse cx="512" cy="850" rx="340" ry="60" fill="#020617" opacity="0.95"/>
+
+  <!-- Tiered Hexagonal Auction Pedestal -->
+  <!-- Base Tier -->
+  <polygon points="212,830 292,780 732,780 812,830 732,880 292,880" fill="url(#pedestalSide)"/>
+  <polygon points="212,830 292,780 732,780 812,830 812,845 732,895 292,895 212,845" fill="#090d16"/>
+  <!-- Middle Tier -->
+  <polygon points="262,790 322,750 702,750 762,790 702,830 322,830" fill="url(#pedestalTop)" stroke="url(#goldTrim)" stroke-width="1.5"/>
+  <polygon points="262,790 762,790 762,805 702,845 322,845 262,805" fill="#0a0f1d"/>
+  <!-- Top Tier (Pedestal Plinth) -->
+  <polygon points="312,740 362,710 662,710 712,740 662,770 362,770" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+
+  <!-- Neon Ring on Pedestal -->
+  <ellipse cx="512" cy="740" rx="170" ry="26" fill="none" stroke="#f59e0b" stroke-width="2" filter="url(#goldGlow)" opacity="0.8"/>
+  <ellipse cx="512" cy="740" rx="140" ry="20" fill="#050811" opacity="0.9"/>
+
+  <!-- Plaque on Front of Pedestal -->
+  <g transform="translate(362, 805)">
+    <rect width="300" height="48" rx="6" fill="#1c1917" stroke="url(#goldTrim)" stroke-width="2"/>
+    <rect x="4" y="4" width="292" height="40" rx="4" fill="none" stroke="#78350f" stroke-width="1"/>
+    <!-- Rivets -->
+    <circle cx="12" cy="24" r="2.5" fill="#fde047"/>
+    <circle cx="288" cy="24" r="2.5" fill="#fde047"/>
+    <!-- Text -->
+    <text x="150" y="22" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#fef08a" text-anchor="middle" letter-spacing="2">LOT #07 • GOLDEN HERITAGE</text>
+    <text x="150" y="38" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="600" fill="#94a3b8" text-anchor="middle" letter-spacing="1.5">CHAMPIONSHIP MATCH BALL</text>
+  </g>
+
+  <!-- Football Shadow on Pedestal -->
+  <ellipse cx="512" cy="710" rx="120" ry="24" fill="#000000" opacity="0.7" filter="url(#softShadow)"/>
+
+  <!-- THE GOLDEN CHAMPIONSHIP MATCH BALL -->
+  <g id="football">
+    <!-- Ball Base Sphere -->
+    <circle cx="512" cy="460" r="200" fill="url(#darkLeather)"/>
+
+    <!-- Central Gold Pentagon (Front Center) -->
+    <polygon points="512,380 574,425 550,498 474,498 450,425" fill="url(#goldLuster)" stroke="#78350f" stroke-width="3"/>
+
+    <!-- Surrounding Leather Hexagons & Gold Panels -->
+    <!-- Top-Right Panel -->
+    <polygon points="512,380 574,425 640,375 620,305 512,310" fill="url(#darkLeather)" stroke="url(#goldTrim)" stroke-width="2.5"/>
+    <!-- Right Panel (Gold) -->
+    <polygon points="574,425 550,498 630,535 685,485 640,375" fill="url(#goldLuster)" stroke="#78350f" stroke-width="3"/>
+    <!-- Bottom-Right Panel -->
+    <polygon points="550,498 474,498 485,585 580,600 630,535" fill="url(#darkLeather)" stroke="url(#goldTrim)" stroke-width="2.5"/>
+    <!-- Bottom-Left Panel (Gold) -->
+    <polygon points="474,498 450,425 384,375 339,485 394,535 485,585" fill="url(#goldLuster)" stroke="#78350f" stroke-width="3"/>
+    <!-- Left Panel -->
+    <polygon points="450,425 512,380 512,310 404,305 384,375" fill="url(#darkLeather)" stroke="url(#goldTrim)" stroke-width="2.5"/>
+
+    <!-- Outer Edge Facet Panels to Give Sphere Curvature -->
+    <!-- Top Cap (Gold) -->
+    <path d="M512,310 L620,305 Q580,265 512,260 Q444,265 404,305 Z" fill="url(#goldLuster)" stroke="#78350f" stroke-width="2.5"/>
+    <!-- Top Right Edge -->
+    <path d="M620,305 L640,375 L705,390 Q700,320 620,305 Z" fill="url(#darkLeather)" stroke="url(#goldTrim)" stroke-width="2"/>
+    <!-- Far Right Edge (Gold) -->
+    <path d="M640,375 L685,485 Q712,460 712,460 L705,390 Z" fill="url(#goldLuster)" stroke="#78350f" stroke-width="2"/>
+    <!-- Bottom Right Edge -->
+    <path d="M685,485 L630,535 L645,610 Q690,560 685,485 Z" fill="url(#darkLeather)" stroke="url(#goldTrim)" stroke-width="2"/>
+    <!-- Bottom Cap (Gold) -->
+    <path d="M485,585 L580,600 L645,610 Q580,660 512,660 Q444,660 379,610 L485,585 Z" fill="url(#goldLuster)" stroke="#78350f" stroke-width="2.5"/>
+    <!-- Bottom Left Edge -->
+    <path d="M394,535 L339,485 Q334,560 379,610 L394,535 Z" fill="url(#darkLeather)" stroke="url(#goldTrim)" stroke-width="2"/>
+    <!-- Far Left Edge -->
+    <path d="M384,375 L339,485 Q312,460 312,460 L319,390 Z" fill="url(#darkLeather)" stroke="url(#goldTrim)" stroke-width="2"/>
+    <!-- Top Left Edge (Gold) -->
+    <path d="M404,305 L384,375 L319,390 Q324,320 404,305 Z" fill="url(#goldLuster)" stroke="#78350f" stroke-width="2"/>
+
+    <!-- Subtle Stitch Marks Along Main Seams -->
+    <path d="M512,380 L574,425" stroke="#fef08a" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.8"/>
+    <path d="M574,425 L550,498" stroke="#fef08a" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.8"/>
+    <path d="M550,498 L474,498" stroke="#fef08a" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.8"/>
+    <path d="M474,498 L450,425" stroke="#fef08a" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.8"/>
+    <path d="M450,425 L512,380" stroke="#fef08a" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.8"/>
+
+    <!-- Spherical 3D Shading Overlay -->
+    <circle cx="512" cy="460" r="200" fill="url(#ballSphereShade)" pointer-events="none"/>
+
+    <!-- Specular Highlight Glint -->
+    <ellipse cx="440" cy="380" rx="35" ry="20" transform="rotate(-30, 440, 380)" fill="#ffffff" opacity="0.35" filter="url(#goldGlow)"/>
+    <circle cx="420" cy="365" r="8" fill="#ffffff" opacity="0.75"/>
+  </g>
+
+  <!-- Top Banner / Badge -->
+  <g transform="translate(64, 56)">
+    <!-- Badge Background Pill -->
+    <rect width="320" height="42" rx="21" fill="#090d16" stroke="url(#goldTrim)" stroke-width="1.5" opacity="0.95"/>
+    <!-- Glowing Status Indicator Dot -->
+    <circle cx="26" cy="21" r="5" fill="#eab308" filter="url(#goldGlow)"/>
+    <!-- Label -->
+    <text x="44" y="26" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="800" fill="#f8fafc" letter-spacing="2">AUCTIONX CERTIFIED RELIC</text>
+  </g>
+
+  <!-- Bottom Evaluation Strip -->
+  <g transform="translate(680, 56)">
+    <rect width="280" height="42" rx="8" fill="#090d16" stroke="#334155" stroke-width="1" opacity="0.9"/>
+    <text x="140" y="26" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#38bdf8" text-anchor="middle" letter-spacing="1.5">HISTORIC SPORTS ITEM</text>
+  </g>
+</svg>

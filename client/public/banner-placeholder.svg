@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="800" y2="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2D2824"/>
+      <stop offset="50%" stop-color="#3D3530"/>
+      <stop offset="100%" stop-color="#24201D"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="400" fill="url(#bgGrad)" rx="16"/>
+  <rect x="24" y="24" width="752" height="352" rx="12" fill="none" stroke="#524840" stroke-width="2" stroke-dasharray="8 8"/>
+  <!-- Decorative auction brand motif -->
+  <g transform="translate(400, 150)" text-anchor="middle">
+    <circle cx="0" cy="0" r="44" fill="#3D3530" stroke="#786B61" stroke-width="2"/>
+    <!-- Stylized Gavel -->
+    <path d="M-12 -12 L12 12 M-6 -18 L18 6" stroke="url(#accentGrad)" stroke-width="4" stroke-linecap="round"/>
+    <rect x="-4" y="-16" width="12" height="24" rx="2" transform="rotate(45 2 -4)" fill="#D97706" opacity="0.8"/>
+    <path d="M-8 8 L-22 22" stroke="#E5E7EB" stroke-width="3" stroke-linecap="round"/>
+    <path d="M-28 24 L-16 24" stroke="#9CA3AF" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <text x="400" y="240" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" fill="#F3F4F6" letter-spacing="1">
+    AUCTIONX FEATURED EVENT
+  </text>
+  <text x="400" y="270" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="500" fill="#9CA3AF" letter-spacing="0.5">
+    Premium Live &amp; Scheduled Collectibles
+  </text>
+</svg>

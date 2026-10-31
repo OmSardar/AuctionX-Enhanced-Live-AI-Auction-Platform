@@ -1,0 +1,1376 @@
+{
+  "summary": {
+    "product_details": {
+      "name": "Public - Product Details",
+      "cold": {
+        "docLoad": {
+          "median": 1652,
+          "min": 1627,
+          "max": 1688,
+          "range": "1627 - 1688"
+        },
+        "fcp": {
+          "median": 1724,
+          "min": 1696,
+          "max": 1760,
+          "range": "1696 - 1760"
+        },
+        "domInteractive": {
+          "median": 1383,
+          "min": 1348,
+          "max": 1418,
+          "range": "1348 - 1418"
+        },
+        "dataUsable": {
+          "median": 4724,
+          "min": 4687,
+          "max": 5137,
+          "range": "4687 - 5137"
+        },
+        "apiCount": {
+          "median": 3,
+          "min": 3,
+          "max": 3,
+          "range": "3 - 3"
+        },
+        "transferredBytes": {
+          "median": 11322276,
+          "min": 11322276,
+          "max": 11322276,
+          "range": "11322276 - 11322276"
+        },
+        "apiBytes": {
+          "median": 1695,
+          "min": 1695,
+          "max": 1695,
+          "range": "1695 - 1695"
+        },
+        "slowestApiDuration": {
+          "median": 50,
+          "min": 19,
+          "max": 67,
+          "range": "19 - 67"
+        },
+        "frontendProcessing": {
+          "median": 4663,
+          "min": 4627,
+          "max": 5118,
+          "range": "4627 - 5118"
+        },
+        "sampleSlowestApiUrl": "products/6ad8f994f50bcdb83ed041d8"
+      },
+      "warm": {
+        "docLoad": {
+          "median": 1348,
+          "min": 1283,
+          "max": 1410,
+          "range": "1283 - 1410"
+        },
+        "fcp": {
+          "median": 1484,
+          "min": 1404,
+          "max": 1600,
+          "range": "1404 - 1600"
+        },
+        "domInteractive": {
+          "median": 1197,
+          "min": 1153,
+          "max": 1257,
+          "range": "1153 - 1257"
+        },
+        "dataUsable": {
+          "median": 1625,
+          "min": 1560,
+          "max": 1892,
+          "range": "1560 - 1892"
+        },
+        "apiCount": {
+          "median": 3,
+          "min": 3,
+          "max": 3,
+          "range": "3 - 3"
+        },
+        "transferredBytes": {
+          "median": 11116340,
+          "min": 11078551,
+          "max": 11322276,
+          "range": "11078551 - 11322276"
+        },
+        "apiBytes": {
+          "median": 1695,
+          "min": 1695,
+          "max": 1695,
+          "range": "1695 - 1695"
+        },
+        "slowestApiDuration": {
+          "median": 37,
+          "min": 32,
+          "max": 86,
+          "range": "32 - 86"
+        },
+        "frontendProcessing": {
+          "median": 1593,
+          "min": 1519,
+          "max": 1806,
+          "range": "1519 - 1806"
+        },
+        "sampleSlowestApiUrl": "auth/check"
+      }
+    },
+    "admin_dashboard": {
+      "name": "Admin - Dashboard Overview",
+      "cold": {
+        "docLoad": {
+          "median": 1656,
+          "min": 1617,
+          "max": 1683,
+          "range": "1617 - 1683"
+        },
+        "fcp": {
+          "median": 1940,
+          "min": 1924,
+          "max": 1988,
+          "range": "1924 - 1988"
+        },
+        "domInteractive": {
+          "median": 1382,
+          "min": 1323,
+          "max": 1416,
+          "range": "1323 - 1416"
+        },
+        "dataUsable": {
+          "median": 1780,
+          "min": 1743,
+          "max": 1823,
+          "range": "1743 - 1823"
+        },
+        "apiCount": {
+          "median": 3,
+          "min": 3,
+          "max": 3,
+          "range": "3 - 3"
+        },
+        "transferredBytes": {
+          "median": 7062342,
+          "min": 7062342,
+          "max": 7062342,
+          "range": "7062342 - 7062342"
+        },
+        "apiBytes": {
+          "median": 11573,
+          "min": 11573,
+          "max": 11573,
+          "range": "11573 - 11573"
+        },
+        "slowestApiDuration": {
+          "median": 49,
+          "min": 38,
+          "max": 60,
+          "range": "38 - 60"
+        },
+        "frontendProcessing": {
+          "median": 1742,
+          "min": 1683,
+          "max": 1774,
+          "range": "1683 - 1774"
+        },
+        "sampleSlowestApiUrl": "admin/dashboard/stats"
+      },
+      "warm": {
+        "docLoad": {
+          "median": 1419,
+          "min": 1297,
+          "max": 1471,
+          "range": "1297 - 1471"
+        },
+        "fcp": {
+          "median": 1576,
+          "min": 1444,
+          "max": 1624,
+          "range": "1444 - 1624"
+        },
+        "domInteractive": {
+          "median": 1264,
+          "min": 1129,
+          "max": 1314,
+          "range": "1129 - 1314"
+        },
+        "dataUsable": {
+          "median": 1484,
+          "min": 1365,
+          "max": 1540,
+          "range": "1365 - 1540"
+        },
+        "apiCount": {
+          "median": 3,
+          "min": 3,
+          "max": 3,
+          "range": "3 - 3"
+        },
+        "transferredBytes": {
+          "median": 5164772,
+          "min": 5164772,
+          "max": 5370708,
+          "range": "5164772 - 5370708"
+        },
+        "apiBytes": {
+          "median": 11573,
+          "min": 11573,
+          "max": 11573,
+          "range": "11573 - 11573"
+        },
+        "slowestApiDuration": {
+          "median": 47,
+          "min": 46,
+          "max": 63,
+          "range": "46 - 63"
+        },
+        "frontendProcessing": {
+          "median": 1437,
+          "min": 1319,
+          "max": 1493,
+          "range": "1319 - 1493"
+        },
+        "sampleSlowestApiUrl": "auth/check"
+      }
+    },
+    "admin_analytics": {
+      "name": "Admin - Analytics",
+      "cold": {
+        "docLoad": {
+          "median": 1691,
+          "min": 1609,
+          "max": 1836,
+          "range": "1609 - 1836"
+        },
+        "fcp": {
+          "median": 2012,
+          "min": 1896,
+          "max": 2184,
+          "range": "1896 - 2184"
+        },
+        "domInteractive": {
+          "median": 1398,
+          "min": 1349,
+          "max": 1547,
+          "range": "1349 - 1547"
+        },
+        "dataUsable": {
+          "median": 2122,
+          "min": 2035,
+          "max": 2286,
+          "range": "2035 - 2286"
+        },
+        "apiCount": {
+          "median": 3,
+          "min": 3,
+          "max": 3,
+          "range": "3 - 3"
+        },
+        "transferredBytes": {
+          "median": 8270169,
+          "min": 8270169,
+          "max": 8270169,
+          "range": "8270169 - 8270169"
+        },
+        "apiBytes": {
+          "median": 11573,
+          "min": 11573,
+          "max": 11573,
+          "range": "11573 - 11573"
+        },
+        "slowestApiDuration": {
+          "median": 50,
+          "min": 44,
+          "max": 66,
+          "range": "44 - 66"
+        },
+        "frontendProcessing": {
+          "median": 2056,
+          "min": 1985,
+          "max": 2242,
+          "range": "1985 - 2242"
+        },
+        "sampleSlowestApiUrl": "admin/dashboard/stats"
+      },
+      "warm": {
+        "docLoad": {
+          "median": 1351,
+          "min": 1278,
+          "max": 1380,
+          "range": "1278 - 1380"
+        },
+        "fcp": {
+          "median": 1652,
+          "min": 1584,
+          "max": 1840,
+          "range": "1584 - 1840"
+        },
+        "domInteractive": {
+          "median": 1200,
+          "min": 1151,
+          "max": 1236,
+          "range": "1151 - 1236"
+        },
+        "dataUsable": {
+          "median": 1650,
+          "min": 1572,
+          "max": 1825,
+          "range": "1572 - 1825"
+        },
+        "apiCount": {
+          "median": 4,
+          "min": 4,
+          "max": 4,
+          "range": "4 - 4"
+        },
+        "transferredBytes": {
+          "median": 6925022,
+          "min": 6925022,
+          "max": 7161391,
+          "range": "6925022 - 7161391"
+        },
+        "apiBytes": {
+          "median": 7408,
+          "min": 7408,
+          "max": 7408,
+          "range": "7408 - 7408"
+        },
+        "slowestApiDuration": {
+          "median": 106,
+          "min": 92,
+          "max": 182,
+          "range": "92 - 182"
+        },
+        "frontendProcessing": {
+          "median": 1556,
+          "min": 1480,
+          "max": 1643,
+          "range": "1480 - 1643"
+        },
+        "sampleSlowestApiUrl": "graphql"
+      }
+    },
+    "seller_dashboard": {
+      "name": "Seller - Dashboard Overview",
+      "cold": {
+        "docLoad": {
+          "median": 1612,
+          "min": 1561,
+          "max": 1788,
+          "range": "1561 - 1788"
+        },
+        "fcp": {
+          "median": 1908,
+          "min": 1804,
+          "max": 2076,
+          "range": "1804 - 2076"
+        },
+        "domInteractive": {
+          "median": 1335,
+          "min": 1273,
+          "max": 1490,
+          "range": "1273 - 1490"
+        },
+        "dataUsable": {
+          "median": 1764,
+          "min": 1677,
+          "max": 1952,
+          "range": "1677 - 1952"
+        },
+        "apiCount": {
+          "median": 3,
+          "min": 3,
+          "max": 3,
+          "range": "3 - 3"
+        },
+        "transferredBytes": {
+          "median": 8827992,
+          "min": 8827992,
+          "max": 8827992,
+          "range": "8827992 - 8827992"
+        },
+        "apiBytes": {
+          "median": 558,
+          "min": 558,
+          "max": 558,
+          "range": "558 - 558"
+        },
+        "slowestApiDuration": {
+          "median": 36,
+          "min": 32,
+          "max": 40,
+          "range": "32 - 40"
+        },
+        "frontendProcessing": {
+          "median": 1724,
+          "min": 1644,
+          "max": 1920,
+          "range": "1644 - 1920"
+        },
+        "sampleSlowestApiUrl": "auth/check"
+      },
+      "warm": {
+        "docLoad": {
+          "median": 1457,
+          "min": 1337,
+          "max": 1561,
+          "range": "1337 - 1561"
+        },
+        "fcp": {
+          "median": 1860,
+          "min": 1724,
+          "max": 1972,
+          "range": "1724 - 1972"
+        },
+        "domInteractive": {
+          "median": 1288,
+          "min": 1186,
+          "max": 1397,
+          "range": "1186 - 1397"
+        },
+        "dataUsable": {
+          "median": 1512,
+          "min": 1403,
+          "max": 1624,
+          "range": "1403 - 1624"
+        },
+        "apiCount": {
+          "median": 3,
+          "min": 3,
+          "max": 3,
+          "range": "3 - 3"
+        },
+        "transferredBytes": {
+          "median": 6931063,
+          "min": 6931063,
+          "max": 7149249,
+          "range": "6931063 - 7149249"
+        },
+        "apiBytes": {
+          "median": 13449,
+          "min": 13449,
+          "max": 13449,
+          "range": "13449 - 13449"
+        },
+        "slowestApiDuration": {
+          "median": 42,
+          "min": 35,
+          "max": 72,
+          "range": "35 - 72"
+        },
+        "frontendProcessing": {
+          "median": 1475,
+          "min": 1355,
+          "max": 1582,
+          "range": "1355 - 1582"
+        },
+        "sampleSlowestApiUrl": "auth/check"
+      }
+    },
+    "seller_settings": {
+      "name": "Seller - Settings MyAccount",
+      "cold": {
+        "docLoad": {
+          "median": 1650,
+          "min": 1570,
+          "max": 1678,
+          "range": "1570 - 1678"
+        },
+        "fcp": {
+          "median": 1912,
+          "min": 1828,
+          "max": 1984,
+          "range": "1828 - 1984"
+        },
+        "domInteractive": {
+          "median": 1372,
+          "min": 1299,
+          "max": 1438,
+          "range": "1299 - 1438"
+        },
+        "dataUsable": {
+          "median": 1915,
+          "min": 1820,
+          "max": 2099,
+          "range": "1820 - 2099"
+        },
+        "apiCount": {
+          "median": 3,
+          "min": 3,
+          "max": 3,
+          "range": "3 - 3"
+        },
+        "transferredBytes": {
+          "median": 8840883,
+          "min": 8840883,
+          "max": 8840883,
+          "range": "8840883 - 8840883"
+        },
+        "apiBytes": {
+          "median": 13449,
+          "min": 13449,
+          "max": 13449,
+          "range": "13449 - 13449"
+        },
+        "slowestApiDuration": {
+          "median": 41,
+          "min": 38,
+          "max": 43,
+          "range": "38 - 43"
+        },
+        "frontendProcessing": {
+          "median": 1873,
+          "min": 1779,
+          "max": 2061,
+          "range": "1779 - 2061"
+        },
+        "sampleSlowestApiUrl": "products/email/seller_1%40auctionx.demo"
+      },
+      "warm": {
+        "docLoad": {
+          "median": 1395,
+          "min": 1326,
+          "max": 1533,
+          "range": "1326 - 1533"
+        },
+        "fcp": {
+          "median": 1572,
+          "min": 1476,
+          "max": 1672,
+          "range": "1476 - 1672"
+        },
+        "domInteractive": {
+          "median": 1235,
+          "min": 1178,
+          "max": 1369,
+          "range": "1178 - 1369"
+        },
+        "dataUsable": {
+          "median": 1599,
+          "min": 1502,
+          "max": 1695,
+          "range": "1502 - 1695"
+        },
+        "apiCount": {
+          "median": 4,
+          "min": 4,
+          "max": 4,
+          "range": "4 - 4"
+        },
+        "transferredBytes": {
+          "median": 5154889,
+          "min": 5154889,
+          "max": 5360825,
+          "range": "5154889 - 5360825"
+        },
+        "apiBytes": {
+          "median": 1690,
+          "min": 1690,
+          "max": 1690,
+          "range": "1690 - 1690"
+        },
+        "slowestApiDuration": {
+          "median": 25,
+          "min": 18,
+          "max": 72,
+          "range": "18 - 72"
+        },
+        "frontendProcessing": {
+          "median": 1530,
+          "min": 1473,
+          "max": 1672,
+          "range": "1473 - 1672"
+        },
+        "sampleSlowestApiUrl": "auth/check"
+      }
+    }
+  },
+  "raw": {
+    "product_details": {
+      "name": "Public - Product Details",
+      "cold": [
+        {
+          "docLoadMs": 1666,
+          "fcpMs": 1748,
+          "domInteractiveMs": 1383,
+          "dataUsableMs": 4724,
+          "totalDurationMs": 5225,
+          "apiCount": 3,
+          "totalApiBytes": 1695,
+          "totalJsBytes": 11320581,
+          "totalTransferredBytes": 11322276,
+          "slowestApiUrl": "products/6ad8f994f50bcdb83ed041d8",
+          "slowestApiDurationMs": 61,
+          "apiServerLatencyMs": 61,
+          "frontendProcessingMs": 4663
+        },
+        {
+          "docLoadMs": 1627,
+          "fcpMs": 1696,
+          "domInteractiveMs": 1348,
+          "dataUsableMs": 5137,
+          "totalDurationMs": 5643,
+          "apiCount": 3,
+          "totalApiBytes": 1695,
+          "totalJsBytes": 11320581,
+          "totalTransferredBytes": 11322276,
+          "slowestApiUrl": "products/6ad8f994f50bcdb83ed041d8",
+          "slowestApiDurationMs": 19,
+          "apiServerLatencyMs": 19,
+          "frontendProcessingMs": 5118
+        },
+        {
+          "docLoadMs": 1652,
+          "fcpMs": 1724,
+          "domInteractiveMs": 1398,
+          "dataUsableMs": 4687,
+          "totalDurationMs": 5191,
+          "apiCount": 3,
+          "totalApiBytes": 1695,
+          "totalJsBytes": 11320581,
+          "totalTransferredBytes": 11322276,
+          "slowestApiUrl": "products/6ad8f994f50bcdb83ed041d8",
+          "slowestApiDurationMs": 50,
+          "apiServerLatencyMs": 50,
+          "frontendProcessingMs": 4637
+        },
+        {
+          "docLoadMs": 1688,
+          "fcpMs": 1760,
+          "domInteractiveMs": 1418,
+          "dataUsableMs": 4724,
+          "totalDurationMs": 5240,
+          "apiCount": 3,
+          "totalApiBytes": 1695,
+          "totalJsBytes": 11320581,
+          "totalTransferredBytes": 11322276,
+          "slowestApiUrl": "products/6ad8f994f50bcdb83ed041d8",
+          "slowestApiDurationMs": 50,
+          "apiServerLatencyMs": 50,
+          "frontendProcessingMs": 4674
+        },
+        {
+          "docLoadMs": 1627,
+          "fcpMs": 1708,
+          "domInteractiveMs": 1359,
+          "dataUsableMs": 4694,
+          "totalDurationMs": 5204,
+          "apiCount": 3,
+          "totalApiBytes": 1695,
+          "totalJsBytes": 11320581,
+          "totalTransferredBytes": 11322276,
+          "slowestApiUrl": "products/6ad8f994f50bcdb83ed041d8",
+          "slowestApiDurationMs": 67,
+          "apiServerLatencyMs": 67,
+          "frontendProcessingMs": 4627
+        }
+      ],
+      "warm": [
+        {
+          "docLoadMs": 1410,
+          "fcpMs": 1600,
+          "domInteractiveMs": 1257,
+          "dataUsableMs": 1892,
+          "totalDurationMs": 2398,
+          "apiCount": 3,
+          "totalApiBytes": 1695,
+          "totalJsBytes": 11114645,
+          "totalTransferredBytes": 11116340,
+          "slowestApiUrl": "auth/check",
+          "slowestApiDurationMs": 86,
+          "apiServerLatencyMs": 86,
+          "frontendProcessingMs": 1806
+        },
+        {
+          "docLoadMs": 1348,
+          "fcpMs": 1484,
+          "domInteractiveMs": 1197,
+          "dataUsableMs": 1651,
+          "totalDurationMs": 2158,
+          "apiCount": 3,
+          "totalApiBytes": 1695,
+          "totalJsBytes": 11076856,
+          "totalTransferredBytes": 11078551,
+          "slowestApiUrl": "auth/check",
+          "slowestApiDurationMs": 37,
+          "apiServerLatencyMs": 37,
+          "frontendProcessingMs": 1614
+        },
+        {
+          "docLoadMs": 1360,
+          "fcpMs": 1488,
+          "domInteractiveMs": 1237,
+          "dataUsableMs": 1625,
+          "totalDurationMs": 2139,
+          "apiCount": 3,
+          "totalApiBytes": 1695,
+          "totalJsBytes": 11320581,
+          "totalTransferredBytes": 11322276,
+          "slowestApiUrl": "auth/check",
+          "slowestApiDurationMs": 32,
+          "apiServerLatencyMs": 32,
+          "frontendProcessingMs": 1593
+        },
+        {
+          "docLoadMs": 1283,
+          "fcpMs": 1404,
+          "domInteractiveMs": 1153,
+          "dataUsableMs": 1560,
+          "totalDurationMs": 2063,
+          "apiCount": 3,
+          "totalApiBytes": 1695,
+          "totalJsBytes": 11076856,
+          "totalTransferredBytes": 11078551,
+          "slowestApiUrl": "auth/check",
+          "slowestApiDurationMs": 41,
+          "apiServerLatencyMs": 41,
+          "frontendProcessingMs": 1519
+        },
+        {
+          "docLoadMs": 1294,
+          "fcpMs": 1436,
+          "domInteractiveMs": 1160,
+          "dataUsableMs": 1568,
+          "totalDurationMs": 2083,
+          "apiCount": 3,
+          "totalApiBytes": 1695,
+          "totalJsBytes": 11320581,
+          "totalTransferredBytes": 11322276,
+          "slowestApiUrl": "auth/check",
+          "slowestApiDurationMs": 37,
+          "apiServerLatencyMs": 37,
+          "frontendProcessingMs": 1531
+        }
+      ]
+    },
+    "admin_dashboard": {
+      "name": "Admin - Dashboard Overview",
+      "cold": [
+        {
+          "docLoadMs": 1631,
+          "fcpMs": 1940,
+          "domInteractiveMs": 1333,
+          "dataUsableMs": 1767,
+          "totalDurationMs": 2279,
+          "apiCount": 3,
+          "totalApiBytes": 11573,
+          "totalJsBytes": 7050769,
+          "totalTransferredBytes": 7062342,
+          "slowestApiUrl": "admin/dashboard/stats",
+          "slowestApiDurationMs": 57,
+          "apiServerLatencyMs": 57,
+          "frontendProcessingMs": 1710
+        },
+        {
+          "docLoadMs": 1683,
+          "fcpMs": 1988,
+          "domInteractiveMs": 1416,
+          "dataUsableMs": 1823,
+          "totalDurationMs": 2338,
+          "apiCount": 3,
+          "totalApiBytes": 11573,
+          "totalJsBytes": 7050769,
+          "totalTransferredBytes": 7062342,
+          "slowestApiUrl": "admin/dashboard/stats",
+          "slowestApiDurationMs": 49,
+          "apiServerLatencyMs": 49,
+          "frontendProcessingMs": 1774
+        },
+        {
+          "docLoadMs": 1656,
+          "fcpMs": 1956,
+          "domInteractiveMs": 1408,
+          "dataUsableMs": 1798,
+          "totalDurationMs": 2310,
+          "apiCount": 3,
+          "totalApiBytes": 11573,
+          "totalJsBytes": 7050769,
+          "totalTransferredBytes": 7062342,
+          "slowestApiUrl": "admin/dashboard/stats",
+          "slowestApiDurationMs": 42,
+          "apiServerLatencyMs": 42,
+          "frontendProcessingMs": 1756
+        },
+        {
+          "docLoadMs": 1656,
+          "fcpMs": 1924,
+          "domInteractiveMs": 1382,
+          "dataUsableMs": 1780,
+          "totalDurationMs": 2290,
+          "apiCount": 3,
+          "totalApiBytes": 11573,
+          "totalJsBytes": 7050769,
+          "totalTransferredBytes": 7062342,
+          "slowestApiUrl": "admin/dashboard/stats",
+          "slowestApiDurationMs": 38,
+          "apiServerLatencyMs": 38,
+          "frontendProcessingMs": 1742
+        },
+        {
+          "docLoadMs": 1617,
+          "fcpMs": 1940,
+          "domInteractiveMs": 1323,
+          "dataUsableMs": 1743,
+          "totalDurationMs": 2243,
+          "apiCount": 3,
+          "totalApiBytes": 11573,
+          "totalJsBytes": 7050769,
+          "totalTransferredBytes": 7062342,
+          "slowestApiUrl": "admin/dashboard/stats",
+          "slowestApiDurationMs": 60,
+          "apiServerLatencyMs": 60,
+          "frontendProcessingMs": 1683
+        }
+      ],
+      "warm": [
+        {
+          "docLoadMs": 1376,
+          "fcpMs": 1552,
+          "domInteractiveMs": 1216,
+          "dataUsableMs": 1476,
+          "totalDurationMs": 1992,
+          "apiCount": 3,
+          "totalApiBytes": 11573,
+          "totalJsBytes": 5153199,
+          "totalTransferredBytes": 5164772,
+          "slowestApiUrl": "auth/check",
+          "slowestApiDurationMs": 63,
+          "apiServerLatencyMs": 63,
+          "frontendProcessingMs": 1413
+        },
+        {
+          "docLoadMs": 1419,
+          "fcpMs": 1576,
+          "domInteractiveMs": 1264,
+          "dataUsableMs": 1484,
+          "totalDurationMs": 1993,
+          "apiCount": 3,
+          "totalApiBytes": 11573,
+          "totalJsBytes": 5153199,
+          "totalTransferredBytes": 5164772,
+          "slowestApiUrl": "admin/dashboard/stats",
+          "slowestApiDurationMs": 47,
+          "apiServerLatencyMs": 47,
+          "frontendProcessingMs": 1437
+        },
+        {
+          "docLoadMs": 1297,
+          "fcpMs": 1444,
+          "domInteractiveMs": 1129,
+          "dataUsableMs": 1365,
+          "totalDurationMs": 1875,
+          "apiCount": 3,
+          "totalApiBytes": 11573,
+          "totalJsBytes": 5359135,
+          "totalTransferredBytes": 5370708,
+          "slowestApiUrl": "admin/dashboard/stats",
+          "slowestApiDurationMs": 46,
+          "apiServerLatencyMs": 46,
+          "frontendProcessingMs": 1319
+        },
+        {
+          "docLoadMs": 1453,
+          "fcpMs": 1596,
+          "domInteractiveMs": 1282,
+          "dataUsableMs": 1514,
+          "totalDurationMs": 2023,
+          "apiCount": 3,
+          "totalApiBytes": 11573,
+          "totalJsBytes": 5153199,
+          "totalTransferredBytes": 5164772,
+          "slowestApiUrl": "admin/dashboard/stats",
+          "slowestApiDurationMs": 53,
+          "apiServerLatencyMs": 53,
+          "frontendProcessingMs": 1461
+        },
+        {
+          "docLoadMs": 1471,
+          "fcpMs": 1624,
+          "domInteractiveMs": 1314,
+          "dataUsableMs": 1540,
+          "totalDurationMs": 2047,
+          "apiCount": 3,
+          "totalApiBytes": 11573,
+          "totalJsBytes": 5359135,
+          "totalTransferredBytes": 5370708,
+          "slowestApiUrl": "admin/dashboard/stats",
+          "slowestApiDurationMs": 47,
+          "apiServerLatencyMs": 47,
+          "frontendProcessingMs": 1493
+        }
+      ]
+    },
+    "admin_analytics": {
+      "name": "Admin - Analytics",
+      "cold": [
+        {
+          "docLoadMs": 1616,
+          "fcpMs": 1936,
+          "domInteractiveMs": 1354,
+          "dataUsableMs": 2054,
+          "totalDurationMs": 2567,
+          "apiCount": 3,
+          "totalApiBytes": 11573,
+          "totalJsBytes": 8258596,
+          "totalTransferredBytes": 8270169,
+          "slowestApiUrl": "admin/dashboard/stats",
+          "slowestApiDurationMs": 51,
+          "apiServerLatencyMs": 51,
+          "frontendProcessingMs": 2003
+        },
+        {
+          "docLoadMs": 1691,
+          "fcpMs": 2012,
+          "domInteractiveMs": 1398,
+          "dataUsableMs": 2122,
+          "totalDurationMs": 2642,
+          "apiCount": 3,
+          "totalApiBytes": 11573,
+          "totalJsBytes": 8258596,
+          "totalTransferredBytes": 8270169,
+          "slowestApiUrl": "admin/dashboard/stats",
+          "slowestApiDurationMs": 66,
+          "apiServerLatencyMs": 66,
+          "frontendProcessingMs": 2056
+        },
+        {
+          "docLoadMs": 1609,
+          "fcpMs": 1896,
+          "domInteractiveMs": 1349,
+          "dataUsableMs": 2035,
+          "totalDurationMs": 2540,
+          "apiCount": 3,
+          "totalApiBytes": 11573,
+          "totalJsBytes": 8258596,
+          "totalTransferredBytes": 8270169,
+          "slowestApiUrl": "admin/dashboard/stats",
+          "slowestApiDurationMs": 50,
+          "apiServerLatencyMs": 50,
+          "frontendProcessingMs": 1985
+        },
+        {
+          "docLoadMs": 1714,
+          "fcpMs": 2040,
+          "domInteractiveMs": 1432,
+          "dataUsableMs": 2138,
+          "totalDurationMs": 2641,
+          "apiCount": 3,
+          "totalApiBytes": 11573,
+          "totalJsBytes": 8258596,
+          "totalTransferredBytes": 8270169,
+          "slowestApiUrl": "admin/dashboard/stats",
+          "slowestApiDurationMs": 46,
+          "apiServerLatencyMs": 46,
+          "frontendProcessingMs": 2092
+        },
+        {
+          "docLoadMs": 1836,
+          "fcpMs": 2184,
+          "domInteractiveMs": 1547,
+          "dataUsableMs": 2286,
+          "totalDurationMs": 2789,
+          "apiCount": 3,
+          "totalApiBytes": 11573,
+          "totalJsBytes": 8258596,
+          "totalTransferredBytes": 8270169,
+          "slowestApiUrl": "admin/dashboard/stats",
+          "slowestApiDurationMs": 44,
+          "apiServerLatencyMs": 44,
+          "frontendProcessingMs": 2242
+        }
+      ],
+      "warm": [
+        {
+          "docLoadMs": 1373,
+          "fcpMs": 1840,
+          "domInteractiveMs": 1212,
+          "dataUsableMs": 1825,
+          "totalDurationMs": 2332,
+          "apiCount": 4,
+          "totalApiBytes": 7408,
+          "totalJsBytes": 6929864,
+          "totalTransferredBytes": 6937272,
+          "slowestApiUrl": "graphql",
+          "slowestApiDurationMs": 182,
+          "apiServerLatencyMs": 182,
+          "frontendProcessingMs": 1643
+        },
+        {
+          "docLoadMs": 1351,
+          "fcpMs": 1688,
+          "domInteractiveMs": 1179,
+          "dataUsableMs": 1676,
+          "totalDurationMs": 2186,
+          "apiCount": 4,
+          "totalApiBytes": 7408,
+          "totalJsBytes": 7153983,
+          "totalTransferredBytes": 7161391,
+          "slowestApiUrl": "graphql",
+          "slowestApiDurationMs": 113,
+          "apiServerLatencyMs": 113,
+          "frontendProcessingMs": 1563
+        },
+        {
+          "docLoadMs": 1331,
+          "fcpMs": 1648,
+          "domInteractiveMs": 1200,
+          "dataUsableMs": 1650,
+          "totalDurationMs": 2163,
+          "apiCount": 4,
+          "totalApiBytes": 7408,
+          "totalJsBytes": 6917614,
+          "totalTransferredBytes": 6925022,
+          "slowestApiUrl": "graphql",
+          "slowestApiDurationMs": 94,
+          "apiServerLatencyMs": 94,
+          "frontendProcessingMs": 1556
+        },
+        {
+          "docLoadMs": 1278,
+          "fcpMs": 1584,
+          "domInteractiveMs": 1151,
+          "dataUsableMs": 1572,
+          "totalDurationMs": 2081,
+          "apiCount": 4,
+          "totalApiBytes": 7408,
+          "totalJsBytes": 6917614,
+          "totalTransferredBytes": 6925022,
+          "slowestApiUrl": "graphql",
+          "slowestApiDurationMs": 92,
+          "apiServerLatencyMs": 92,
+          "frontendProcessingMs": 1480
+        },
+        {
+          "docLoadMs": 1380,
+          "fcpMs": 1652,
+          "domInteractiveMs": 1236,
+          "dataUsableMs": 1648,
+          "totalDurationMs": 2163,
+          "apiCount": 4,
+          "totalApiBytes": 7408,
+          "totalJsBytes": 6917614,
+          "totalTransferredBytes": 6925022,
+          "slowestApiUrl": "graphql",
+          "slowestApiDurationMs": 106,
+          "apiServerLatencyMs": 106,
+          "frontendProcessingMs": 1542
+        }
+      ]
+    },
+    "seller_dashboard": {
+      "name": "Seller - Dashboard Overview",
+      "cold": [
+        {
+          "docLoadMs": 1659,
+          "fcpMs": 1932,
+          "domInteractiveMs": 1357,
+          "dataUsableMs": 1794,
+          "totalDurationMs": 2295,
+          "apiCount": 3,
+          "totalApiBytes": 558,
+          "totalJsBytes": 8827434,
+          "totalTransferredBytes": 8827992,
+          "slowestApiUrl": "auth/check",
+          "slowestApiDurationMs": 36,
+          "apiServerLatencyMs": 36,
+          "frontendProcessingMs": 1758
+        },
+        {
+          "docLoadMs": 1788,
+          "fcpMs": 2076,
+          "domInteractiveMs": 1490,
+          "dataUsableMs": 1952,
+          "totalDurationMs": 2461,
+          "apiCount": 3,
+          "totalApiBytes": 558,
+          "totalJsBytes": 8827434,
+          "totalTransferredBytes": 8827992,
+          "slowestApiUrl": "auth/check",
+          "slowestApiDurationMs": 32,
+          "apiServerLatencyMs": 32,
+          "frontendProcessingMs": 1920
+        },
+        {
+          "docLoadMs": 1612,
+          "fcpMs": 1876,
+          "domInteractiveMs": 1333,
+          "dataUsableMs": 1730,
+          "totalDurationMs": 2232,
+          "apiCount": 3,
+          "totalApiBytes": 558,
+          "totalJsBytes": 8827434,
+          "totalTransferredBytes": 8827992,
+          "slowestApiUrl": "auth/check",
+          "slowestApiDurationMs": 36,
+          "apiServerLatencyMs": 36,
+          "frontendProcessingMs": 1694
+        },
+        {
+          "docLoadMs": 1598,
+          "fcpMs": 1908,
+          "domInteractiveMs": 1335,
+          "dataUsableMs": 1764,
+          "totalDurationMs": 2277,
+          "apiCount": 3,
+          "totalApiBytes": 558,
+          "totalJsBytes": 8827434,
+          "totalTransferredBytes": 8827992,
+          "slowestApiUrl": "auth/check",
+          "slowestApiDurationMs": 40,
+          "apiServerLatencyMs": 40,
+          "frontendProcessingMs": 1724
+        },
+        {
+          "docLoadMs": 1561,
+          "fcpMs": 1804,
+          "domInteractiveMs": 1273,
+          "dataUsableMs": 1677,
+          "totalDurationMs": 2187,
+          "apiCount": 3,
+          "totalApiBytes": 558,
+          "totalJsBytes": 8827434,
+          "totalTransferredBytes": 8827992,
+          "slowestApiUrl": "auth/check",
+          "slowestApiDurationMs": 33,
+          "apiServerLatencyMs": 33,
+          "frontendProcessingMs": 1644
+        }
+      ],
+      "warm": [
+        {
+          "docLoadMs": 1354,
+          "fcpMs": 1816,
+          "domInteractiveMs": 1207,
+          "dataUsableMs": 1464,
+          "totalDurationMs": 1972,
+          "apiCount": 3,
+          "totalApiBytes": 13449,
+          "totalJsBytes": 6917614,
+          "totalTransferredBytes": 6931063,
+          "slowestApiUrl": "auth/check",
+          "slowestApiDurationMs": 72,
+          "apiServerLatencyMs": 72,
+          "frontendProcessingMs": 1392
+        },
+        {
+          "docLoadMs": 1457,
+          "fcpMs": 1860,
+          "domInteractiveMs": 1288,
+          "dataUsableMs": 1512,
+          "totalDurationMs": 2016,
+          "apiCount": 3,
+          "totalApiBytes": 13449,
+          "totalJsBytes": 7135800,
+          "totalTransferredBytes": 7149249,
+          "slowestApiUrl": "products/email/seller_1%40auctionx.demo",
+          "slowestApiDurationMs": 37,
+          "apiServerLatencyMs": 37,
+          "frontendProcessingMs": 1475
+        },
+        {
+          "docLoadMs": 1337,
+          "fcpMs": 1724,
+          "domInteractiveMs": 1186,
+          "dataUsableMs": 1403,
+          "totalDurationMs": 1913,
+          "apiCount": 3,
+          "totalApiBytes": 13449,
+          "totalJsBytes": 6917614,
+          "totalTransferredBytes": 6931063,
+          "slowestApiUrl": "products/email/seller_1%40auctionx.demo",
+          "slowestApiDurationMs": 48,
+          "apiServerLatencyMs": 48,
+          "frontendProcessingMs": 1355
+        },
+        {
+          "docLoadMs": 1465,
+          "fcpMs": 1876,
+          "domInteractiveMs": 1328,
+          "dataUsableMs": 1556,
+          "totalDurationMs": 2070,
+          "apiCount": 3,
+          "totalApiBytes": 13449,
+          "totalJsBytes": 6917614,
+          "totalTransferredBytes": 6931063,
+          "slowestApiUrl": "products/email/seller_1%40auctionx.demo",
+          "slowestApiDurationMs": 35,
+          "apiServerLatencyMs": 35,
+          "frontendProcessingMs": 1521
+        },
+        {
+          "docLoadMs": 1561,
+          "fcpMs": 1972,
+          "domInteractiveMs": 1397,
+          "dataUsableMs": 1624,
+          "totalDurationMs": 2136,
+          "apiCount": 3,
+          "totalApiBytes": 13449,
+          "totalJsBytes": 6917614,
+          "totalTransferredBytes": 6931063,
+          "slowestApiUrl": "products/email/seller_1%40auctionx.demo",
+          "slowestApiDurationMs": 42,
+          "apiServerLatencyMs": 42,
+          "frontendProcessingMs": 1582
+        }
+      ]
+    },
+    "seller_settings": {
+      "name": "Seller - Settings MyAccount",
+      "cold": [
+        {
+          "docLoadMs": 1650,
+          "fcpMs": 1916,
+          "domInteractiveMs": 1385,
+          "dataUsableMs": 1902,
+          "totalDurationMs": 2411,
+          "apiCount": 3,
+          "totalApiBytes": 13449,
+          "totalJsBytes": 8827434,
+          "totalTransferredBytes": 8840883,
+          "slowestApiUrl": "products/email/seller_1%40auctionx.demo",
+          "slowestApiDurationMs": 43,
+          "apiServerLatencyMs": 43,
+          "frontendProcessingMs": 1859
+        },
+        {
+          "docLoadMs": 1663,
+          "fcpMs": 1912,
+          "domInteractiveMs": 1372,
+          "dataUsableMs": 1915,
+          "totalDurationMs": 2420,
+          "apiCount": 3,
+          "totalApiBytes": 13449,
+          "totalJsBytes": 8827434,
+          "totalTransferredBytes": 8840883,
+          "slowestApiUrl": "orders/seller/seller_1%40auctionx.demo",
+          "slowestApiDurationMs": 42,
+          "apiServerLatencyMs": 42,
+          "frontendProcessingMs": 1873
+        },
+        {
+          "docLoadMs": 1570,
+          "fcpMs": 1828,
+          "domInteractiveMs": 1299,
+          "dataUsableMs": 1820,
+          "totalDurationMs": 2328,
+          "apiCount": 3,
+          "totalApiBytes": 13449,
+          "totalJsBytes": 8827434,
+          "totalTransferredBytes": 8840883,
+          "slowestApiUrl": "products/email/seller_1%40auctionx.demo",
+          "slowestApiDurationMs": 41,
+          "apiServerLatencyMs": 41,
+          "frontendProcessingMs": 1779
+        },
+        {
+          "docLoadMs": 1678,
+          "fcpMs": 1984,
+          "domInteractiveMs": 1438,
+          "dataUsableMs": 2099,
+          "totalDurationMs": 2613,
+          "apiCount": 3,
+          "totalApiBytes": 13449,
+          "totalJsBytes": 8827434,
+          "totalTransferredBytes": 8840883,
+          "slowestApiUrl": "products/email/seller_1%40auctionx.demo",
+          "slowestApiDurationMs": 38,
+          "apiServerLatencyMs": 38,
+          "frontendProcessingMs": 2061
+        },
+        {
+          "docLoadMs": 1613,
+          "fcpMs": 1880,
+          "domInteractiveMs": 1336,
+          "dataUsableMs": 1985,
+          "totalDurationMs": 2493,
+          "apiCount": 3,
+          "totalApiBytes": 13449,
+          "totalJsBytes": 8827434,
+          "totalTransferredBytes": 8840883,
+          "slowestApiUrl": "auth/check",
+          "slowestApiDurationMs": 38,
+          "apiServerLatencyMs": 38,
+          "frontendProcessingMs": 1947
+        }
+      ],
+      "warm": [
+        {
+          "docLoadMs": 1357,
+          "fcpMs": 1572,
+          "domInteractiveMs": 1195,
+          "dataUsableMs": 1599,
+          "totalDurationMs": 2110,
+          "apiCount": 4,
+          "totalApiBytes": 1690,
+          "totalJsBytes": 5153199,
+          "totalTransferredBytes": 5154889,
+          "slowestApiUrl": "auth/check",
+          "slowestApiDurationMs": 72,
+          "apiServerLatencyMs": 72,
+          "frontendProcessingMs": 1527
+        },
+        {
+          "docLoadMs": 1395,
+          "fcpMs": 1528,
+          "domInteractiveMs": 1235,
+          "dataUsableMs": 1548,
+          "totalDurationMs": 2054,
+          "apiCount": 4,
+          "totalApiBytes": 1690,
+          "totalJsBytes": 5359135,
+          "totalTransferredBytes": 5360825,
+          "slowestApiUrl": "auth/check",
+          "slowestApiDurationMs": 18,
+          "apiServerLatencyMs": 18,
+          "frontendProcessingMs": 1530
+        },
+        {
+          "docLoadMs": 1506,
+          "fcpMs": 1640,
+          "domInteractiveMs": 1355,
+          "dataUsableMs": 1667,
+          "totalDurationMs": 2173,
+          "apiCount": 4,
+          "totalApiBytes": 1690,
+          "totalJsBytes": 5153199,
+          "totalTransferredBytes": 5154889,
+          "slowestApiUrl": "auth/check",
+          "slowestApiDurationMs": 25,
+          "apiServerLatencyMs": 25,
+          "frontendProcessingMs": 1642
+        },
+        {
+          "docLoadMs": 1326,
+          "fcpMs": 1476,
+          "domInteractiveMs": 1178,
+          "dataUsableMs": 1502,
+          "totalDurationMs": 2014,
+          "apiCount": 4,
+          "totalApiBytes": 1690,
+          "totalJsBytes": 5153199,
+          "totalTransferredBytes": 5154889,
+          "slowestApiUrl": "auth/seller/user/seller_1@auctionx.demo",
+          "slowestApiDurationMs": 29,
+          "apiServerLatencyMs": 29,
+          "frontendProcessingMs": 1473
+        },
+        {
+          "docLoadMs": 1533,
+          "fcpMs": 1672,
+          "domInteractiveMs": 1369,
+          "dataUsableMs": 1695,
+          "totalDurationMs": 2198,
+          "apiCount": 4,
+          "totalApiBytes": 1690,
+          "totalJsBytes": 5359135,
+          "totalTransferredBytes": 5360825,
+          "slowestApiUrl": "auth/check",
+          "slowestApiDurationMs": 23,
+          "apiServerLatencyMs": 23,
+          "frontendProcessingMs": 1672
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,17 @@
+# Node dependencies and build
+node_modules
+dist
+build
+npm-debug.log*
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# IDE and OS
+.git
+.vscode
+.idea
+.DS_Store
+Thumbs.db

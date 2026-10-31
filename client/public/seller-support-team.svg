@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="supportBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FBF9F6"/>
+      <stop offset="100%" stop-color="#F3ECE4"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1000" height="400" rx="20" fill="url(#supportBg)" stroke="#E8E0D5" stroke-width="2"/>
+
+  <!-- Support Team Avatar Cluster -->
+  <g transform="translate(100, 70)">
+    <!-- 4 Specialized Team Avatars -->
+    <!-- Advisor 1 -->
+    <g transform="translate(40, 60)">
+      <circle cx="50" cy="50" r="44" fill="#FFFFFF" stroke="#C25E38" stroke-width="3"/>
+      <circle cx="50" cy="40" r="18" fill="#C25E38"/>
+      <path d="M24 82 C24 64 36 60 50 60 C64 60 76 64 76 82 Z" fill="#2D2824"/>
+      <rect x="15" y="105" width="70" height="20" rx="10" fill="#2D2824"/>
+      <text x="50" y="119" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" font-weight="700" fill="#FFFFFF">Valuation</text>
+    </g>
+
+    <!-- Advisor 2 (Center-Left) -->
+    <g transform="translate(160, 20)">
+      <circle cx="55" cy="55" r="50" fill="#FFFFFF" stroke="#D97706" stroke-width="3"/>
+      <circle cx="55" cy="44" r="20" fill="#D97706"/>
+      <path d="M26 92 C26 72 40 68 55 68 C70 68 84 72 84 92 Z" fill="#2D2824"/>
+      <rect x="15" y="115" width="80" height="20" rx="10" fill="#D97706"/>
+      <text x="55" y="129" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" font-weight="700" fill="#FFFFFF">Authentication</text>
+    </g>
+
+    <!-- Advisor 3 (Center-Right) -->
+    <g transform="translate(290, 20)">
+      <circle cx="55" cy="55" r="50" fill="#FFFFFF" stroke="#059669" stroke-width="3"/>
+      <circle cx="55" cy="44" r="20" fill="#059669"/>
+      <path d="M26 92 C26 72 40 68 55 68 C70 68 84 72 84 92 Z" fill="#2D2824"/>
+      <rect x="15" y="115" width="80" height="20" rx="10" fill="#059669"/>
+      <text x="55" y="129" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" font-weight="700" fill="#FFFFFF">Settlement</text>
+    </g>
+
+    <!-- Advisor 4 -->
+    <g transform="translate(420, 60)">
+      <circle cx="50" cy="50" r="44" fill="#FFFFFF" stroke="#2563EB" stroke-width="3"/>
+      <circle cx="50" cy="40" r="18" fill="#2563EB"/>
+      <path d="M24 82 C24 64 36 60 50 60 C64 60 76 64 76 82 Z" fill="#2D2824"/>
+      <rect x="15" y="105" width="70" height="20" rx="10" fill="#2563EB"/>
+      <text x="50" y="119" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" font-weight="700" fill="#FFFFFF">Consignor</text>
+    </g>
+  </g>
+
+  <!-- Right Side Support Info Card -->
+  <g transform="translate(640, 80)">
+    <rect width="280" height="240" rx="16" fill="#FFFFFF" stroke="#E6DFD7" stroke-width="1.5"/>
+    <circle cx="40" cy="40" r="18" fill="#FEEFE7"/>
+    <path d="M32 40 C32 35 36 32 40 32 C44 32 48 35 48 40 C48 45 44 48 40 48 L36 48 L32 52 Z" fill="#C25E38"/>
+    <text x="70" y="38" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#2D2824">Auction Advisory 24/7</text>
+    <text x="70" y="54" font-family="system-ui, sans-serif" font-size="11" fill="#7D6F62">Always On Duty</text>
+
+    <line x1="20" y1="80" x2="260" y2="80" stroke="#F3EFEA" stroke-width="1"/>
+
+    <g transform="translate(20, 100)">
+      <text x="0" y="14" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#2D2824">Avg Response Time</text>
+      <text x="240" y="14" text-anchor="end" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#059669">&lt; 3 mins</text>
+      
+      <text x="0" y="44" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#2D2824">Consignor Satisfaction</text>
+      <text x="240" y="44" text-anchor="end" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#059669">99.8%</text>
+
+      <text x="0" y="74" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#2D2824">Reserve Price Strategy</text>
+      <text x="240" y="74" text-anchor="end" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#C25E38">Included</text>
+    </g>
+
+    <rect x="20" y="195" width="240" height="30" rx="8" fill="#FBF9F7" stroke="#E6DFD7" stroke-width="1"/>
+    <text x="140" y="215" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#7D6F62">Direct Channel to Auction House</text>
+  </g>
+</svg>

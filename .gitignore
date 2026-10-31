@@ -1,0 +1,65 @@
+# Dependencies
+node_modules/
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+uv.lock
+
+# Environment variables (NEVER commit these)
+.env
+.env.local
+.env.*.local
+
+# SSL certificates
+*.pem
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build output
+dist/
+build/
+
+# Logs
+*.log
+logs/
+
+# Uploads (user content, not source)
+uploads/
+
+# Test artifacts & local state
+server/coverage/
+server/uploads/
+e2e/test-results/
+e2e/playwright-report/
+e2e/storage_*.json
+storage_*.json
+
+# Local security audit outputs & scanner caches
+security-audit-output/
+audit-output/
+.audit-cache/
+security-reports-temp/
+*.sarif
+*.security-report.json
+.audit-tmp/
+.verification-cache/
+.tmp-audit/
+playwright-report/
+test-results/
+coverage/
+.snyk-tmp/
+.trivycache/
+
+# Agents & Scratch
+.agents/
+scratch/

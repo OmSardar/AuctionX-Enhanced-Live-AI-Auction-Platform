@@ -1,0 +1,232 @@
+/* ==========================================================================
+   Auction X — Core Design Tokens
+   Warm Marketplace + Hybrid Interface
+   ========================================================================== */
+
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant sidebar-expanded (&:where(.sidebar-expanded, .sidebar-expanded *));
+
+@theme {
+  /* ------------------------------------------------------------------------
+     Typography
+     ------------------------------------------------------------------------ */
+  --font-inter: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  --font-display: "DM Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Typography Scale */
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.5;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.5715;
+  --text-base: 1rem;
+  --text-base--line-height: 1.5;
+  --text-base--letter-spacing: -0.01em;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.5;
+  --text-lg--letter-spacing: -0.01em;
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 1.5;
+  --text-xl--letter-spacing: -0.01em;
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: 1.33;
+  --text-2xl--letter-spacing: -0.01em;
+  --text-3xl: 1.875rem;
+  --text-3xl--line-height: 1.33;
+  --text-3xl--letter-spacing: -0.015em;
+  --text-4xl: 2.25rem;
+  --text-4xl--line-height: 1.25;
+  --text-4xl--letter-spacing: -0.02em;
+  --text-5xl: 3rem;
+  --text-5xl--line-height: 1.2;
+  --text-5xl--letter-spacing: -0.025em;
+  --text-6xl: 3.75rem;
+  --text-6xl--line-height: 1.15;
+  --text-6xl--letter-spacing: -0.025em;
+
+  /* ------------------------------------------------------------------------
+     Breakpoints
+     ------------------------------------------------------------------------ */
+  --breakpoint-xs: 480px;
+
+  /* ------------------------------------------------------------------------
+     Border Radii — 4px-based scale
+     ------------------------------------------------------------------------ */
+  --radius-xs: 0.125rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;     /* 8px — standard controls */
+  --radius-lg: 0.75rem;    /* 12px — cards */
+  --radius-xl: 1rem;       /* 16px — larger panels */
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* ------------------------------------------------------------------------
+     Elevation & Shadows — Subtle, warm-tinted
+     ------------------------------------------------------------------------ */
+  --shadow-xs: 0 1px 2px 0 rgb(84 43 33 / 0.04);
+  --shadow-sm: 0 1px 3px 0 rgb(84 43 33 / 0.06), 0 1px 2px -1px rgb(84 43 33 / 0.06);
+  --shadow-md: 0 4px 6px -1px rgb(84 43 33 / 0.07), 0 2px 4px -2px rgb(84 43 33 / 0.07);
+  --shadow-lg: 0 10px 15px -3px rgb(84 43 33 / 0.08), 0 4px 6px -4px rgb(84 43 33 / 0.08);
+  --shadow-xl: 0 20px 25px -5px rgb(84 43 33 / 0.09), 0 8px 10px -6px rgb(84 43 33 / 0.09);
+
+  /* ------------------------------------------------------------------------
+     Foundational Primitives: White & Black
+     ------------------------------------------------------------------------ */
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* ------------------------------------------------------------------------
+     Palettes: Warm Gray (Neutral foundation)
+     ------------------------------------------------------------------------ */
+  --color-gray-50: #FAF8F5;
+  --color-gray-100: #F0EBE5;
+  --color-gray-200: #E2DAD1;
+  --color-gray-300: #CFC4B8;
+  --color-gray-400: #A69888;
+  --color-gray-500: #7D6F62;
+  --color-gray-600: #5E524A;
+  --color-gray-700: #443A34;
+  --color-gray-800: #302824;
+  --color-gray-900: #231D19;
+  --color-gray-950: #0F0D0B;
+
+  /* Brand Primary: Terracotta */
+  --color-primary-50: #FDF5F0;
+  --color-primary-100: #FAE8DD;
+  --color-primary-200: #F5CCBA;
+  --color-primary-300: #EDA88C;
+  --color-primary-400: #D97A56;
+  --color-primary-500: #C65D3A;
+  --color-primary-600: #B04E2E;
+  --color-primary-700: #7F3828;
+  --color-primary-800: #6A2E20;
+  --color-primary-900: #542B21;
+  --color-primary-950: #3A1A12;
+
+  /* Accent: Warm Copper (for dashboard parity) */
+  --color-violet-50: #FFF5EE;
+  --color-violet-100: #FFE8D8;
+  --color-violet-200: #FFD0B0;
+  --color-violet-300: #FFB080;
+  --color-violet-400: #E89058;
+  --color-violet-500: #C06A35;
+  --color-violet-600: #A3562A;
+  --color-violet-700: #864520;
+  --color-violet-800: #6A3518;
+  --color-violet-900: #4E2612;
+  --color-violet-950: #33180A;
+
+  /* Info / Sky (Cool accent for information) */
+  --color-sky-50: #EFF6FF;
+  --color-sky-100: #DBEAFE;
+  --color-sky-200: #BDDAF9;
+  --color-sky-300: #93C4F0;
+  --color-sky-400: #5B9FDD;
+  --color-sky-500: #3568A8;
+  --color-sky-600: #2B5690;
+  --color-sky-700: #234577;
+  --color-sky-800: #1C365E;
+  --color-sky-900: #152845;
+  --color-sky-950: #0D1A2E;
+
+  /* Status: Green (Success) — anchored on #287A4B */
+  --color-green-50: #EEFAF2;
+  --color-green-100: #D3F1DE;
+  --color-green-200: #A8E3BF;
+  --color-green-300: #74CF99;
+  --color-green-400: #43B573;
+  --color-green-500: #287A4B;
+  --color-green-600: #21673F;
+  --color-green-700: #1A5433;
+  --color-green-800: #144028;
+  --color-green-900: #0F2D1D;
+  --color-green-950: #081A11;
+
+  /* Status: Red (Error) — anchored on #B93838 */
+  --color-red-50: #FEF2F2;
+  --color-red-100: #FDE3E3;
+  --color-red-200: #FBBCBC;
+  --color-red-300: #F79090;
+  --color-red-400: #E05858;
+  --color-red-500: #B93838;
+  --color-red-600: #9B2C2C;
+  --color-red-700: #822525;
+  --color-red-800: #6B1F1F;
+  --color-red-900: #521919;
+  --color-red-950: #330F0F;
+
+  /* Status: Amber / Warning — anchored on #A65D0A */
+  --color-yellow-50: #FFF8EB;
+  --color-yellow-100: #FFEFC7;
+  --color-yellow-200: #FFDE8A;
+  --color-yellow-300: #FFCA4D;
+  --color-yellow-400: #E8A81A;
+  --color-yellow-500: #C68A0E;
+  --color-yellow-600: #A65D0A;
+  --color-yellow-700: #864B08;
+  --color-yellow-800: #663906;
+  --color-yellow-900: #462704;
+  --color-yellow-950: #2C1903;
+
+  /* Semantic Surface Tokens */
+  --color-canvas: var(--color-bg-canvas);
+  --color-surface: var(--color-bg-surface);
+  --color-surface-raised: var(--color-bg-surface-raised);
+  --color-surface-subtle: var(--color-bg-surface-subtle);
+  --color-surface-overlay: var(--color-bg-surface-overlay);
+
+  /* Semantic Typography Tokens */
+  --color-foreground: var(--color-text-primary);
+  --color-foreground-secondary: var(--color-text-secondary);
+  --color-foreground-muted: var(--color-text-muted);
+  --color-foreground-inverse: var(--color-text-inverse);
+
+  /* Semantic Border & Focus Tokens */
+  --color-border-subtle: var(--color-border-subtle);
+  --color-border-default: var(--color-border-default);
+  --color-border-strong: var(--color-border-strong);
+  --color-ring-focus: var(--color-ring-focus);
+
+  /* Semantic Action Tokens */
+  --color-action-primary: var(--color-action-primary);
+  --color-action-primary-hover: var(--color-action-primary-hover);
+  --color-action-primary-active: var(--color-action-primary-active);
+  --color-action-secondary: var(--color-action-secondary);
+  --color-action-secondary-hover: var(--color-action-secondary-hover);
+  --color-action-secondary-active: var(--color-action-secondary-active);
+  --color-action-destructive: var(--color-action-destructive);
+  --color-action-destructive-hover: var(--color-action-destructive-hover);
+  --color-action-destructive-active: var(--color-action-destructive-active);
+
+  /* Semantic Status Tokens */
+  --color-status-success: var(--color-status-success);
+  --color-status-success-bg: var(--color-status-success-bg);
+  --color-status-warning: var(--color-status-warning);
+  --color-status-warning-bg: var(--color-status-warning-bg);
+  --color-status-error: var(--color-status-error);
+  --color-status-error-bg: var(--color-status-error-bg);
+  --color-status-info: var(--color-status-info);
+  --color-status-info-bg: var(--color-status-info-bg);
+
+  /* Contextual Brand & Subsystem Accent Tokens */
+  --color-brand-gold: var(--color-brand-gold);
+  --color-brand-gold-hover: var(--color-brand-gold-hover);
+  --color-brand-gold-subtle: var(--color-brand-gold-subtle);
+  --color-dashboard-accent: var(--color-dashboard-accent);
+  --color-dashboard-accent-hover: var(--color-dashboard-accent-hover);
+  --color-dashboard-accent-subtle: var(--color-dashboard-accent-subtle);
+
+  /* Auction Domain Semantics */
+  --color-auction-live: var(--color-auction-live);
+  --color-auction-live-bg: var(--color-auction-live-bg);
+  --color-auction-ending: var(--color-auction-ending);
+  --color-auction-ending-bg: var(--color-auction-ending-bg);
+  --color-auction-reserve: var(--color-auction-reserve);
+  --color-auction-reserve-bg: var(--color-auction-reserve-bg);
+  --color-auction-closed: var(--color-auction-closed);
+  --color-auction-closed-bg: var(--color-auction-closed-bg);
+  --color-bid-highest: var(--color-bid-highest);
+  --color-bid-winning: var(--color-bid-winning);
+  --color-bid-outbid: var(--color-bid-outbid);
+}

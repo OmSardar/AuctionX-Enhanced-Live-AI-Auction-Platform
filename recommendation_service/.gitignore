@@ -1,0 +1,45 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+
+# Environment variables
+.env
+
+# VSCode / IDE settings
+.vscode/
+.idea/
+
+# Pytest cache
+.pytest_cache/
+
+# MyPy and other static analysis tools
+.mypy_cache/
+.dmypy.json
+.pyre/
+
+# Redis dump files (if any)
+dump.rdb
+
+# OS / system files
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+htmlcov/
+.coverage
+coverage.xml
+
+# Logs
+*.log
+
+# Pydantic schema cache
+__pydantic_cache__/
+
+# Render build cache
+build/
+render.yaml

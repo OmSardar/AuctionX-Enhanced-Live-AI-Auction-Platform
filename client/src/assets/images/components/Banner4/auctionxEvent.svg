@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="100%" height="100%">
+  <defs>
+    <!-- Background Radial Gradients -->
+    <radialGradient id="eventBg" cx="50%" cy="38%" r="68%">
+      <stop offset="0%" stop-color="#1e1838"/>
+      <stop offset="45%" stop-color="#0f0c20"/>
+      <stop offset="80%" stop-color="#070512"/>
+      <stop offset="100%" stop-color="#020108"/>
+    </radialGradient>
+    <linearGradient id="eventSpotlight" x1="50%" y1="0%" x2="50%" y2="85%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.28"/>
+      <stop offset="45%" stop-color="#d97706" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#b45309" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Metallic Gold & Brass Gradients -->
+    <linearGradient id="eventGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="25%" stop-color="#fde047"/>
+      <stop offset="55%" stop-color="#eab308"/>
+      <stop offset="80%" stop-color="#b45309"/>
+      <stop offset="100%" stop-color="#713f12"/>
+    </linearGradient>
+    <linearGradient id="gavelWood" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#291811"/>
+      <stop offset="35%" stop-color="#4a2818"/>
+      <stop offset="70%" stop-color="#6e3c23"/>
+      <stop offset="90%" stop-color="#3b1f13"/>
+      <stop offset="100%" stop-color="#1f100a"/>
+    </linearGradient>
+
+    <!-- Platform Gradients -->
+    <linearGradient id="eventPodium" x1="0%" y1="0%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#1c192e"/>
+      <stop offset="50%" stop-color="#2d264a"/>
+      <stop offset="100%" stop-color="#120e20"/>
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="eventGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1024" height="1024" fill="url(#eventBg)"/>
+
+  <!-- Overhead Event Spotlight -->
+  <polygon points="512,15 160,840 864,840" fill="url(#eventSpotlight)"/>
+
+  <!-- Core Ambient Glow Halo -->
+  <circle cx="512" cy="460" r="320" fill="#f59e0b" opacity="0.08" filter="url(#eventGlow)"/>
+  <circle cx="512" cy="460" r="220" fill="#a855f7" opacity="0.06" filter="url(#eventGlow)"/>
+
+  <!-- Holographic Bidding Pulsing Rings (Geometric Orbital Waves) -->
+  <ellipse cx="512" cy="520" rx="360" ry="110" fill="none" stroke="#fde047" stroke-width="1.5" stroke-dasharray="8,12,24,12" opacity="0.4" filter="url(#eventGlow)"/>
+  <ellipse cx="512" cy="520" rx="300" ry="90" fill="none" stroke="#a855f7" stroke-width="1" stroke-dasharray="16,8,32,8" opacity="0.3"/>
+  <ellipse cx="512" cy="520" rx="240" ry="70" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4,8" opacity="0.35"/>
+
+  <!-- Floating Golden Atmosphere Particles / Stardust -->
+  <circle cx="320" cy="220" r="3.5" fill="#fde047" opacity="0.5"/>
+  <circle cx="680" cy="200" r="4.5" fill="#fde047" opacity="0.55"/>
+  <circle cx="260" cy="450" r="2.5" fill="#fde047" opacity="0.35"/>
+  <circle cx="760" cy="470" r="4" fill="#fde047" opacity="0.45"/>
+  <circle cx="430" cy="150" r="3" fill="#fde047" opacity="0.6"/>
+  <circle cx="590" cy="130" r="3.5" fill="#fde047" opacity="0.55"/>
+  <circle cx="310" cy="640" r="3" fill="#fde047" opacity="0.4"/>
+  <circle cx="720" cy="620" r="3.5" fill="#fde047" opacity="0.4"/>
+
+  <!-- Base Stage Floor Shadow -->
+  <ellipse cx="512" cy="850" rx="360" ry="65" fill="#000000" opacity="0.95"/>
+
+  <!-- Main Event Stage / Tiered Platform -->
+  <!-- Base Tier -->
+  <polygon points="202,820 282,770 742,770 822,820 742,870 282,870" fill="url(#eventPodium)" stroke="url(#eventGold)" stroke-width="1.5"/>
+  <polygon points="202,820 822,820 822,840 742,890 282,890 202,840" fill="#0b0816"/>
+  <!-- Velvet/Marble Stepped Dais -->
+  <polygon points="262,780 322,745 702,745 762,780 702,815 322,815" fill="#1b152e" stroke="#c084fc" stroke-width="1.5"/>
+  <!-- Platform Rim Sheen -->
+  <ellipse cx="512" cy="775" rx="200" ry="22" fill="#f59e0b" opacity="0.12"/>
+
+  <!-- Commemorative Stage Plaque -->
+  <g transform="translate(362, 815)">
+    <rect width="300" height="46" rx="6" fill="#151024" stroke="url(#eventGold)" stroke-width="2"/>
+    <text x="150" y="21" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#fef08a" text-anchor="middle" letter-spacing="2">AUCTIONX PREMIER EVENT</text>
+    <text x="150" y="37" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="600" fill="#e9d5ff" text-anchor="middle" letter-spacing="1.5">CURATED EXCLUSIVE LOTS</text>
+  </g>
+
+  <!-- SOUND BLOCK (AUCTIONEER'S ANVIL) -->
+  <g id="soundBlock" transform="translate(512, 690)">
+    <!-- Block Shadow -->
+    <ellipse cx="0" cy="55" rx="140" ry="32" fill="#000000" opacity="0.8" filter="url(#eventGlow)"/>
+    <!-- Round Sound Block Base -->
+    <ellipse cx="0" cy="40" rx="120" ry="30" fill="#1f100a" stroke="url(#eventGold)" stroke-width="1.5"/>
+    <path d="M-120,40 L-120,15 C-120,-2 120,-2 120,15 L120,40 Z" fill="url(#gavelWood)"/>
+    <!-- Sound Block Top Surface -->
+    <ellipse cx="0" cy="15" rx="120" ry="28" fill="url(#gavelWood)" stroke="url(#eventGold)" stroke-width="2"/>
+    <!-- Brass Inlay Ring on Sound Block -->
+    <ellipse cx="0" cy="15" rx="90" ry="20" fill="none" stroke="url(#eventGold)" stroke-width="2.5"/>
+    <ellipse cx="0" cy="15" rx="80" ry="17" fill="#120a06" opacity="0.5"/>
+  </g>
+
+  <!-- ARTISANAL MASTER AUCTION GAVEL (Tilted in Dramatic Stance) -->
+  <g id="auctionGavel" transform="translate(480, 480) rotate(-28)">
+    <!-- Gavel Cast Shadow -->
+    <rect x="-24" y="-70" width="280" height="45" rx="12" fill="#000000" opacity="0.5" filter="url(#eventGlow)"/>
+
+    <!-- Gavel Turned Handle -->
+    <!-- Pommel End (Left) -->
+    <circle cx="-130" cy="0" r="14" fill="url(#eventGold)" stroke="#713f12" stroke-width="1.5"/>
+    <rect x="-124" y="-8" width="18" height="16" rx="4" fill="url(#eventGold)"/>
+    <!-- Main Turned Wooden Handle -->
+    <path d="M-106,-8 L70,-11 L70,11 L-106,8 Z" fill="url(#gavelWood)" stroke="#1a0b06" stroke-width="1.5"/>
+    <!-- Decorative Brass Rings on Handle -->
+    <rect x="-70" y="-10" width="8" height="20" rx="2" fill="url(#eventGold)"/>
+    <rect x="-20" y="-10" width="10" height="20" rx="2" fill="url(#eventGold)"/>
+    <rect x="35" y="-11" width="8" height="22" rx="2" fill="url(#eventGold)"/>
+    <rect x="62" y="-12" width="12" height="24" rx="2" fill="url(#eventGold)"/>
+
+    <!-- Gavel Head (Cylindrical Double-Ended Mallet) -->
+    <g transform="translate(90, 0)">
+      <!-- Head Shadow & Base Body -->
+      <rect x="-32" y="-95" width="64" height="190" rx="16" fill="url(#gavelWood)" stroke="#1a0b06" stroke-width="2"/>
+
+      <!-- Center Brass Collar Ring (Where handle enters) -->
+      <rect x="-35" y="-22" width="70" height="44" rx="4" fill="url(#eventGold)" stroke="#713f12" stroke-width="1.5"/>
+      <ellipse cx="0" cy="0" rx="12" ry="12" fill="#291811" stroke="url(#eventGold)" stroke-width="1.5"/>
+
+      <!-- Top Striking Face (Brass Ring & Beveled End) -->
+      <rect x="-34" y="-85" width="68" height="18" fill="url(#eventGold)" stroke="#713f12" stroke-width="1"/>
+      <ellipse cx="0" cy="-95" rx="32" ry="12" fill="url(#eventGold)" stroke="#fef08a" stroke-width="1.5"/>
+
+      <!-- Bottom Striking Face (Brass Ring & Beveled End) -->
+      <rect x="-34" y="67" width="68" height="18" fill="url(#eventGold)" stroke="#713f12" stroke-width="1"/>
+      <ellipse cx="0" cy="95" rx="32" ry="12" fill="url(#eventGold)" stroke="#fef08a" stroke-width="1.5"/>
+
+      <!-- Specular Highlight Glint on Gavel Head -->
+      <line x1="-15" y1="-80" x2="-15" y2="80" stroke="#ffffff" stroke-width="2" opacity="0.3" filter="url(#eventGlow)"/>
+    </g>
+
+    <!-- Starburst Flash Glint at Striking Edge -->
+    <g transform="translate(90, -95)">
+      <line x1="-25" y1="0" x2="25" y2="0" stroke="#ffffff" stroke-width="2.5" filter="url(#eventGlow)"/>
+      <line x1="0" y1="-25" x2="0" y2="25" stroke="#ffffff" stroke-width="2.5" filter="url(#eventGlow)"/>
+      <circle cx="0" cy="0" r="5" fill="#ffffff"/>
+    </g>
+  </g>
+
+  <!-- Top Badges -->
+  <g transform="translate(64, 56)">
+    <!-- Header Pill -->
+    <rect width="320" height="42" rx="21" fill="#151024" stroke="url(#eventGold)" stroke-width="1.5" opacity="0.95"/>
+    <!-- Status Dot -->
+    <circle cx="26" cy="21" r="5" fill="#f59e0b" filter="url(#eventGlow)"/>
+    <!-- Label -->
+    <text x="44" y="26" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="800" fill="#f8fafc" letter-spacing="2">AUCTIONX LIVE AUCTION</text>
+  </g>
+
+  <!-- Top Right Relic Tag -->
+  <g transform="translate(680, 56)">
+    <rect width="280" height="42" rx="8" fill="#151024" stroke="#a855f7" stroke-width="1" opacity="0.9"/>
+    <text x="140" y="26" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#d8b4fe" text-anchor="middle" letter-spacing="1.5">FEATURED COLLECTION</text>
+  </g>
+</svg>

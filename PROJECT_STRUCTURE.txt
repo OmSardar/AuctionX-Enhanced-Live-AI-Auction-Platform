@@ -1,0 +1,997 @@
+Auction-X-Enhanced/
+├── .agents/
+│   └── rules/
+│       └── codegraph-first.md
+├── .git/
+├── client/
+│   ├── dist/
+│   ├── node_modules/
+│   ├── public/
+│   │   ├── android-chrome-192x192.png
+│   │   ├── android-chrome-512x512.png
+│   │   ├── apple-touch-icon.png
+│   │   ├── default-profile.png
+│   │   ├── favicon-16x16.png
+│   │   ├── favicon-32x32.png
+│   │   ├── favicon.ico
+│   │   ├── index.html
+│   │   ├── site.webmanifest
+│   │   └── vite.svg
+│   ├── src/
+│   │   ├── assets/
+│   │   │   ├── Fabicon image/
+│   │   │   │   └── android-chrome-192x192.png
+│   │   │   └── images/
+│   │   │       ├── components/
+│   │   │       │   ├── Avartars/
+│   │   │       │   │   ├── avartar1.png
+│   │   │       │   │   ├── avartar2.png
+│   │   │       │   │   ├── avartar3.png
+│   │   │       │   │   ├── avartar4.png
+│   │   │       │   │   └── avartar5.png
+│   │   │       │   ├── Banner/
+│   │   │       │   │   ├── auction 1.png
+│   │   │       │   │   ├── auction 2.png
+│   │   │       │   │   ├── auction 3.jpg
+│   │   │       │   │   ├── auction 4.png
+│   │   │       │   │   ├── auction 5.png
+│   │   │       │   │   ├── auction 6.png
+│   │   │       │   │   └── auction 7.png
+│   │   │       │   ├── Banner2/
+│   │   │       │   │   ├── AuctionXAngelina.jpg
+│   │   │       │   │   ├── AuctionXGill.png
+│   │   │       │   │   ├── AuctionXJapanese.jpg
+│   │   │       │   │   ├── AuctionXMessi.jpg
+│   │   │       │   │   ├── AuctionXRock.jpg
+│   │   │       │   │   ├── AuctionXRonaldo.jpg
+│   │   │       │   │   ├── AuctionXScarlet.png
+│   │   │       │   │   ├── AuctionXSwift.png
+│   │   │       │   │   └── AuctionXVirat.jpg
+│   │   │       │   ├── Banner4/
+│   │   │       │   │   ├── BOTH.gif
+│   │   │       │   │   ├── Today.gif
+│   │   │       │   │   └── Tommorow.gif
+│   │   │       │   ├── Payment/
+│   │   │       │   │   ├── COIN IMAGE.png
+│   │   │       │   │   ├── credit.png
+│   │   │       │   │   ├── debit.png
+│   │   │       │   │   ├── Gpay.png
+│   │   │       │   │   ├── net-banking-icon.png
+│   │   │       │   │   └── PhonePe.png
+│   │   │       │   ├── Share/
+│   │   │       │   │   ├── cross.jpg
+│   │   │       │   │   └── share.jpg
+│   │   │       │   └── SlideDeisgn/
+│   │   │       │       ├── can 2.png
+│   │   │       │       ├── Contents-2.png
+│   │   │       │       ├── Contents.png
+│   │   │       │       ├── orange-1.png
+│   │   │       │       ├── orange-2.png
+│   │   │       │       ├── orange-3.png
+│   │   │       │       ├── pineapple-1.png
+│   │   │       │       ├── pineapple-2.png
+│   │   │       │       └── pineapple-3.png
+│   │   │       ├── FooterElements/
+│   │   │       │   ├── AboutUs/
+│   │   │       │   │   ├── KunalSarkar.jpg
+│   │   │       │   │   ├── locationpin.png
+│   │   │       │   │   ├── OmSardar.jpg
+│   │   │       │   │   ├── our-story-innovation.jpg
+│   │   │       │   │   ├── our-story-innovation1.png
+│   │   │       │   │   ├── our-story.png
+│   │   │       │   │   ├── SouravKhanra.jpg
+│   │   │       │   │   └── SubhoSamanta.jpg
+│   │   │       │   └── Footer/
+│   │   │       │       ├── slideLogo-1.png
+│   │   │       │       ├── slideLogo-2.png
+│   │   │       │       ├── slideLogo-3.png
+│   │   │       │       ├── slideLogo-4.png
+│   │   │       │       ├── slideLogo-5.png
+│   │   │       │       ├── slideLogo-6.png
+│   │   │       │       ├── slideLogo-7.png
+│   │   │       │       ├── slideLogo-8.png
+│   │   │       │       └── slideLogo-9.png
+│   │   │       ├── Layouts/
+│   │   │       │   ├── AutionX.png
+│   │   │       │   ├── ChatBot.gif
+│   │   │       │   ├── ChatBot.png
+│   │   │       │   ├── ChatBot1.png
+│   │   │       │   ├── facebook.png
+│   │   │       │   ├── github-logo.png
+│   │   │       │   ├── instagram.png
+│   │   │       │   ├── linkedin.png
+│   │   │       │   ├── mascot_navbar.gif
+│   │   │       │   ├── mascot_profile.gif
+│   │   │       │   ├── messageBox.png
+│   │   │       │   ├── profile.png
+│   │   │       │   └── twitter.png
+│   │   │       └── Pages/
+│   │   │           └── Login/
+│   │   │               ├── log.svg
+│   │   │               └── register.svg
+│   │   ├── components/
+│   │   │   ├── AdminDashboard/
+│   │   │   │   ├── adminCharts/
+│   │   │   │   │   ├── BarChart01.jsx
+│   │   │   │   │   ├── BarChart02.jsx
+│   │   │   │   │   ├── BarChart03.jsx
+│   │   │   │   │   ├── ChartjsConfig.jsx
+│   │   │   │   │   ├── DoughnutChart.jsx
+│   │   │   │   │   ├── LineChart01.jsx
+│   │   │   │   │   ├── LineChart02.jsx
+│   │   │   │   │   └── RealtimeChart.jsx
+│   │   │   │   ├── admincss/
+│   │   │   │   │   ├── additional-styles/
+│   │   │   │   │   │   └── utility-patterns.css
+│   │   │   │   │   └── adminStyle.css
+│   │   │   │   ├── components/
+│   │   │   │   │   ├── ui/
+│   │   │   │   │   │   ├── calendar.jsx
+│   │   │   │   │   │   └── popover.jsx
+│   │   │   │   │   ├── Datepicker.jsx
+│   │   │   │   │   ├── DateSelect.jsx
+│   │   │   │   │   ├── DropdownEditMenu.jsx
+│   │   │   │   │   ├── DropdownFilter.jsx
+│   │   │   │   │   ├── DropdownHelp.jsx
+│   │   │   │   │   ├── DropdownNotifications.jsx
+│   │   │   │   │   ├── DropdownProfile.jsx
+│   │   │   │   │   ├── ModalSearch.jsx
+│   │   │   │   │   ├── ThemeToggle.jsx
+│   │   │   │   │   └── Tooltip.jsx
+│   │   │   │   ├── images/
+│   │   │   │   │   ├── favicon.png
+│   │   │   │   │   ├── icon-01.svg
+│   │   │   │   │   ├── icon-02.svg
+│   │   │   │   │   ├── icon-03.svg
+│   │   │   │   │   ├── user-36-05.jpg
+│   │   │   │   │   ├── user-36-06.jpg
+│   │   │   │   │   ├── user-36-07.jpg
+│   │   │   │   │   ├── user-36-08.jpg
+│   │   │   │   │   ├── user-36-09.jpg
+│   │   │   │   │   └── user-avatar-32.png
+│   │   │   │   ├── lib/
+│   │   │   │   │   └── utils.ts
+│   │   │   │   ├── pages/
+│   │   │   │   │   ├── Goodies/
+│   │   │   │   │   │   └── Goodies.jsx
+│   │   │   │   │   ├── AddAdmins.jsx
+│   │   │   │   │   ├── AddBanner.jsx
+│   │   │   │   │   ├── AdminAdminLogs.jsx
+│   │   │   │   │   ├── AdminAnalytics.jsx
+│   │   │   │   │   ├── AdminCalender.jsx
+│   │   │   │   │   ├── AdminContactUS.jsx
+│   │   │   │   │   ├── AdminCustomers.jsx
+│   │   │   │   │   ├── AdminCustomEvents.jsx
+│   │   │   │   │   ├── AdminDashboard.jsx
+│   │   │   │   │   ├── AdminDeposite.jsx
+│   │   │   │   │   ├── AdminDocumentation.jsx
+│   │   │   │   │   ├── AdminDownloadDataExcel.jsx
+│   │   │   │   │   ├── AdminFAQ.jsx
+│   │   │   │   │   ├── AdminFeedback.jsx
+│   │   │   │   │   ├── AdminInventory.jsx
+│   │   │   │   │   ├── AdminInvoice.jsx
+│   │   │   │   │   ├── AdminManageUsers.jsx
+│   │   │   │   │   ├── AdminMyAccount.jsx
+│   │   │   │   │   ├── AdminMyNotifications.jsx
+│   │   │   │   │   ├── AdminOrders.jsx
+│   │   │   │   │   ├── AdminPrivacyRequest.jsx
+│   │   │   │   │   ├── AdminReports.jsx
+│   │   │   │   │   ├── AdminRoadmap.jsx
+│   │   │   │   │   ├── AdminSales.jsx
+│   │   │   │   │   ├── AdminSeller.jsx
+│   │   │   │   │   ├── AdminSellerHistory.jsx
+│   │   │   │   │   ├── AdminSubscriptions.jsx
+│   │   │   │   │   ├── AdminTransactions.jsx
+│   │   │   │   │   └── AdminWithdraw.jsx
+│   │   │   │   ├── partials/
+│   │   │   │   │   ├── dashboard/
+│   │   │   │   │   │   ├── AdminAccount/
+│   │   │   │   │   │   │   ├── AdminAccountPage.jsx
+│   │   │   │   │   │   │   ├── NotificationsTab.jsx
+│   │   │   │   │   │   │   ├── ProfileTab.jsx
+│   │   │   │   │   │   │   └── SecurityTab.jsx
+│   │   │   │   │   │   ├── GoodiesPage/
+│   │   │   │   │   │   │   ├── GoodiesPage.jsx
+│   │   │   │   │   │   │   └── SellGoodiesPage.jsx
+│   │   │   │   │   │   ├── Utility/
+│   │   │   │   │   │   │   └── ActivityLogTab.jsx
+│   │   │   │   │   │   ├── AddAdminsPage.jsx
+│   │   │   │   │   │   ├── AddBannerPage.jsx
+│   │   │   │   │   │   ├── AdminLogsPage.jsx
+│   │   │   │   │   │   ├── CalenderPage.jsx
+│   │   │   │   │   │   ├── ContactUsPage.jsx
+│   │   │   │   │   │   ├── Customers.jsx
+│   │   │   │   │   │   ├── Customers2.jsx
+│   │   │   │   │   │   ├── CustomEventsPage.jsx
+│   │   │   │   │   │   ├── DepositePage.jsx
+│   │   │   │   │   │   ├── DocumentationPage.jsx
+│   │   │   │   │   │   ├── DownloadDataExcelPage.jsx
+│   │   │   │   │   │   ├── FAQPage.jsx
+│   │   │   │   │   │   ├── FeedbackPage.jsx
+│   │   │   │   │   │   ├── GraphWide1.jsx
+│   │   │   │   │   │   ├── GraphWide2.jsx
+│   │   │   │   │   │   ├── GraphWide3.jsx
+│   │   │   │   │   │   ├── GraphWide4.jsx
+│   │   │   │   │   │   ├── GraphWide5.jsx
+│   │   │   │   │   │   ├── GraphWide6.jsx
+│   │   │   │   │   │   ├── GraphWide7.jsx
+│   │   │   │   │   │   ├── GraphWidePieChart.jsx
+│   │   │   │   │   │   ├── Inventory.jsx
+│   │   │   │   │   │   ├── InvoicePage.jsx
+│   │   │   │   │   │   ├── LatestRevenue.jsx
+│   │   │   │   │   │   ├── ManageUsersPage.jsx
+│   │   │   │   │   │   ├── MyNotificationPage.jsx
+│   │   │   │   │   │   ├── OrdersPage.jsx
+│   │   │   │   │   │   ├── PrivacyRequestPage.jsx
+│   │   │   │   │   │   ├── ReportsPage.jsx
+│   │   │   │   │   │   ├── RevenueVisitors.jsx
+│   │   │   │   │   │   ├── RoadmapPage.jsx
+│   │   │   │   │   │   ├── SellerHistoryPage.jsx
+│   │   │   │   │   │   ├── SellerPage.jsx
+│   │   │   │   │   │   ├── SubscriptionPage.jsx
+│   │   │   │   │   │   ├── TransactionPage.jsx
+│   │   │   │   │   │   ├── WideCard1.jsx
+│   │   │   │   │   │   ├── WideCard2.jsx
+│   │   │   │   │   │   ├── WideCard3.jsx
+│   │   │   │   │   │   └── WithdrawPage.jsx
+│   │   │   │   │   ├── Header.jsx
+│   │   │   │   │   ├── Sidebar.jsx
+│   │   │   │   │   └── SidebarLinkGroup.jsx
+│   │   │   │   ├── utils/
+│   │   │   │   │   ├── Info.jsx
+│   │   │   │   │   ├── ThemeContext.jsx
+│   │   │   │   │   ├── Transition.jsx
+│   │   │   │   │   └── Utils.js
+│   │   │   │   ├── App.jsx
+│   │   │   │   └── favicon.svg
+│   │   │   ├── Banner/
+│   │   │   │   ├── Banner1/
+│   │   │   │   │   └── Banner.jsx
+│   │   │   │   ├── Banner2/
+│   │   │   │   │   └── Banner2.jsx
+│   │   │   │   ├── Banner3/
+│   │   │   │   │   └── Banner3.jsx
+│   │   │   │   ├── Banner4/
+│   │   │   │   │   └── Banner4.jsx
+│   │   │   │   ├── Banner5/
+│   │   │   │   │   └── Banner5.jsx
+│   │   │   │   └── Banner6/
+│   │   │   │       └── Banner6.jsx
+│   │   │   ├── Common/
+│   │   │   │   ├── AuctionLoader/
+│   │   │   │   │   └── AuctionLoader.jsx
+│   │   │   │   ├── CardSlider/
+│   │   │   │   │   └── CardSlider.jsx
+│   │   │   │   ├── ChatQnA/
+│   │   │   │   │   └── ChatQnA.jsx
+│   │   │   │   ├── EntryLoader/
+│   │   │   │   │   └── EntryLoader.jsx
+│   │   │   │   ├── FAQ/
+│   │   │   │   │   └── FAQ.jsx
+│   │   │   │   ├── GlassyProfile/
+│   │   │   │   │   └── GlassyProfile.jsx
+│   │   │   │   ├── GreetingAnimation/
+│   │   │   │   │   └── GreetingAnimation.jsx
+│   │   │   │   ├── Loader/
+│   │   │   │   │   ├── FirstLoadLoader.jsx
+│   │   │   │   │   ├── GlobalLoading.jsx
+│   │   │   │   │   ├── Loader.jsx
+│   │   │   │   │   ├── LoaderManager.jsx
+│   │   │   │   │   └── RefreshLoader.jsx
+│   │   │   │   ├── LogoSlider/
+│   │   │   │   │   └── LogoSlider.jsx
+│   │   │   │   ├── MiniComponent/
+│   │   │   │   │   ├── Copy/
+│   │   │   │   │   │   └── Copy.jsx
+│   │   │   │   │   └── ShareMenu/
+│   │   │   │   │       └── ShareMenu.jsx
+│   │   │   │   ├── PageNotFound/
+│   │   │   │   │   └── PageNotFound.jsx
+│   │   │   │   ├── Profile/
+│   │   │   │   │   ├── ProfilePages/
+│   │   │   │   │   │   ├── BiddingGuidePage/
+│   │   │   │   │   │   │   └── BiddingGuidePage.jsx
+│   │   │   │   │   │   ├── DailyChallengesPage/
+│   │   │   │   │   │   │   └── DailyChallengesPage.jsx
+│   │   │   │   │   │   ├── FanBook/
+│   │   │   │   │   │   │   └── FanBook.jsx
+│   │   │   │   │   │   ├── FeedbackForm/
+│   │   │   │   │   │   │   └── FeedbackForm.jsx
+│   │   │   │   │   │   ├── HelpAndSupportPage/
+│   │   │   │   │   │   │   └── HelpAndSupportPage.jsx
+│   │   │   │   │   │   └── ProfileSettingsPage/
+│   │   │   │   │   │       └── ProfileSettingsPage.jsx
+│   │   │   │   │   ├── AvatarSelector.jsx
+│   │   │   │   │   ├── Profile.jsx
+│   │   │   │   │   ├── ProfileHeader.jsx
+│   │   │   │   │   └── ProfilePage.jsx
+│   │   │   │   ├── SpotifyEmbed/
+│   │   │   │   │   └── SpotifyEmbed.jsx
+│   │   │   │   └── StaticPages/
+│   │   │   │       ├── Features.jsx
+│   │   │   │       ├── SellerDashboardSlidebar.jsx
+│   │   │   │       ├── SmoothHovering.css
+│   │   │   │       └── SmoothHovering.jsx
+│   │   │   ├── Layouts/
+│   │   │   │   ├── Footer/
+│   │   │   │   │   ├── AboutUs/
+│   │   │   │   │   │   ├── AboutUs1/
+│   │   │   │   │   │   │   └── AboutUs1.jsx
+│   │   │   │   │   │   ├── AboutUs2/
+│   │   │   │   │   │   │   └── AboutUs2.jsx
+│   │   │   │   │   │   ├── AboutUs3/
+│   │   │   │   │   │   │   └── AboutUs3.jsx
+│   │   │   │   │   │   ├── ContactUs/
+│   │   │   │   │   │   │   └── ContactUs.jsx
+│   │   │   │   │   │   ├── OurReach/
+│   │   │   │   │   │   │   └── OurReach.jsx
+│   │   │   │   │   │   ├── OurStory/
+│   │   │   │   │   │   │   └── OurStory.jsx
+│   │   │   │   │   │   └── WhyUs/
+│   │   │   │   │   │       └── WhyUs.jsx
+│   │   │   │   │   ├── ConsumerPolicy/
+│   │   │   │   │   │   ├── Privacy/
+│   │   │   │   │   │   │   └── Privacy.jsx
+│   │   │   │   │   │   ├── Security/
+│   │   │   │   │   │   │   └── Security.jsx
+│   │   │   │   │   │   └── TermsAndConditions/
+│   │   │   │   │   │       └── TermsAndConditions.jsx
+│   │   │   │   │   └── Help/
+│   │   │   │   │       ├── FAQ/
+│   │   │   │   │       │   └── FAQ.jsx
+│   │   │   │   │       ├── Feedback/
+│   │   │   │   │       │   └── Feedback.jsx
+│   │   │   │   │       ├── HelpSupport/
+│   │   │   │   │       │   ├── HelpAndSupportPage.jsx
+│   │   │   │   │       │   └── HelpSupport.jsx
+│   │   │   │   │       ├── Payment/
+│   │   │   │   │       │   └── Payment.jsx
+│   │   │   │   │       ├── Report/
+│   │   │   │   │       │   └── Report.jsx
+│   │   │   │   │       └── Shipping/
+│   │   │   │   │           └── Shipping.jsx
+│   │   │   │   └── Navbar/
+│   │   │   ├── Modals/
+│   │   │   │   ├── ModalVideoPlayer/
+│   │   │   │   │   └── ModalVideoPlayer.jsx
+│   │   │   │   └── PopupModal/
+│   │   │   │       └── PopupModal.jsx
+│   │   │   ├── ProductList/
+│   │   │   │   ├── ProductList1/
+│   │   │   │   │   └── ProductList.jsx
+│   │   │   │   ├── ProductList10/
+│   │   │   │   │   └── ProductList10.jsx
+│   │   │   │   ├── ProductList2/
+│   │   │   │   │   └── ProductList2.jsx
+│   │   │   │   ├── ProductList3/
+│   │   │   │   │   └── ProductList3.jsx
+│   │   │   │   ├── ProductList4/
+│   │   │   │   │   └── ProductList4.jsx
+│   │   │   │   ├── ProductList5/
+│   │   │   │   │   └── ProductList5.jsx
+│   │   │   │   ├── ProductList6/
+│   │   │   │   │   └── ProductList6.jsx
+│   │   │   │   ├── ProductList7/
+│   │   │   │   │   └── ProductList7.jsx
+│   │   │   │   ├── ProductList8/
+│   │   │   │   │   └── ProductList8.jsx
+│   │   │   │   └── ProductList9/
+│   │   │   │       └── ProductList9.jsx
+│   │   │   ├── SellerComponents/
+│   │   │   │   ├── PricingTable/
+│   │   │   │   │   └── PricingTable.jsx
+│   │   │   │   ├── SellerBanner/
+│   │   │   │   │   ├── SellerBanner1/
+│   │   │   │   │   │   ├── SellerBanner.jsx
+│   │   │   │   │   │   └── SellerBannerCard.jsx
+│   │   │   │   │   ├── SellerBanner2/
+│   │   │   │   │   │   └── SellerBanner2.jsx
+│   │   │   │   │   ├── SellerBanner3/
+│   │   │   │   │   │   └── SellerBanner3.jsx
+│   │   │   │   │   └── SellerBanner4/
+│   │   │   │   │       └── SellerBanner4.jsx
+│   │   │   │   ├── SellerSupport/
+│   │   │   │   │   └── SellerSupport.jsx
+│   │   │   │   └── SellProduct/
+│   │   │   │       └── SellProduct.jsx
+│   │   │   ├── SellerDashboard/
+│   │   │   │   ├── components/
+│   │   │   │   │   ├── ui/
+│   │   │   │   │   │   ├── calendar.jsx
+│   │   │   │   │   │   └── popover.jsx
+│   │   │   │   │   ├── Datepicker.jsx
+│   │   │   │   │   ├── DateSelect.jsx
+│   │   │   │   │   ├── DropdownEditMenu.jsx
+│   │   │   │   │   ├── DropdownFilter.jsx
+│   │   │   │   │   ├── DropdownHelp.jsx
+│   │   │   │   │   ├── DropdownNotifications.jsx
+│   │   │   │   │   ├── DropdownProfile.jsx
+│   │   │   │   │   ├── ModalSearch.jsx
+│   │   │   │   │   ├── ThemeToggle.jsx
+│   │   │   │   │   └── Tooltip.jsx
+│   │   │   │   ├── images/
+│   │   │   │   │   ├── favicon.png
+│   │   │   │   │   ├── icon-01.svg
+│   │   │   │   │   ├── icon-02.svg
+│   │   │   │   │   ├── icon-03.svg
+│   │   │   │   │   ├── user-36-05.jpg
+│   │   │   │   │   ├── user-36-06.jpg
+│   │   │   │   │   ├── user-36-07.jpg
+│   │   │   │   │   ├── user-36-08.jpg
+│   │   │   │   │   ├── user-36-09.jpg
+│   │   │   │   │   └── user-avatar-32.png
+│   │   │   │   ├── lib/
+│   │   │   │   │   └── utils.ts
+│   │   │   │   ├── pages/
+│   │   │   │   │   ├── Goodies/
+│   │   │   │   │   │   └── Goodies.jsx
+│   │   │   │   │   ├── SellerAddAdmins.jsx
+│   │   │   │   │   ├── SellerAddBanner.jsx
+│   │   │   │   │   ├── SellerAdminContactUS.jsx
+│   │   │   │   │   ├── SellerAdminLogs.jsx
+│   │   │   │   │   ├── SellerAnalytics.jsx
+│   │   │   │   │   ├── SellerCalender.jsx
+│   │   │   │   │   ├── SellerCustomAuction.jsx
+│   │   │   │   │   ├── SellerCustomEvents.jsx
+│   │   │   │   │   ├── SellerDashboard.jsx
+│   │   │   │   │   ├── SellerDocumentation.jsx
+│   │   │   │   │   ├── SellerDownloadDataExcel.jsx
+│   │   │   │   │   ├── SellerFAQ.jsx
+│   │   │   │   │   ├── SellerFeedback.jsx
+│   │   │   │   │   ├── SellerInvoice.jsx
+│   │   │   │   │   ├── SellerManageUsers.jsx
+│   │   │   │   │   ├── SellerMyAccount.jsx
+│   │   │   │   │   ├── SellerMyNotifications.jsx
+│   │   │   │   │   ├── SellerOrderRevenue.jsx
+│   │   │   │   │   ├── SellerOrders.jsx
+│   │   │   │   │   ├── SellerPendingBids.jsx
+│   │   │   │   │   ├── SellerRoadmap.jsx
+│   │   │   │   │   ├── SellerSales.jsx
+│   │   │   │   │   ├── SellerSellItemPage.jsx
+│   │   │   │   │   ├── SellerSubscriptions.jsx
+│   │   │   │   │   ├── SellerTransactions.jsx
+│   │   │   │   │   └── SellerUpdateItemPage.jsx
+│   │   │   │   ├── partials/
+│   │   │   │   │   ├── dashboard/
+│   │   │   │   │   │   ├── AdminAccount/
+│   │   │   │   │   │   │   ├── AdminAccountPage.jsx
+│   │   │   │   │   │   │   ├── NotificationsTab.jsx
+│   │   │   │   │   │   │   ├── ProfileTab.jsx
+│   │   │   │   │   │   │   └── SecurityTab.jsx
+│   │   │   │   │   │   ├── GoodiesPage/
+│   │   │   │   │   │   │   ├── GoodiesPage.jsx
+│   │   │   │   │   │   │   └── SellGoodiesPage.jsx
+│   │   │   │   │   │   ├── PendingBids/
+│   │   │   │   │   │   │   └── PendingBids.jsx
+│   │   │   │   │   │   ├── SellItemPage/
+│   │   │   │   │   │   │   └── SellItemPage.jsx
+│   │   │   │   │   │   ├── UpdateProduct/
+│   │   │   │   │   │   │   └── UpdateProduct.jsx
+│   │   │   │   │   │   ├── Utility/
+│   │   │   │   │   │   │   └── ActivityLogTab.jsx
+│   │   │   │   │   │   ├── AddAdminsPage.jsx
+│   │   │   │   │   │   ├── AddBannerPage.jsx
+│   │   │   │   │   │   ├── AdminLogsPage.jsx
+│   │   │   │   │   │   ├── CalenderPage.jsx
+│   │   │   │   │   │   ├── ContactUsPage.jsx
+│   │   │   │   │   │   ├── CustomAuctionPage.jsx
+│   │   │   │   │   │   ├── Customers2.jsx
+│   │   │   │   │   │   ├── CustomEventsPage.jsx
+│   │   │   │   │   │   ├── DocumentationPage.jsx
+│   │   │   │   │   │   ├── DownloadDataExcelPage.jsx
+│   │   │   │   │   │   ├── FAQPage.jsx
+│   │   │   │   │   │   ├── FeedbackPage.jsx
+│   │   │   │   │   │   ├── GraphWide1.jsx
+│   │   │   │   │   │   ├── GraphWide2.jsx
+│   │   │   │   │   │   ├── GraphWide3.jsx
+│   │   │   │   │   │   ├── GraphWide4.jsx
+│   │   │   │   │   │   ├── GraphWide5.jsx
+│   │   │   │   │   │   ├── GraphWide6.jsx
+│   │   │   │   │   │   ├── GraphWide7.jsx
+│   │   │   │   │   │   ├── GraphWidePieChart.jsx
+│   │   │   │   │   │   ├── InvoicePage.jsx
+│   │   │   │   │   │   ├── LatestRevenue.jsx
+│   │   │   │   │   │   ├── ManageUsersPage.jsx
+│   │   │   │   │   │   ├── MyAccountPage.jsx
+│   │   │   │   │   │   ├── MyNotificationPage.jsx
+│   │   │   │   │   │   ├── OrderRevenuePage.jsx
+│   │   │   │   │   │   ├── OrdersPage.jsx
+│   │   │   │   │   │   ├── RevenueVisitors.jsx
+│   │   │   │   │   │   ├── RoadmapPage.jsx
+│   │   │   │   │   │   ├── SubscriptionPage.jsx
+│   │   │   │   │   │   ├── TransactionPage.jsx
+│   │   │   │   │   │   ├── WideCard1.jsx
+│   │   │   │   │   │   ├── WideCard2.jsx
+│   │   │   │   │   │   └── WideCard3.jsx
+│   │   │   │   │   ├── Header.jsx
+│   │   │   │   │   ├── Sidebar.jsx
+│   │   │   │   │   └── SidebarLinkGroup.jsx
+│   │   │   │   ├── sellerCharts/
+│   │   │   │   │   ├── BarChart01.jsx
+│   │   │   │   │   ├── BarChart02.jsx
+│   │   │   │   │   ├── BarChart03.jsx
+│   │   │   │   │   ├── ChartjsConfig.jsx
+│   │   │   │   │   ├── DoughnutChart.jsx
+│   │   │   │   │   ├── LineChart01.jsx
+│   │   │   │   │   ├── LineChart02.jsx
+│   │   │   │   │   └── RealtimeChart.jsx
+│   │   │   │   ├── sellercss/
+│   │   │   │   │   ├── additional-styles/
+│   │   │   │   │   │   └── utility-patterns.css
+│   │   │   │   │   └── sellerStyle.css
+│   │   │   │   ├── utils/
+│   │   │   │   │   ├── Info.jsx
+│   │   │   │   │   ├── ThemeContext.jsx
+│   │   │   │   │   ├── Transition.jsx
+│   │   │   │   │   └── Utils.js
+│   │   │   │   ├── App.jsx
+│   │   │   │   └── favicon.svg
+│   │   │   ├── UI/
+│   │   │   │   └── SmoothScroll/
+│   │   │   │       └── SmoothScroll.jsx
+│   │   │   └── User/
+│   │   │       ├── AnimatedNumbers/
+│   │   │       │   └── AnimatedNumbers.jsx
+│   │   │       ├── DoublePopups/
+│   │   │       │   └── DoublePopups.jsx
+│   │   │       ├── DownloadInvoice/
+│   │   │       │   └── DownloadInvoice.jsx
+│   │   │       ├── ProgressBar/
+│   │   │       │   └── ProgressBar.jsx
+│   │   │       ├── SellerProfileView/
+│   │   │       │   ├── SellerProductsList.jsx
+│   │   │       │   └── SellerProfileView.jsx
+│   │   │       ├── TodayBid/
+│   │   │       │   └── TodayBid.jsx
+│   │   │       └── TomorrowBid/
+│   │   │           └── TomorrowBid.jsx
+│   │   ├── layouts/
+│   │   │   ├── AdminLayout/
+│   │   │   │   └── AdminLayout.jsx
+│   │   │   ├── Seller/
+│   │   │   │   └── SellerLayout.jsx
+│   │   │   ├── SellerLayout/
+│   │   │   │   └── SellerLayout.jsx
+│   │   │   └── User/
+│   │   │       └── UserLayout.jsx
+│   │   ├── pages/
+│   │   │   ├── Layouts/
+│   │   │   │   ├── Footer/
+│   │   │   │   │   └── Footer.jsx
+│   │   │   │   └── Navbar/
+│   │   │   │       └── Navbar.jsx
+│   │   │   ├── Seller/
+│   │   │   │   ├── Layouts/
+│   │   │   │   │   ├── SellerFooter/
+│   │   │   │   │   │   └── SellerFooter.jsx
+│   │   │   │   │   └── SellerNavbar/
+│   │   │   │   │       └── SellerNavbar.jsx
+│   │   │   │   └── SellerHome.jsx
+│   │   │   └── User/
+│   │   │       ├── BidAnItem/
+│   │   │       │   └── BidAnItem.jsx
+│   │   │       ├── CategoryList/
+│   │   │       │   └── CategoryList.jsx
+│   │   │       ├── Dropdown/
+│   │   │       │   ├── OrderHistory/
+│   │   │       │   │   ├── DetailedOrderPage.jsx
+│   │   │       │   │   └── OrdersPage.jsx
+│   │   │       │   ├── PaymentPage/
+│   │   │       │   │   └── PaymentPage.jsx
+│   │   │       │   └── ScheduledBids/
+│   │   │       │       └── ScheduledBids.jsx
+│   │   │       ├── ProductDetails/
+│   │   │       │   └── ProductDetails.jsx
+│   │   │       ├── SearchAndPostDetail/
+│   │   │       │   └── SearchAndPostDetail.jsx
+│   │   │       ├── UserLogin/
+│   │   │       │   ├── Login.jsx
+│   │   │       │   ├── OtpVerification.jsx
+│   │   │       │   ├── PasswordResetFlow.jsx
+│   │   │       │   ├── VerifyProfilePage.jsx
+│   │   │       │   └── VerifySellerProfilePage.jsx
+│   │   │       └── Home.jsx
+│   │   ├── redux/
+│   │   │   ├── slices/
+│   │   │   │   ├── authSlice.jsx
+│   │   │   │   ├── authThunks.jsx
+│   │   │   │   ├── axiosWithAuth.jsx
+│   │   │   │   ├── csrfSecuritySlice.jsx
+│   │   │   │   └── loadingSlice.jsx
+│   │   │   └── store.jsx
+│   │   ├── services/
+│   │   │   ├── authService.jsx
+│   │   │   └── ProtectedRoute.jsx
+│   │   ├── utils/
+│   │   │   ├── auctionTimer.js
+│   │   │   └── axiosConfig.jsx
+│   │   ├── App.jsx
+│   │   ├── index.css
+│   │   └── main.jsx
+│   ├── .dockerignore
+│   ├── .env
+│   ├── .env.example
+│   ├── .env.local
+│   ├── .gitignore
+│   ├── Dockerfile
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── nginx.conf
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── postcss.config.cjs
+│   ├── README.md
+│   ├── tailwind.config.js
+│   └── vite.config.js
+├── e2e/
+│   ├── node_modules/
+│   ├── playwright-report/
+│   ├── test-results/
+│   ├── tests/
+│   │   ├── admin-flow.spec.ts
+│   │   ├── auction-bid.spec.ts
+│   │   ├── auth.spec.ts
+│   │   ├── product-browse.spec.ts
+│   │   └── seller-flow.spec.ts
+│   ├── package-lock.json
+│   ├── package.json
+│   └── playwright.config.ts
+├── recommendation_service/
+│   ├── .idea/
+│   ├── __pycache__/
+│   ├── venv/
+│   ├── .dockerignore
+│   ├── .env
+│   ├── .gitignore
+│   ├── Dockerfile
+│   ├── main.py
+│   ├── requirements-dev.txt
+│   ├── requirements.txt
+│   └── runtime.txt
+├── server/
+│   ├── controllers/
+│   │   ├── AdminControllers/
+│   │   │   ├── AdminLoginController/
+│   │   │   │   └── SETTINGS/
+│   │   │   │       ├── AdminNotificationController.js
+│   │   │   │       └── AdminProfileController.js
+│   │   │   ├── ManageSellersControllers/
+│   │   │   │   ├── SELLER-MANAGEMENT/
+│   │   │   │   │   └── SellerController.js
+│   │   │   │   └── TASKS/
+│   │   │   │       ├── BannerController.js
+│   │   │   │       ├── CalendarController.js
+│   │   │   │       └── EventController.js
+│   │   │   ├── ManageUsersControllers/
+│   │   │   │   └── E-COMMERCE/
+│   │   │   │       ├── ManageUserCustomerController.js
+│   │   │   │       ├── ManageUserInventoryController.js
+│   │   │   │       └── ManageUserOrderController.js
+│   │   │   ├── OthersControllers/
+│   │   │   │   ├── FINANCE/
+│   │   │   │   │   ├── SubscriptionController.js
+│   │   │   │   │   └── TransactionController.js
+│   │   │   │   ├── GoodieControllers.js
+│   │   │   │   ├── ManageUserFeedbackController.js
+│   │   │   │   └── ManageUserReportController.js
+│   │   │   └── RANDOM/
+│   │   │       ├── ManageSellerAccountsController.js
+│   │   │       ├── ManageSellerInventoryController.js
+│   │   │       └── ManageSellerOrderController.js
+│   │   ├── LoginControllers/
+│   │   │   ├── SellerLoginController/
+│   │   │   │   ├── Others/
+│   │   │   │   │   ├── SellerLoginController.js
+│   │   │   │   │   ├── SellerProfileController.js
+│   │   │   │   │   └── SellerVerificationController.js
+│   │   │   │   ├── SellerGoogleLoginController.js
+│   │   │   │   ├── SellerLoginController.js
+│   │   │   │   ├── SellerPaymentController.js
+│   │   │   │   ├── SellerProfileController.js
+│   │   │   │   └── SellerVerificationController.js
+│   │   │   └── UserLoginController/
+│   │   │       ├── UserGoogleLoginController.js
+│   │   │       ├── UserLoginController.js
+│   │   │       ├── UserPaymentController.js
+│   │   │       ├── UserProfileController.js
+│   │   │       └── UserVerificationController.js
+│   │   ├── OtherControllers/
+│   │   │   └── SocketController.js
+│   │   ├── SellerControllers/
+│   │   │   ├── SellerLoginController/
+│   │   │   │   └── SETTINGS/
+│   │   │   │       ├── AdminNotificationController.js
+│   │   │   │       └── AdminProfileController.js
+│   │   │   ├── SellerManageSellersControllers/
+│   │   │   │   ├── SELLER-MANAGEMENT/
+│   │   │   │   │   └── SellerController.js
+│   │   │   │   └── TASKS/
+│   │   │   │       ├── BannerController.js
+│   │   │   │       ├── CalendarController.js
+│   │   │   │       └── EventController.js
+│   │   │   ├── SellerManageUsersControllers/
+│   │   │   │   └── E-COMMERCE/
+│   │   │   │       ├── ManageUserCustomerController.js
+│   │   │   │       ├── ManageUserInventoryController.js
+│   │   │   │       └── ManageUserOrderController.js
+│   │   │   ├── SellerOrderControllers/
+│   │   │   │   └── orderControllers.js
+│   │   │   ├── SellerOthersControllers/
+│   │   │   │   ├── FINANCE/
+│   │   │   │   │   ├── DepositController.js
+│   │   │   │   │   ├── SubscriptionController.js
+│   │   │   │   │   ├── TransactionController.js
+│   │   │   │   │   └── WithdrawalController.js
+│   │   │   │   ├── GoodieControllers.js
+│   │   │   │   ├── ManageUserFeedbackController.js
+│   │   │   │   └── ManageUserReportController.js
+│   │   │   ├── SellerProductController/
+│   │   │   │   └── productController.js
+│   │   │   └── SellerRANDOM/
+│   │   │       ├── ManageSellerAccountsController.js
+│   │   │       ├── ManageSellerInventoryController.js
+│   │   │       └── ManageSellerOrderController.js
+│   │   └── UserControllers/
+│   │       ├── contactController/
+│   │       │   └── contactController.js
+│   │       ├── faqController/
+│   │       │   └── faqController.js
+│   │       ├── feedbackController/
+│   │       │   └── feedbackUserController.js
+│   │       ├── PrivacyRequest/
+│   │       │   └── privacyRequestController.js
+│   │       └── productFeedbackController/
+│   │           └── productFeedbackController.js
+│   ├── logs/
+│   ├── middleware/
+│   │   ├── AdminMiddleware/
+│   │   ├── LoginMiddleware/
+│   │   │   ├── authAdminMiddleware.js
+│   │   │   ├── authOtherMiddlewares.js
+│   │   │   ├── authSellerMiddleware.js
+│   │   │   └── authUserMiddleware.js
+│   │   ├── logs/
+│   │   │   ├── combined.log
+│   │   │   └── error.log
+│   │   ├── Media/
+│   │   │   ├── cloudinaryMiddleware.js
+│   │   │   ├── ImageUpload.js
+│   │   │   └── ImageUploadAdmin.js
+│   │   ├── public/
+│   │   │   └── uploads/
+│   │   │       └── avatars/
+│   │   ├── Security/
+│   │   │   ├── AuthMiddleware.js
+│   │   │   ├── csrfMiddleware.js
+│   │   │   ├── ErrorHandler.js
+│   │   │   ├── LoggerMiddleware.js
+│   │   │   ├── RateLimiter.js
+│   │   │   └── ValidationMiddleware.js
+│   │   └── SellAnItemMiddleware/
+│   │       ├── checkTimeRestriction.js
+│   │       └── isWithinOneHourOfBidding.js
+│   ├── models/
+│   │   ├── AdminModels/
+│   │   │   ├── E-COMMERCE/
+│   │   │   │   ├── Customers.js
+│   │   │   │   ├── Inventory.js
+│   │   │   │   └── Orders.js
+│   │   │   ├── FINANCE/
+│   │   │   │   ├── Subscription.js
+│   │   │   │   └── Transaction.js
+│   │   │   ├── OTHERS/
+│   │   │   │   ├── Feedback.js
+│   │   │   │   ├── Goodie.js
+│   │   │   │   └── Reports.js
+│   │   │   ├── SELLER/
+│   │   │   │   └── Seller.js
+│   │   │   ├── SETTINGS/
+│   │   │   │   ├── MY-ACCOUNT/
+│   │   │   │   │   ├── ActivityLog.js
+│   │   │   │   │   └── Admin.js
+│   │   │   │   └── Notification.js
+│   │   │   └── TASKS/
+│   │   │       ├── Banner.js
+│   │   │       ├── Calendar.js
+│   │   │       └── Event.js
+│   │   ├── LoginSchema/
+│   │   │   ├── otp.js
+│   │   │   ├── seller.js
+│   │   │   └── user.js
+│   │   ├── SellAnItemSchema/
+│   │   │   ├── feedbackSchema.js
+│   │   │   ├── orderSchema.js
+│   │   │   └── Product.js
+│   │   └── UserModels/
+│   │       ├── Contact/
+│   │       │   └── Contact.js
+│   │       ├── FaqChat/
+│   │       │   └── FaqChat.js
+│   │       ├── Feedback/
+│   │       │   └── feedbackUserSchema.js
+│   │       ├── PrivacyRequest/
+│   │       │   └── PrivacyRequest.js
+│   │       └── ProductFeedback/
+│   │           └── ProductFeedback.js
+│   ├── node_modules/
+│   ├── public/
+│   │   └── uploads/
+│   │       └── avatars/
+│   ├── routes/
+│   │   ├── AdminRoutes/
+│   │   │   ├── E-COMMERCE/
+│   │   │   │   ├── CustomerRoutes.js
+│   │   │   │   ├── InventoryRoutes.js
+│   │   │   │   └── OrderRoutes.js
+│   │   │   ├── FINANCE/
+│   │   │   │   ├── SubscriptionRoutes.js
+│   │   │   │   └── TransactionRoutes.js
+│   │   │   ├── OTHERS/
+│   │   │   │   ├── FeedbackRoutes.js
+│   │   │   │   ├── GoodieRoutes.js
+│   │   │   │   └── ReportsRoutes.js
+│   │   │   ├── SELLER-MANAGEMENT-ROUTES/
+│   │   │   │   └── SellerRoutes.js
+│   │   │   ├── SETTINGS/
+│   │   │   │   ├── AdminNotificationRoutes.js
+│   │   │   │   └── AdminProfileRoutes.js
+│   │   │   ├── TASKS/
+│   │   │   │   ├── BannerRoutes.js
+│   │   │   │   ├── CalendarRoutes.js
+│   │   │   │   └── EventsRoutes.js
+│   │   │   └── AdminRoutes.js
+│   │   ├── LoginRoutes/
+│   │   │   ├── SellerAuthRoutes.js
+│   │   │   └── UserAuthRoutes.js
+│   │   ├── OtherRoutes/
+│   │   │   └── SocketRoutes.js
+│   │   ├── SellerRoutes/
+│   │   │   ├── adminRoutes.js
+│   │   │   ├── orderRoutes.js
+│   │   │   └── productRoutes.js
+│   │   └── UserRoutes/
+│   │       ├── contactRoutes/
+│   │       │   └── contactRoutes.js
+│   │       ├── faqRoutes/
+│   │       │   └── faqRoutes.js
+│   │       ├── feedbackRoutes/
+│   │       │   └── feedbackRoutes.js
+│   │       ├── privacyRequests/
+│   │       │   └── privacyRequests.js
+│   │       └── productFeedbackRoutes/
+│   │           └── productFeedbackRoutes.js
+│   ├── tests/
+│   │   ├── acceptance/
+│   │   │   └── auctionLifecycle.test.js
+│   │   ├── blackbox/
+│   │   │   └── publicApi.test.js
+│   │   ├── graybox/
+│   │   │   ├── apiToMongo.test.js
+│   │   │   └── serviceInteraction.test.js
+│   │   ├── helpers/
+│   │   │   ├── authHelper.js
+│   │   │   ├── csrfHelper.js
+│   │   │   ├── dbHelper.js
+│   │   │   └── socketHelper.js
+│   │   ├── integration/
+│   │   │   ├── admin/
+│   │   │   │   ├── adminRoutes.test.js
+│   │   │   │   ├── adminSellerManagement.test.js
+│   │   │   │   └── adminTasks.test.js
+│   │   │   ├── auth/
+│   │   │   │   ├── idorAuthorization.test.js
+│   │   │   │   ├── otpFlow.test.js
+│   │   │   │   ├── sellerAuth.test.js
+│   │   │   │   └── userAuth.test.js
+│   │   │   ├── media/
+│   │   │   │   └── fileUpload.test.js
+│   │   │   ├── orders/
+│   │   │   │   └── orderFlow.test.js
+│   │   │   ├── products/
+│   │   │   │   ├── productCrud.test.js
+│   │   │   │   └── productTimeRestriction.test.js
+│   │   │   ├── recommendation/
+│   │   │   │   └── recommendationProxy.test.js
+│   │   │   ├── security/
+│   │   │   │   └── csrfAndSecurity.test.js
+│   │   │   └── socket/
+│   │   │       └── biddingSocket.test.js
+│   │   ├── load/
+│   │   │   ├── loadTest.test.js
+│   │   │   └── socketLoadTest.test.js
+│   │   ├── mocks/
+│   │   │   ├── cloudinaryMock.js
+│   │   │   └── emailMock.js
+│   │   ├── nonfunctional/
+│   │   │   ├── apiContract.test.js
+│   │   │   └── securityHeaders.test.js
+│   │   ├── performance/
+│   │   │   └── benchmark.test.js
+│   │   ├── smoke/
+│   │   │   └── smoke.test.js
+│   │   ├── unit/
+│   │   │   ├── controllers/
+│   │   │   │   ├── orderController.test.js
+│   │   │   │   ├── productController.test.js
+│   │   │   │   └── socketController.test.js
+│   │   │   ├── middleware/
+│   │   │   │   ├── authAdminMiddleware.test.js
+│   │   │   │   ├── authSellerMiddleware.test.js
+│   │   │   │   ├── authUserMiddleware.test.js
+│   │   │   │   ├── checkTimeRestriction.test.js
+│   │   │   │   ├── csrfMiddleware.test.js
+│   │   │   │   └── errorHandler.test.js
+│   │   │   ├── models/
+│   │   │   │   ├── adminModels.test.js
+│   │   │   │   ├── orderModel.test.js
+│   │   │   │   ├── productModel.test.js
+│   │   │   │   ├── sellerModel.test.js
+│   │   │   │   └── userModel.test.js
+│   │   │   └── utils/
+│   │   │       └── emailSender.test.js
+│   │   ├── setup.js
+│   │   └── teardown.js
+│   ├── uploads/
+│   │   ├── 1789775581301-test_banner.jpg
+│   │   ├── 1789775582556-fail.png
+│   │   ├── 1789775598088-test_banner.jpg
+│   │   ├── 1789775599445-fail.png
+│   │   ├── 1789775631375-fail.png
+│   │   ├── 1789775652316-fail.png
+│   │   ├── 1789775695061-fail.png
+│   │   ├── 1789775776607-fail.png
+│   │   ├── 1789810561243-fail.png
+│   │   ├── 1789812520900-fail.png
+│   │   ├── 1789813981941-fail.png
+│   │   ├── 1789814300724-fail.png
+│   │   ├── 1789814432362-fail.png
+│   │   ├── 1789815596685-fail.png
+│   │   ├── 1789817521490-fail.png
+│   │   ├── 1789818634298-fail.png
+│   │   ├── 1789820578231-fail.png
+│   │   ├── 1789821769420-fail.png
+│   │   └── 1791742020146-fail.png
+│   ├── utlis/
+│   │   ├── Auth2.0/
+│   │   │   └── passportGoogleStrategy.js
+│   │   ├── Database/
+│   │   │   └── db.js
+│   │   ├── Image/
+│   │   │   ├── cloudinaryConfig.js
+│   │   │   └── multerConfig.js
+│   │   ├── Others/
+│   │   │   ├── ContactUsEmailSender.js
+│   │   │   ├── emailSender.js
+│   │   │   └── errorResponse.js
+│   │   └── SeedData/
+│   │       ├── seedData.js
+│   │       ├── seedDemoData.js
+│   │       └── syncAtlasToLocal.js
+│   ├── .dockerignore
+│   ├── .env
+│   ├── .env.example
+│   ├── .gitignore
+│   ├── cert.pem
+│   ├── Dockerfile
+│   ├── jest.config.js
+│   ├── key.pem
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── server.js
+│   └── TESTING.md
+├── .dockerignore
+├── .env.docker.example
+├── .env.example
+├── .gitignore
+├── .github
+│   └── workflows
+│       ├── cd.yml
+│       └── ci.yml
+├── ARCHITECTURE.md
+├── compose.prod.yaml
+├── compose.yaml
+├── OM SARDAR AUCTIONX AI.jpg
+├── pyproject.toml
+├── pyrightconfig.json
+├── README.md
+└── render.yaml

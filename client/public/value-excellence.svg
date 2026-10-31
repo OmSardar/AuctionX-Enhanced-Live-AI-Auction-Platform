@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="100%" height="100%" fill="none">
+  <circle cx="80" cy="80" r="76" fill="#FEF3C7" stroke="#FDE68A" stroke-width="4"/>
+  <!-- Trophy / Award Star Symbol -->
+  <path d="M55 50 H105 V80 C105 95 94 105 80 105 C66 105 55 95 55 80 Z" fill="#D97706"/>
+  <path d="M55 58 H42 C38 58 35 62 36 67 C38 78 46 84 55 85 Z" stroke="#D97706" stroke-width="4"/>
+  <path d="M105 58 H118 C122 58 125 62 124 67 C122 78 114 84 105 85 Z" stroke="#D97706" stroke-width="4"/>
+  <rect x="74" y="105" width="12" height="18" fill="#B45309"/>
+  <rect x="60" y="123" width="40" height="8" rx="2" fill="#B45309"/>
+</svg>

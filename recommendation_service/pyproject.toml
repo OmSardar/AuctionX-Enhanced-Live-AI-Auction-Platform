@@ -1,0 +1,25 @@
+[project]
+name = "auction-x-recommendation-service"
+version = "2.0.0"
+description = "Production-grade recommendation microservice for AuctionX"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.115,<1.0",
+    "uvicorn>=0.29,<1.0",
+    "pymongo>=4.7.2",
+    "dnspython>=2.7.0",
+    "redis>=5.0.4",
+    "python-dotenv>=1.1.0",
+    "numpy>=1.26,<2.1",
+]
+
+[tool.pyrefly]
+python-interpreter-path = "venv/Scripts/python.exe"
+search-path = [
+    ".",
+    "src"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", "src"]

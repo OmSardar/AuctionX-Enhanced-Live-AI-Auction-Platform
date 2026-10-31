@@ -1,0 +1,1750 @@
+{
+  "summary": {
+    "product_details": {
+      "name": "Product Details",
+      "cold": {
+        "dataUsable": {
+          "median": 3138,
+          "min": 3124,
+          "max": 3170,
+          "range": "3124 - 3170"
+        },
+        "lcp": {
+          "median": 3084,
+          "min": 3076,
+          "max": 3152,
+          "range": "3076 - 3152"
+        },
+        "fcp": {
+          "median": 264,
+          "min": 252,
+          "max": 276,
+          "range": "252 - 276"
+        },
+        "totalTransferredBytes": {
+          "median": 1702554,
+          "min": 1702554,
+          "max": 1702555,
+          "range": "1702554 - 1702555"
+        },
+        "jsBytes": {
+          "median": 872349,
+          "min": 872349,
+          "max": 872349,
+          "range": "872349 - 872349"
+        },
+        "imageBytes": {
+          "median": 209084,
+          "min": 209084,
+          "max": 209084,
+          "range": "209084 - 209084"
+        },
+        "vendorPdfRequested": false,
+        "requestCount": {
+          "median": 33,
+          "min": 33,
+          "max": 34,
+          "range": "33 - 34"
+        },
+        "imageRequestCount": {
+          "median": 10,
+          "min": 10,
+          "max": 10,
+          "range": "10 - 10"
+        },
+        "largestAssets": [
+          {
+            "name": "assets/index-Cnw3dh0d.js",
+            "size": 245712,
+            "type": "javascript"
+          },
+          {
+            "name": "assets/vendor-animation-D3MemV_C.js",
+            "size": 241598,
+            "type": "javascript"
+          },
+          {
+            "name": "assets/index-BTfsTMTn.css",
+            "size": 235922,
+            "type": "text/css"
+          }
+        ]
+      },
+      "warm": {
+        "dataUsable": {
+          "median": 191,
+          "min": 171,
+          "max": 339,
+          "range": "171 - 339"
+        },
+        "lcp": {
+          "median": 200,
+          "min": 168,
+          "max": 340,
+          "range": "168 - 340"
+        },
+        "fcp": {
+          "median": 124,
+          "min": 112,
+          "max": 180,
+          "range": "112 - 180"
+        },
+        "totalTransferredBytes": {
+          "median": 167886,
+          "min": 167886,
+          "max": 525071,
+          "range": "167886 - 525071"
+        },
+        "jsBytes": {
+          "median": 0,
+          "min": 0,
+          "max": 66431,
+          "range": "0 - 66431"
+        },
+        "imageBytes": {
+          "median": 51667,
+          "min": 51667,
+          "max": 209084,
+          "range": "51667 - 209084"
+        },
+        "vendorPdfRequested": false,
+        "requestCount": {
+          "median": 33,
+          "min": 33,
+          "max": 34,
+          "range": "33 - 34"
+        },
+        "imageRequestCount": {
+          "median": 10,
+          "min": 10,
+          "max": 10,
+          "range": "10 - 10"
+        },
+        "largestAssets": [
+          {
+            "name": "v20/UcCo3FwrK3iLTcvsYwYL8g.woff2",
+            "size": 133336,
+            "type": "font/woff2"
+          },
+          {
+            "name": "css/all.min.css",
+            "size": 102641,
+            "type": "text/css"
+          },
+          {
+            "name": "assets/instagram-Dybd5hj3.png",
+            "size": 81472,
+            "type": "image"
+          }
+        ]
+      }
+    },
+    "admin_dashboard": {
+      "name": "Admin Dashboard Overview",
+      "cold": {
+        "dataUsable": {
+          "median": 321,
+          "min": 309,
+          "max": 364,
+          "range": "309 - 364"
+        },
+        "lcp": {
+          "median": 552,
+          "min": 532,
+          "max": 612,
+          "range": "532 - 612"
+        },
+        "fcp": {
+          "median": 396,
+          "min": 384,
+          "max": 464,
+          "range": "384 - 464"
+        },
+        "totalTransferredBytes": {
+          "median": 1663747,
+          "min": 1663747,
+          "max": 1663747,
+          "range": "1663747 - 1663747"
+        },
+        "jsBytes": {
+          "median": 971617,
+          "min": 971617,
+          "max": 971617,
+          "range": "971617 - 971617"
+        },
+        "imageBytes": {
+          "median": 61436,
+          "min": 61436,
+          "max": 61436,
+          "range": "61436 - 61436"
+        },
+        "vendorPdfRequested": false,
+        "requestCount": {
+          "median": 23,
+          "min": 23,
+          "max": 23,
+          "range": "23 - 23"
+        },
+        "imageRequestCount": {
+          "median": 2,
+          "min": 2,
+          "max": 2,
+          "range": "2 - 2"
+        },
+        "largestAssets": [
+          {
+            "name": "assets/index-Cnw3dh0d.js",
+            "size": 245712,
+            "type": "javascript"
+          },
+          {
+            "name": "assets/vendor-animation-D3MemV_C.js",
+            "size": 241598,
+            "type": "javascript"
+          },
+          {
+            "name": "assets/index-BTfsTMTn.css",
+            "size": 235922,
+            "type": "text/css"
+          }
+        ]
+      },
+      "warm": {
+        "dataUsable": {
+          "median": 130,
+          "min": 94,
+          "max": 142,
+          "range": "94 - 142"
+        },
+        "lcp": {
+          "median": 184,
+          "min": 180,
+          "max": 216,
+          "range": "180 - 216"
+        },
+        "fcp": {
+          "median": 136,
+          "min": 116,
+          "max": 156,
+          "range": "116 - 156"
+        },
+        "totalTransferredBytes": {
+          "median": 125792,
+          "min": 125792,
+          "max": 125792,
+          "range": "125792 - 125792"
+        },
+        "jsBytes": {
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "range": "0 - 0"
+        },
+        "imageBytes": {
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "range": "0 - 0"
+        },
+        "vendorPdfRequested": false,
+        "requestCount": {
+          "median": 17,
+          "min": 17,
+          "max": 17,
+          "range": "17 - 17"
+        },
+        "imageRequestCount": {
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "range": "0 - 0"
+        },
+        "largestAssets": [
+          {
+            "name": "css/all.min.css",
+            "size": 102641,
+            "type": "text/css"
+          },
+          {
+            "name": "dashboard/stats",
+            "size": 10617,
+            "type": "application/json"
+          },
+          {
+            "name": "fonts.googleapis.com/css2",
+            "size": 6472,
+            "type": "text/css"
+          }
+        ]
+      }
+    },
+    "admin_analytics": {
+      "name": "Admin Analytics",
+      "cold": {
+        "dataUsable": {
+          "median": 535,
+          "min": 504,
+          "max": 556,
+          "range": "504 - 556"
+        },
+        "lcp": {
+          "median": 612,
+          "min": 560,
+          "max": 648,
+          "range": "560 - 648"
+        },
+        "fcp": {
+          "median": 428,
+          "min": 408,
+          "max": 444,
+          "range": "408 - 444"
+        },
+        "totalTransferredBytes": {
+          "median": 1797412,
+          "min": 1797412,
+          "max": 1797412,
+          "range": "1797412 - 1797412"
+        },
+        "jsBytes": {
+          "median": 1105282,
+          "min": 1105282,
+          "max": 1105282,
+          "range": "1105282 - 1105282"
+        },
+        "imageBytes": {
+          "median": 61436,
+          "min": 61436,
+          "max": 61436,
+          "range": "61436 - 61436"
+        },
+        "vendorPdfRequested": false,
+        "requestCount": {
+          "median": 27,
+          "min": 27,
+          "max": 27,
+          "range": "27 - 27"
+        },
+        "imageRequestCount": {
+          "median": 2,
+          "min": 2,
+          "max": 2,
+          "range": "2 - 2"
+        },
+        "largestAssets": [
+          {
+            "name": "assets/index-Cnw3dh0d.js",
+            "size": 245712,
+            "type": "javascript"
+          },
+          {
+            "name": "assets/vendor-animation-D3MemV_C.js",
+            "size": 241598,
+            "type": "javascript"
+          },
+          {
+            "name": "assets/index-BTfsTMTn.css",
+            "size": 235922,
+            "type": "text/css"
+          }
+        ]
+      },
+      "warm": {
+        "dataUsable": {
+          "median": 355,
+          "min": 300,
+          "max": 454,
+          "range": "300 - 454"
+        },
+        "lcp": {
+          "median": 356,
+          "min": 308,
+          "max": 420,
+          "range": "308 - 420"
+        },
+        "fcp": {
+          "median": 356,
+          "min": 308,
+          "max": 420,
+          "range": "308 - 420"
+        },
+        "totalTransferredBytes": {
+          "median": 118401,
+          "min": 118401,
+          "max": 1377487,
+          "range": "118401 - 1377487"
+        },
+        "jsBytes": {
+          "median": 0,
+          "min": 0,
+          "max": 1259086,
+          "range": "0 - 1259086"
+        },
+        "imageBytes": {
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "range": "0 - 0"
+        },
+        "vendorPdfRequested": false,
+        "requestCount": {
+          "median": 33,
+          "min": 33,
+          "max": 33,
+          "range": "33 - 33"
+        },
+        "imageRequestCount": {
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "range": "0 - 0"
+        },
+        "largestAssets": [
+          {
+            "name": "assets/vendor-charts-B1xoG__R.js",
+            "size": 242623,
+            "type": "javascript"
+          },
+          {
+            "name": "css/all.min.css",
+            "size": 102641,
+            "type": "text/css"
+          },
+          {
+            "name": "v17/rP2Hp2ywxg089UriCZ2IHSeH.woff2",
+            "size": 31292,
+            "type": "font/woff2"
+          }
+        ]
+      }
+    },
+    "seller_dashboard": {
+      "name": "Seller Dashboard Overview",
+      "cold": {
+        "dataUsable": {
+          "median": 383,
+          "min": 353,
+          "max": 494,
+          "range": "353 - 494"
+        },
+        "lcp": {
+          "median": 488,
+          "min": 368,
+          "max": 508,
+          "range": "368 - 508"
+        },
+        "fcp": {
+          "median": 448,
+          "min": 368,
+          "max": 488,
+          "range": "368 - 488"
+        },
+        "totalTransferredBytes": {
+          "median": 2233858,
+          "min": 1409872,
+          "max": 2233858,
+          "range": "1409872 - 2233858"
+        },
+        "jsBytes": {
+          "median": 1356103,
+          "min": 996449,
+          "max": 1356103,
+          "range": "996449 - 1356103"
+        },
+        "imageBytes": {
+          "median": 245185,
+          "min": 0,
+          "max": 245185,
+          "range": "0 - 245185"
+        },
+        "vendorPdfRequested": false,
+        "requestCount": {
+          "median": 45,
+          "min": 15,
+          "max": 45,
+          "range": "15 - 45"
+        },
+        "imageRequestCount": {
+          "median": 5,
+          "min": 0,
+          "max": 5,
+          "range": "0 - 5"
+        },
+        "largestAssets": [
+          {
+            "name": "assets/index-Cnw3dh0d.js",
+            "size": 245712,
+            "type": "javascript"
+          },
+          {
+            "name": "assets/vendor-animation-D3MemV_C.js",
+            "size": 241598,
+            "type": "javascript"
+          },
+          {
+            "name": "assets/index-BTfsTMTn.css",
+            "size": 235922,
+            "type": "text/css"
+          }
+        ]
+      },
+      "warm": {
+        "dataUsable": {
+          "median": 116,
+          "min": 93,
+          "max": 231,
+          "range": "93 - 231"
+        },
+        "lcp": {
+          "median": 296,
+          "min": 280,
+          "max": 460,
+          "range": "280 - 460"
+        },
+        "fcp": {
+          "median": 296,
+          "min": 280,
+          "max": 460,
+          "range": "280 - 460"
+        },
+        "totalTransferredBytes": {
+          "median": 372853,
+          "min": 372853,
+          "max": 1655066,
+          "range": "372853 - 1655066"
+        },
+        "jsBytes": {
+          "median": 0,
+          "min": 0,
+          "max": 1282213,
+          "range": "0 - 1282213"
+        },
+        "imageBytes": {
+          "median": 245185,
+          "min": 245185,
+          "max": 245185,
+          "range": "245185 - 245185"
+        },
+        "vendorPdfRequested": false,
+        "requestCount": {
+          "median": 42,
+          "min": 42,
+          "max": 42,
+          "range": "42 - 42"
+        },
+        "imageRequestCount": {
+          "median": 5,
+          "min": 5,
+          "max": 5,
+          "range": "5 - 5"
+        },
+        "largestAssets": [
+          {
+            "name": "css/all.min.css",
+            "size": 102641,
+            "type": "text/css"
+          },
+          {
+            "name": "images.unsplash.com/photo-1579952363873-27f3bade9f55",
+            "size": 84354,
+            "type": "image"
+          },
+          {
+            "name": "images.unsplash.com/photo-1552519507-da3b142c6e3d",
+            "size": 55006,
+            "type": "image"
+          }
+        ]
+      }
+    }
+  },
+  "raw": {
+    "product_details": {
+      "name": "Product Details",
+      "cold": [
+        {
+          "docLoadMs": 222,
+          "dataUsableMs": 3170,
+          "lcpMs": 3152,
+          "fcpMs": 276,
+          "totalTransferredBytes": 1702555,
+          "imageBytes": 209084,
+          "jsBytes": 872349,
+          "vendorPdfRequested": false,
+          "requestCount": 34,
+          "imageRequestCount": 10,
+          "largestAssets": [
+            {
+              "name": "assets/index-Cnw3dh0d.js",
+              "size": 245712,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-animation-D3MemV_C.js",
+              "size": 241598,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/index-BTfsTMTn.css",
+              "size": 235922,
+              "type": "text/css"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 215,
+          "dataUsableMs": 3151,
+          "lcpMs": 3080,
+          "fcpMs": 264,
+          "totalTransferredBytes": 1702554,
+          "imageBytes": 209084,
+          "jsBytes": 872349,
+          "vendorPdfRequested": false,
+          "requestCount": 33,
+          "imageRequestCount": 10,
+          "largestAssets": [
+            {
+              "name": "assets/index-Cnw3dh0d.js",
+              "size": 245712,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-animation-D3MemV_C.js",
+              "size": 241598,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/index-BTfsTMTn.css",
+              "size": 235922,
+              "type": "text/css"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 222,
+          "dataUsableMs": 3138,
+          "lcpMs": 3084,
+          "fcpMs": 268,
+          "totalTransferredBytes": 1702555,
+          "imageBytes": 209084,
+          "jsBytes": 872349,
+          "vendorPdfRequested": false,
+          "requestCount": 34,
+          "imageRequestCount": 10,
+          "largestAssets": [
+            {
+              "name": "assets/index-Cnw3dh0d.js",
+              "size": 245712,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-animation-D3MemV_C.js",
+              "size": 241598,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/index-BTfsTMTn.css",
+              "size": 235922,
+              "type": "text/css"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 209,
+          "dataUsableMs": 3125,
+          "lcpMs": 3088,
+          "fcpMs": 252,
+          "totalTransferredBytes": 1702554,
+          "imageBytes": 209084,
+          "jsBytes": 872349,
+          "vendorPdfRequested": false,
+          "requestCount": 33,
+          "imageRequestCount": 10,
+          "largestAssets": [
+            {
+              "name": "assets/index-Cnw3dh0d.js",
+              "size": 245712,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-animation-D3MemV_C.js",
+              "size": 241598,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/index-BTfsTMTn.css",
+              "size": 235922,
+              "type": "text/css"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 219,
+          "dataUsableMs": 3124,
+          "lcpMs": 3076,
+          "fcpMs": 260,
+          "totalTransferredBytes": 1702554,
+          "imageBytes": 209084,
+          "jsBytes": 872349,
+          "vendorPdfRequested": false,
+          "requestCount": 33,
+          "imageRequestCount": 10,
+          "largestAssets": [
+            {
+              "name": "assets/index-Cnw3dh0d.js",
+              "size": 245712,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-animation-D3MemV_C.js",
+              "size": 241598,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/index-BTfsTMTn.css",
+              "size": 235922,
+              "type": "text/css"
+            }
+          ]
+        }
+      ],
+      "warm": [
+        {
+          "docLoadMs": 36,
+          "dataUsableMs": 339,
+          "lcpMs": 340,
+          "fcpMs": 180,
+          "totalTransferredBytes": 525071,
+          "imageBytes": 209084,
+          "jsBytes": 66431,
+          "vendorPdfRequested": false,
+          "requestCount": 34,
+          "imageRequestCount": 10,
+          "largestAssets": [
+            {
+              "name": "v20/UcCo3FwrK3iLTcvsYwYL8g.woff2",
+              "size": 133336,
+              "type": "font/woff2"
+            },
+            {
+              "name": "css/all.min.css",
+              "size": 102641,
+              "type": "text/css"
+            },
+            {
+              "name": "assets/instagram-Dybd5hj3.png",
+              "size": 81472,
+              "type": "image"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 31,
+          "dataUsableMs": 198,
+          "lcpMs": 204,
+          "fcpMs": 124,
+          "totalTransferredBytes": 167887,
+          "imageBytes": 51667,
+          "jsBytes": 0,
+          "vendorPdfRequested": false,
+          "requestCount": 34,
+          "imageRequestCount": 10,
+          "largestAssets": [
+            {
+              "name": "css/all.min.css",
+              "size": 102641,
+              "type": "text/css"
+            },
+            {
+              "name": "images.unsplash.com/photo-1516035069371-29a1b244cc32",
+              "size": 35420,
+              "type": "image"
+            },
+            {
+              "name": "fonts.googleapis.com/css2",
+              "size": 6472,
+              "type": "text/css"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 31,
+          "dataUsableMs": 171,
+          "lcpMs": 168,
+          "fcpMs": 120,
+          "totalTransferredBytes": 167886,
+          "imageBytes": 51667,
+          "jsBytes": 0,
+          "vendorPdfRequested": false,
+          "requestCount": 33,
+          "imageRequestCount": 10,
+          "largestAssets": [
+            {
+              "name": "css/all.min.css",
+              "size": 102641,
+              "type": "text/css"
+            },
+            {
+              "name": "images.unsplash.com/photo-1516035069371-29a1b244cc32",
+              "size": 35420,
+              "type": "image"
+            },
+            {
+              "name": "fonts.googleapis.com/css2",
+              "size": 6472,
+              "type": "text/css"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 31,
+          "dataUsableMs": 191,
+          "lcpMs": 200,
+          "fcpMs": 128,
+          "totalTransferredBytes": 167886,
+          "imageBytes": 51667,
+          "jsBytes": 0,
+          "vendorPdfRequested": false,
+          "requestCount": 33,
+          "imageRequestCount": 10,
+          "largestAssets": [
+            {
+              "name": "css/all.min.css",
+              "size": 102641,
+              "type": "text/css"
+            },
+            {
+              "name": "images.unsplash.com/photo-1516035069371-29a1b244cc32",
+              "size": 35420,
+              "type": "image"
+            },
+            {
+              "name": "fonts.googleapis.com/css2",
+              "size": 6472,
+              "type": "text/css"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 31,
+          "dataUsableMs": 181,
+          "lcpMs": 180,
+          "fcpMs": 112,
+          "totalTransferredBytes": 167886,
+          "imageBytes": 51667,
+          "jsBytes": 0,
+          "vendorPdfRequested": false,
+          "requestCount": 33,
+          "imageRequestCount": 10,
+          "largestAssets": [
+            {
+              "name": "css/all.min.css",
+              "size": 102641,
+              "type": "text/css"
+            },
+            {
+              "name": "images.unsplash.com/photo-1516035069371-29a1b244cc32",
+              "size": 35420,
+              "type": "image"
+            },
+            {
+              "name": "fonts.googleapis.com/css2",
+              "size": 6472,
+              "type": "text/css"
+            }
+          ]
+        }
+      ]
+    },
+    "admin_dashboard": {
+      "name": "Admin Dashboard Overview",
+      "cold": [
+        {
+          "docLoadMs": 217,
+          "dataUsableMs": 317,
+          "lcpMs": 532,
+          "fcpMs": 388,
+          "totalTransferredBytes": 1663747,
+          "imageBytes": 61436,
+          "jsBytes": 971617,
+          "vendorPdfRequested": false,
+          "requestCount": 23,
+          "imageRequestCount": 2,
+          "largestAssets": [
+            {
+              "name": "assets/index-Cnw3dh0d.js",
+              "size": 245712,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-animation-D3MemV_C.js",
+              "size": 241598,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/index-BTfsTMTn.css",
+              "size": 235922,
+              "type": "text/css"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 222,
+          "dataUsableMs": 364,
+          "lcpMs": 532,
+          "fcpMs": 384,
+          "totalTransferredBytes": 1663747,
+          "imageBytes": 61436,
+          "jsBytes": 971617,
+          "vendorPdfRequested": false,
+          "requestCount": 23,
+          "imageRequestCount": 2,
+          "largestAssets": [
+            {
+              "name": "assets/index-Cnw3dh0d.js",
+              "size": 245712,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-animation-D3MemV_C.js",
+              "size": 241598,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/index-BTfsTMTn.css",
+              "size": 235922,
+              "type": "text/css"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 216,
+          "dataUsableMs": 321,
+          "lcpMs": 552,
+          "fcpMs": 396,
+          "totalTransferredBytes": 1663747,
+          "imageBytes": 61436,
+          "jsBytes": 971617,
+          "vendorPdfRequested": false,
+          "requestCount": 23,
+          "imageRequestCount": 2,
+          "largestAssets": [
+            {
+              "name": "assets/index-Cnw3dh0d.js",
+              "size": 245712,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-animation-D3MemV_C.js",
+              "size": 241598,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/index-BTfsTMTn.css",
+              "size": 235922,
+              "type": "text/css"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 214,
+          "dataUsableMs": 309,
+          "lcpMs": 564,
+          "fcpMs": 400,
+          "totalTransferredBytes": 1663747,
+          "imageBytes": 61436,
+          "jsBytes": 971617,
+          "vendorPdfRequested": false,
+          "requestCount": 23,
+          "imageRequestCount": 2,
+          "largestAssets": [
+            {
+              "name": "assets/index-Cnw3dh0d.js",
+              "size": 245712,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-animation-D3MemV_C.js",
+              "size": 241598,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/index-BTfsTMTn.css",
+              "size": 235922,
+              "type": "text/css"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 213,
+          "dataUsableMs": 328,
+          "lcpMs": 612,
+          "fcpMs": 464,
+          "totalTransferredBytes": 1663747,
+          "imageBytes": 61436,
+          "jsBytes": 971617,
+          "vendorPdfRequested": false,
+          "requestCount": 23,
+          "imageRequestCount": 2,
+          "largestAssets": [
+            {
+              "name": "assets/index-Cnw3dh0d.js",
+              "size": 245712,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-animation-D3MemV_C.js",
+              "size": 241598,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/index-BTfsTMTn.css",
+              "size": 235922,
+              "type": "text/css"
+            }
+          ]
+        }
+      ],
+      "warm": [
+        {
+          "docLoadMs": 40,
+          "dataUsableMs": 141,
+          "lcpMs": 216,
+          "fcpMs": 156,
+          "totalTransferredBytes": 125792,
+          "imageBytes": 0,
+          "jsBytes": 0,
+          "vendorPdfRequested": false,
+          "requestCount": 17,
+          "imageRequestCount": 0,
+          "largestAssets": [
+            {
+              "name": "css/all.min.css",
+              "size": 102641,
+              "type": "text/css"
+            },
+            {
+              "name": "dashboard/stats",
+              "size": 10617,
+              "type": "application/json"
+            },
+            {
+              "name": "fonts.googleapis.com/css2",
+              "size": 6472,
+              "type": "text/css"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 41,
+          "dataUsableMs": 130,
+          "lcpMs": 184,
+          "fcpMs": 136,
+          "totalTransferredBytes": 125792,
+          "imageBytes": 0,
+          "jsBytes": 0,
+          "vendorPdfRequested": false,
+          "requestCount": 17,
+          "imageRequestCount": 0,
+          "largestAssets": [
+            {
+              "name": "css/all.min.css",
+              "size": 102641,
+              "type": "text/css"
+            },
+            {
+              "name": "dashboard/stats",
+              "size": 10617,
+              "type": "application/json"
+            },
+            {
+              "name": "fonts.googleapis.com/css2",
+              "size": 6472,
+              "type": "text/css"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 39,
+          "dataUsableMs": 124,
+          "lcpMs": 180,
+          "fcpMs": 128,
+          "totalTransferredBytes": 125792,
+          "imageBytes": 0,
+          "jsBytes": 0,
+          "vendorPdfRequested": false,
+          "requestCount": 17,
+          "imageRequestCount": 0,
+          "largestAssets": [
+            {
+              "name": "css/all.min.css",
+              "size": 102641,
+              "type": "text/css"
+            },
+            {
+              "name": "dashboard/stats",
+              "size": 10617,
+              "type": "application/json"
+            },
+            {
+              "name": "fonts.googleapis.com/css2",
+              "size": 6472,
+              "type": "text/css"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 64,
+          "dataUsableMs": 142,
+          "lcpMs": 200,
+          "fcpMs": 148,
+          "totalTransferredBytes": 125792,
+          "imageBytes": 0,
+          "jsBytes": 0,
+          "vendorPdfRequested": false,
+          "requestCount": 17,
+          "imageRequestCount": 0,
+          "largestAssets": [
+            {
+              "name": "css/all.min.css",
+              "size": 102641,
+              "type": "text/css"
+            },
+            {
+              "name": "dashboard/stats",
+              "size": 10617,
+              "type": "application/json"
+            },
+            {
+              "name": "fonts.googleapis.com/css2",
+              "size": 6472,
+              "type": "text/css"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 30,
+          "dataUsableMs": 94,
+          "lcpMs": 180,
+          "fcpMs": 116,
+          "totalTransferredBytes": 125792,
+          "imageBytes": 0,
+          "jsBytes": 0,
+          "vendorPdfRequested": false,
+          "requestCount": 17,
+          "imageRequestCount": 0,
+          "largestAssets": [
+            {
+              "name": "css/all.min.css",
+              "size": 102641,
+              "type": "text/css"
+            },
+            {
+              "name": "dashboard/stats",
+              "size": 10617,
+              "type": "application/json"
+            },
+            {
+              "name": "fonts.googleapis.com/css2",
+              "size": 6472,
+              "type": "text/css"
+            }
+          ]
+        }
+      ]
+    },
+    "admin_analytics": {
+      "name": "Admin Analytics",
+      "cold": [
+        {
+          "docLoadMs": 224,
+          "dataUsableMs": 534,
+          "lcpMs": 612,
+          "fcpMs": 420,
+          "totalTransferredBytes": 1797412,
+          "imageBytes": 61436,
+          "jsBytes": 1105282,
+          "vendorPdfRequested": false,
+          "requestCount": 27,
+          "imageRequestCount": 2,
+          "largestAssets": [
+            {
+              "name": "assets/index-Cnw3dh0d.js",
+              "size": 245712,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-animation-D3MemV_C.js",
+              "size": 241598,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/index-BTfsTMTn.css",
+              "size": 235922,
+              "type": "text/css"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 220,
+          "dataUsableMs": 504,
+          "lcpMs": 564,
+          "fcpMs": 408,
+          "totalTransferredBytes": 1797412,
+          "imageBytes": 61436,
+          "jsBytes": 1105282,
+          "vendorPdfRequested": false,
+          "requestCount": 27,
+          "imageRequestCount": 2,
+          "largestAssets": [
+            {
+              "name": "assets/index-Cnw3dh0d.js",
+              "size": 245712,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-animation-D3MemV_C.js",
+              "size": 241598,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/index-BTfsTMTn.css",
+              "size": 235922,
+              "type": "text/css"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 216,
+          "dataUsableMs": 556,
+          "lcpMs": 560,
+          "fcpMs": 428,
+          "totalTransferredBytes": 1797412,
+          "imageBytes": 61436,
+          "jsBytes": 1105282,
+          "vendorPdfRequested": false,
+          "requestCount": 27,
+          "imageRequestCount": 2,
+          "largestAssets": [
+            {
+              "name": "assets/index-Cnw3dh0d.js",
+              "size": 245712,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-animation-D3MemV_C.js",
+              "size": 241598,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/index-BTfsTMTn.css",
+              "size": 235922,
+              "type": "text/css"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 224,
+          "dataUsableMs": 537,
+          "lcpMs": 612,
+          "fcpMs": 444,
+          "totalTransferredBytes": 1797412,
+          "imageBytes": 61436,
+          "jsBytes": 1105282,
+          "vendorPdfRequested": false,
+          "requestCount": 27,
+          "imageRequestCount": 2,
+          "largestAssets": [
+            {
+              "name": "assets/index-Cnw3dh0d.js",
+              "size": 245712,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-animation-D3MemV_C.js",
+              "size": 241598,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/index-BTfsTMTn.css",
+              "size": 235922,
+              "type": "text/css"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 238,
+          "dataUsableMs": 535,
+          "lcpMs": 648,
+          "fcpMs": 440,
+          "totalTransferredBytes": 1797412,
+          "imageBytes": 61436,
+          "jsBytes": 1105282,
+          "vendorPdfRequested": false,
+          "requestCount": 27,
+          "imageRequestCount": 2,
+          "largestAssets": [
+            {
+              "name": "assets/index-Cnw3dh0d.js",
+              "size": 245712,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-animation-D3MemV_C.js",
+              "size": 241598,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/index-BTfsTMTn.css",
+              "size": 235922,
+              "type": "text/css"
+            }
+          ]
+        }
+      ],
+      "warm": [
+        {
+          "docLoadMs": 60,
+          "dataUsableMs": 355,
+          "lcpMs": 356,
+          "fcpMs": 356,
+          "totalTransferredBytes": 416646,
+          "imageBytes": 0,
+          "jsBytes": 266953,
+          "vendorPdfRequested": false,
+          "requestCount": 33,
+          "imageRequestCount": 0,
+          "largestAssets": [
+            {
+              "name": "assets/vendor-charts-B1xoG__R.js",
+              "size": 242623,
+              "type": "javascript"
+            },
+            {
+              "name": "css/all.min.css",
+              "size": 102641,
+              "type": "text/css"
+            },
+            {
+              "name": "v17/rP2Hp2ywxg089UriCZ2IHSeH.woff2",
+              "size": 31292,
+              "type": "font/woff2"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 45,
+          "dataUsableMs": 300,
+          "lcpMs": 320,
+          "fcpMs": 320,
+          "totalTransferredBytes": 118401,
+          "imageBytes": 0,
+          "jsBytes": 0,
+          "vendorPdfRequested": false,
+          "requestCount": 33,
+          "imageRequestCount": 0,
+          "largestAssets": [
+            {
+              "name": "css/all.min.css",
+              "size": 102641,
+              "type": "text/css"
+            },
+            {
+              "name": "fonts.googleapis.com/css2",
+              "size": 6472,
+              "type": "text/css"
+            },
+            {
+              "name": "dashboard/analytics",
+              "size": 5106,
+              "type": "text/html"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 80,
+          "dataUsableMs": 454,
+          "lcpMs": 420,
+          "fcpMs": 420,
+          "totalTransferredBytes": 118401,
+          "imageBytes": 0,
+          "jsBytes": 0,
+          "vendorPdfRequested": false,
+          "requestCount": 33,
+          "imageRequestCount": 0,
+          "largestAssets": [
+            {
+              "name": "css/all.min.css",
+              "size": 102641,
+              "type": "text/css"
+            },
+            {
+              "name": "fonts.googleapis.com/css2",
+              "size": 6472,
+              "type": "text/css"
+            },
+            {
+              "name": "dashboard/analytics",
+              "size": 5106,
+              "type": "text/html"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 119,
+          "dataUsableMs": 410,
+          "lcpMs": 396,
+          "fcpMs": 396,
+          "totalTransferredBytes": 1377487,
+          "imageBytes": 0,
+          "jsBytes": 1259086,
+          "vendorPdfRequested": false,
+          "requestCount": 33,
+          "imageRequestCount": 0,
+          "largestAssets": [
+            {
+              "name": "assets/index-Cnw3dh0d.js",
+              "size": 245712,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-charts-B1xoG__R.js",
+              "size": 242623,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-animation-D3MemV_C.js",
+              "size": 241598,
+              "type": "javascript"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 47,
+          "dataUsableMs": 303,
+          "lcpMs": 308,
+          "fcpMs": 308,
+          "totalTransferredBytes": 118401,
+          "imageBytes": 0,
+          "jsBytes": 0,
+          "vendorPdfRequested": false,
+          "requestCount": 33,
+          "imageRequestCount": 0,
+          "largestAssets": [
+            {
+              "name": "css/all.min.css",
+              "size": 102641,
+              "type": "text/css"
+            },
+            {
+              "name": "fonts.googleapis.com/css2",
+              "size": 6472,
+              "type": "text/css"
+            },
+            {
+              "name": "dashboard/analytics",
+              "size": 5106,
+              "type": "text/html"
+            }
+          ]
+        }
+      ]
+    },
+    "seller_dashboard": {
+      "name": "Seller Dashboard Overview",
+      "cold": [
+        {
+          "docLoadMs": 267,
+          "dataUsableMs": 494,
+          "lcpMs": 488,
+          "fcpMs": 488,
+          "totalTransferredBytes": 1409872,
+          "imageBytes": 0,
+          "jsBytes": 996449,
+          "vendorPdfRequested": false,
+          "requestCount": 15,
+          "imageRequestCount": 0,
+          "largestAssets": [
+            {
+              "name": "assets/index-Cnw3dh0d.js",
+              "size": 245712,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-animation-D3MemV_C.js",
+              "size": 241598,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/index-BTfsTMTn.css",
+              "size": 235922,
+              "type": "text/css"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 233,
+          "dataUsableMs": 353,
+          "lcpMs": 476,
+          "fcpMs": 424,
+          "totalTransferredBytes": 1834191,
+          "imageBytes": 0,
+          "jsBytes": 1347848,
+          "vendorPdfRequested": false,
+          "requestCount": 36,
+          "imageRequestCount": 0,
+          "largestAssets": [
+            {
+              "name": "assets/index-Cnw3dh0d.js",
+              "size": 245712,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-charts-B1xoG__R.js",
+              "size": 242623,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-animation-D3MemV_C.js",
+              "size": 241598,
+              "type": "javascript"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 229,
+          "dataUsableMs": 381,
+          "lcpMs": 368,
+          "fcpMs": 368,
+          "totalTransferredBytes": 2233858,
+          "imageBytes": 245185,
+          "jsBytes": 1356103,
+          "vendorPdfRequested": false,
+          "requestCount": 45,
+          "imageRequestCount": 5,
+          "largestAssets": [
+            {
+              "name": "assets/index-Cnw3dh0d.js",
+              "size": 245712,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-charts-B1xoG__R.js",
+              "size": 242623,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-animation-D3MemV_C.js",
+              "size": 241598,
+              "type": "javascript"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 250,
+          "dataUsableMs": 446,
+          "lcpMs": 508,
+          "fcpMs": 448,
+          "totalTransferredBytes": 2233858,
+          "imageBytes": 245185,
+          "jsBytes": 1356103,
+          "vendorPdfRequested": false,
+          "requestCount": 45,
+          "imageRequestCount": 5,
+          "largestAssets": [
+            {
+              "name": "assets/index-Cnw3dh0d.js",
+              "size": 245712,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-charts-B1xoG__R.js",
+              "size": 242623,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-animation-D3MemV_C.js",
+              "size": 241598,
+              "type": "javascript"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 245,
+          "dataUsableMs": 383,
+          "lcpMs": 500,
+          "fcpMs": 448,
+          "totalTransferredBytes": 2233858,
+          "imageBytes": 245185,
+          "jsBytes": 1356103,
+          "vendorPdfRequested": false,
+          "requestCount": 45,
+          "imageRequestCount": 5,
+          "largestAssets": [
+            {
+              "name": "assets/index-Cnw3dh0d.js",
+              "size": 245712,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-charts-B1xoG__R.js",
+              "size": 242623,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-animation-D3MemV_C.js",
+              "size": 241598,
+              "type": "javascript"
+            }
+          ]
+        }
+      ],
+      "warm": [
+        {
+          "docLoadMs": 150,
+          "dataUsableMs": 231,
+          "lcpMs": 460,
+          "fcpMs": 460,
+          "totalTransferredBytes": 372853,
+          "imageBytes": 245185,
+          "jsBytes": 0,
+          "vendorPdfRequested": false,
+          "requestCount": 42,
+          "imageRequestCount": 5,
+          "largestAssets": [
+            {
+              "name": "css/all.min.css",
+              "size": 102641,
+              "type": "text/css"
+            },
+            {
+              "name": "images.unsplash.com/photo-1579952363873-27f3bade9f55",
+              "size": 84354,
+              "type": "image"
+            },
+            {
+              "name": "images.unsplash.com/photo-1552519507-da3b142c6e3d",
+              "size": 55006,
+              "type": "image"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 65,
+          "dataUsableMs": 123,
+          "lcpMs": 348,
+          "fcpMs": 348,
+          "totalTransferredBytes": 372853,
+          "imageBytes": 245185,
+          "jsBytes": 0,
+          "vendorPdfRequested": false,
+          "requestCount": 42,
+          "imageRequestCount": 5,
+          "largestAssets": [
+            {
+              "name": "css/all.min.css",
+              "size": 102641,
+              "type": "text/css"
+            },
+            {
+              "name": "images.unsplash.com/photo-1579952363873-27f3bade9f55",
+              "size": 84354,
+              "type": "image"
+            },
+            {
+              "name": "images.unsplash.com/photo-1552519507-da3b142c6e3d",
+              "size": 55006,
+              "type": "image"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 57,
+          "dataUsableMs": 116,
+          "lcpMs": 296,
+          "fcpMs": 296,
+          "totalTransferredBytes": 1655066,
+          "imageBytes": 245185,
+          "jsBytes": 1282213,
+          "vendorPdfRequested": false,
+          "requestCount": 42,
+          "imageRequestCount": 5,
+          "largestAssets": [
+            {
+              "name": "assets/index-Cnw3dh0d.js",
+              "size": 245712,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-charts-B1xoG__R.js",
+              "size": 242623,
+              "type": "javascript"
+            },
+            {
+              "name": "assets/vendor-animation-D3MemV_C.js",
+              "size": 241598,
+              "type": "javascript"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 38,
+          "dataUsableMs": 108,
+          "lcpMs": 296,
+          "fcpMs": 296,
+          "totalTransferredBytes": 372853,
+          "imageBytes": 245185,
+          "jsBytes": 0,
+          "vendorPdfRequested": false,
+          "requestCount": 42,
+          "imageRequestCount": 5,
+          "largestAssets": [
+            {
+              "name": "css/all.min.css",
+              "size": 102641,
+              "type": "text/css"
+            },
+            {
+              "name": "images.unsplash.com/photo-1579952363873-27f3bade9f55",
+              "size": 84354,
+              "type": "image"
+            },
+            {
+              "name": "images.unsplash.com/photo-1552519507-da3b142c6e3d",
+              "size": 55006,
+              "type": "image"
+            }
+          ]
+        },
+        {
+          "docLoadMs": 37,
+          "dataUsableMs": 93,
+          "lcpMs": 280,
+          "fcpMs": 280,
+          "totalTransferredBytes": 372853,
+          "imageBytes": 245185,
+          "jsBytes": 0,
+          "vendorPdfRequested": false,
+          "requestCount": 42,
+          "imageRequestCount": 5,
+          "largestAssets": [
+            {
+              "name": "css/all.min.css",
+              "size": 102641,
+              "type": "text/css"
+            },
+            {
+              "name": "images.unsplash.com/photo-1579952363873-27f3bade9f55",
+              "size": 84354,
+              "type": "image"
+            },
+            {
+              "name": "images.unsplash.com/photo-1552519507-da3b142c6e3d",
+              "size": 55006,
+              "type": "image"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

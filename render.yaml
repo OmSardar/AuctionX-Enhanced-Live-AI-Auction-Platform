@@ -1,0 +1,100 @@
+services:
+  # ============================================================================
+  # Backend API — Node.js Express & Socket.io Web Service
+  # ============================================================================
+  - type: web
+    name: auctionx-server
+    runtime: node
+    rootDir: server
+    plan: starter
+    buildCommand: npm ci
+    startCommand: node server.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URL
+        sync: false
+      - key: CLIENT_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: RAZORPAY_KEY_ID
+        sync: false
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+      - key: RAZORPAY_WEBHOOK_SECRET
+        sync: false
+      - key: RECOMMENDATION_SERVICE_URL
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: METRICS_AUTH_TOKEN
+        sync: false
+
+
+  # ============================================================================
+  # Frontend Client — Nginx Same-Origin Reverse Proxy & Static SPA
+  # ============================================================================
+  - type: web
+    name: auctionx-client
+    env: docker
+    rootDir: client
+    dockerfilePath: Dockerfile
+    dockerContext: .
+    plan: starter
+    healthCheckPath: /healthz
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: BACKEND_UPSTREAM_URL
+        value: http://auctionx-server:10000
+      - key: VITE_API_URL
+        sync: false
+      - key: VITE_RECOMMENDATION_API_URL
+        sync: false
+      - key: VITE_RAZORPAY_API_KEY
+        sync: false
+
+  # ============================================================================
+  # Recommendation Service — Python FastAPI Microservice
+  # ============================================================================
+  - type: web
+    name: auctionx-recommendation-service
+    runtime: python
+    rootDir: recommendation_service
+    pythonVersion: "3.10.13"
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
+    healthCheckPath: /health
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGODB_DB
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: CLIENT_URL
+        sync: false
+      - key: ALLOWED_ORIGINS
+        sync: false

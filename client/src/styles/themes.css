@@ -1,0 +1,223 @@
+/* ==========================================================================
+   Auction X — Theme Definitions & Mode Overrides
+   Warm Marketplace + Hybrid Interface
+   ========================================================================== */
+
+:root {
+  /* Foundational Primitives */
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* -----------------------------------------------------------------------
+     Surface & Background — Warm Marketplace Light Mode
+     ----------------------------------------------------------------------- */
+  --color-bg-canvas: #FFF9F0;                    /* Warm Cream */
+  --color-bg-surface: #ffffff;                    /* White cards/dialogs/inputs */
+  --color-bg-surface-raised: #ffffff;             /* Elevated white surfaces */
+  --color-bg-surface-subtle: #F5EDE2;             /* Light sand panels */
+  --color-bg-surface-overlay: rgba(84, 43, 33, 0.55); /* Espresso overlay */
+
+  /* -----------------------------------------------------------------------
+     Text & Typography — Warm Marketplace
+     ----------------------------------------------------------------------- */
+  --color-text-primary: #542B21;                  /* Espresso */
+  --color-text-secondary: #6C5145;                /* Muted Brown */
+  --color-text-muted: #8E7C66;                    /* Lighter muted */
+  --color-text-inverse: #ffffff;
+
+  /* -----------------------------------------------------------------------
+     Borders & Dividers — Sand Tones
+     ----------------------------------------------------------------------- */
+  --color-border-subtle: #E8D8C3;                 /* Sand */
+  --color-border-default: #D4C0A8;                /* Darker sand */
+  --color-border-strong: #B39E82;                 /* Strong sand */
+  --color-ring-focus: rgba(198, 93, 58, 0.4);     /* Terracotta focus ring */
+
+  /* -----------------------------------------------------------------------
+     Brand & Action — Terracotta Primary
+     ----------------------------------------------------------------------- */
+  --color-action-primary: #C65D3A;                /* Terracotta */
+  --color-action-primary-hover: #7F3828;          /* Deep Clay */
+  --color-action-primary-active: #6A2E20;         /* Darker clay */
+  --color-action-secondary: #F5EDE2;              /* Light sand */
+  --color-action-secondary-hover: #E8D8C3;        /* Sand */
+  --color-action-secondary-active: #D4C0A8;       /* Darker sand */
+  --color-action-destructive: #B93838;             /* Error */
+  --color-action-destructive-hover: #9B2C2C;
+  --color-action-destructive-active: #822525;
+
+  /* -----------------------------------------------------------------------
+     Status Colors — Distinct Semantic Colors
+     ----------------------------------------------------------------------- */
+  --color-status-success: #287A4B;
+  --color-status-success-bg: #EEFAF2;
+  --color-status-warning: #A65D0A;
+  --color-status-warning-bg: #FFF8EB;
+  --color-status-error: #B93838;
+  --color-status-error-bg: #FEF2F2;
+  --color-status-info: #3568A8;
+  --color-status-info-bg: #EFF6FF;
+
+  /* -----------------------------------------------------------------------
+     Contextual Brand & Subsystem Accents
+     ----------------------------------------------------------------------- */
+  --color-brand-gold: #C68A2B;
+  --color-brand-gold-hover: #A67320;
+  --color-brand-gold-subtle: #FDF5E8;
+  --color-dashboard-accent: #C65D3A;              /* Terracotta accent for dashboards */
+  --color-dashboard-accent-hover: #7F3828;
+  --color-dashboard-accent-subtle: #FDF5F0;
+
+  /* -----------------------------------------------------------------------
+     Chart & Visualization Semantics — Warm Palette
+     ----------------------------------------------------------------------- */
+  --color-chart-1: #C65D3A;                       /* Terracotta */
+  --color-chart-2: #3568A8;                       /* Info blue */
+  --color-chart-3: #287A4B;                       /* Success green */
+  --color-chart-4: #C68A2B;                       /* Brand gold */
+  --color-chart-5: #B93838;                       /* Error red */
+  --color-chart-6: #7F3828;                       /* Deep clay */
+  --color-chart-grid: #E8D8C3;
+  --color-chart-tooltip-bg: #ffffff;
+  --color-chart-tooltip-border: #E8D8C3;
+
+  /* -----------------------------------------------------------------------
+     Auction Domain Semantics
+     ----------------------------------------------------------------------- */
+  --color-auction-live: #287A4B;
+  --color-auction-live-bg: #EEFAF2;
+  --color-auction-ending: #B93838;
+  --color-auction-ending-bg: #FEF2F2;
+  --color-auction-reserve: #0d9488;
+  --color-auction-reserve-bg: #f0fdfa;
+  --color-auction-closed: #8E7C66;
+  --color-auction-closed-bg: #F5EDE2;
+  --color-bid-highest: #C65D3A;
+  --color-bid-winning: #287A4B;
+  --color-bid-outbid: #B93838;
+
+  /* -----------------------------------------------------------------------
+     Z-Index Hierarchy
+     ----------------------------------------------------------------------- */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-sticky: 100;
+  --z-header: 500;
+  --z-drawer: 600;
+  --z-overlay: 700;
+  --z-modal: 800;
+  --z-popover: 900;
+  --z-toast: 1000;
+  --z-tooltip: 1100;
+
+  /* -----------------------------------------------------------------------
+     Motion & Duration
+     ----------------------------------------------------------------------- */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-smooth: 350ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   Dark Mode — Warm Dark Surfaces
+   ========================================================================== */
+.dark {
+  /* Foundational Primitives (identical) */
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* Dark Mode: Surface & Background — Warm Dark */
+  --color-bg-canvas: #1A1512;
+  --color-bg-surface: #29211E;                    /* Dark Surface */
+  --color-bg-surface-raised: #3D2D24;
+  --color-bg-surface-subtle: #2E2420;
+  --color-bg-surface-overlay: rgba(0, 0, 0, 0.75);
+
+  /* Dark Mode: Text & Typography */
+  --color-text-primary: #FAF7F4;
+  --color-text-secondary: #CFC4B8;
+  --color-text-muted: #A69888;
+  --color-text-inverse: #29211E;
+
+  /* Dark Mode: Borders & Dividers */
+  --color-border-subtle: #3D2D24;
+  --color-border-default: #5A4236;
+  --color-border-strong: #6C5145;
+  --color-ring-focus: rgba(218, 130, 95, 0.4);
+
+  /* Dark Mode: Brand & Action — Lighter Terracotta for Contrast */
+  --color-action-primary: #DA825F;
+  --color-action-primary-hover: #E9A68B;
+  --color-action-primary-active: #F0C4B2;
+  --color-action-secondary: #3D2D24;
+  --color-action-secondary-hover: #5A4236;
+  --color-action-secondary-active: #6C5145;
+  --color-action-destructive: #E05858;
+  --color-action-destructive-hover: #F08080;
+  --color-action-destructive-active: #F5A5A5;
+
+  /* Dark Mode: Status Colors */
+  --color-status-success: #3DA367;
+  --color-status-success-bg: rgba(61, 163, 103, 0.12);
+  --color-status-warning: #D4880F;
+  --color-status-warning-bg: rgba(212, 136, 15, 0.12);
+  --color-status-error: #E05858;
+  --color-status-error-bg: rgba(224, 88, 88, 0.12);
+  --color-status-info: #5B8FC7;
+  --color-status-info-bg: rgba(91, 143, 199, 0.12);
+
+  /* Dark Mode: Contextual Brand & Subsystem Accents */
+  --color-brand-gold: #D4A030;
+  --color-brand-gold-hover: #C68A2B;
+  --color-brand-gold-subtle: rgba(212, 160, 48, 0.15);
+  --color-dashboard-accent: #DA825F;
+  --color-dashboard-accent-hover: #C65D3A;
+  --color-dashboard-accent-subtle: rgba(218, 130, 95, 0.15);
+
+  /* Dark Mode: Chart & Visualization Semantics */
+  --color-chart-1: #DA825F;
+  --color-chart-2: #5B8FC7;
+  --color-chart-3: #3DA367;
+  --color-chart-4: #D4A030;
+  --color-chart-5: #E05858;
+  --color-chart-6: #B38268;
+  --color-chart-grid: rgba(93, 66, 54, 0.6);
+  --color-chart-tooltip-bg: #3D2D24;
+  --color-chart-tooltip-border: #5A4236;
+
+  /* Dark Mode: Auction Domain Semantics */
+  --color-auction-live: #3DA367;
+  --color-auction-live-bg: rgba(61, 163, 103, 0.12);
+  --color-auction-ending: #E05858;
+  --color-auction-ending-bg: rgba(224, 88, 88, 0.12);
+  --color-auction-reserve: #2dd4bf;
+  --color-auction-reserve-bg: rgba(45, 212, 191, 0.12);
+  --color-auction-closed: #A69888;
+  --color-auction-closed-bg: rgba(166, 152, 130, 0.12);
+  --color-bid-highest: #DA825F;
+  --color-bid-winning: #3DA367;
+  --color-bid-outbid: #E05858;
+}
+
+/* ========================================================================
+   Base Layer — Consistent Defaults
+   ======================================================================== */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-border-subtle, #E8D8C3);
+  }
+
+  body {
+    background-color: var(--color-bg-canvas);
+    color: var(--color-text-primary);
+    font-family: var(--font-inter, sans-serif);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}

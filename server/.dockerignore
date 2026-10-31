@@ -1,0 +1,21 @@
+# Node dependencies
+node_modules
+npm-debug.log*
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Logs and runtime uploads
+logs
+*.log
+uploads/*
+!uploads/.gitkeep
+
+# IDE and OS
+.git
+.vscode
+.idea
+.DS_Store
+Thumbs.db

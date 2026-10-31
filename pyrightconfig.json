@@ -1,0 +1,7 @@
+{
+  "venvPath": "recommendation_service",
+  "venv": "venv",
+  "extraPaths": [
+    "recommendation_service"
+  ]
+}

@@ -1,0 +1,167 @@
+name: auction-x-prod
+
+services:
+  # ============================================================================
+  # MongoDB — Primary Database Service
+  # ============================================================================
+  mongodb:
+    image: mongo:7.0
+    container_name: auctionx-mongodb-prod
+    restart: always
+    volumes:
+      - mongodb_data_prod:/data/db
+    networks:
+      - auctionx-prod-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # ============================================================================
+  # Redis — Cache & Recommendation Store
+  # ============================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: auctionx-redis-prod
+    restart: always
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD:?REDIS_PASSWORD must be configured (64-character hexadecimal)}
+      - REDISCLI_AUTH=${REDIS_PASSWORD:?REDIS_PASSWORD must be configured (64-character hexadecimal)}
+    command:
+      - sh
+      - -c
+      - |
+        if ! printf '%s' "$$REDIS_PASSWORD" | grep -Eq '^[0-9a-fA-F]{64}$$'; then
+          echo "FATAL: REDIS_PASSWORD must be a valid 64-character hexadecimal string." >&2
+          exit 1
+        fi
+        printf 'appendonly yes\nrequirepass %s\n' "$$REDIS_PASSWORD" | exec docker-entrypoint.sh redis-server -
+    volumes:
+      - redis_data_prod:/data
+    networks:
+      - auctionx-prod-rec-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  # ============================================================================
+  # Recommendation Service — Production Target (No Auto-Reload)
+  # ============================================================================
+  recommendation-service:
+    build:
+      context: ./recommendation_service
+      target: production
+    container_name: auctionx-recommendation-service-prod
+    restart: always
+    environment:
+      - MONGODB_URI=${MONGODB_URI:-mongodb://mongodb:27017}
+      - MONGODB_DB=${MONGODB_DB:-Auction-X}
+      - REDIS_PASSWORD=${REDIS_PASSWORD:?REDIS_PASSWORD must be configured (64-character hexadecimal)}
+      - REDIS_URL=${REDIS_URL:-redis://:${REDIS_PASSWORD}@redis:6379/0}
+      - CLIENT_URL=${CLIENT_URL:-http://localhost:3000}
+      - PORT=8000
+      - RECOMMENDATION_HMAC_SECRET=${RECOMMENDATION_HMAC_SECRET:?RECOMMENDATION_HMAC_SECRET must be configured}
+      - INTERNAL_SERVICE_KEY=${INTERNAL_SERVICE_KEY:?INTERNAL_SERVICE_KEY must be configured}
+    networks:
+      - auctionx-prod-network
+      - auctionx-prod-rec-network
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # ============================================================================
+  # Server — Node.js Express & Socket.io (Production Target)
+  # ============================================================================
+  server:
+    build:
+      context: ./server
+      target: production
+    container_name: auctionx-server-prod
+    restart: always
+    # In the reverse proxy architecture, external traffic enters exclusively via Nginx (port 3000).
+    # Server port 5000 is kept private on auctionx-prod-network and not published to host.
+    # Uncomment if direct external host debugging or monitoring is required:
+    # ports:
+    #   - "${SERVER_PORT:-5000}:5000"
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - MONGODB_URL=${MONGODB_URL:-mongodb://mongodb:27017/Auction-X}
+      - RECOMMENDATION_SERVICE_URL=${RECOMMENDATION_SERVICE_URL:-http://recommendation-service:8000}
+      - CLIENT_URL=${CLIENT_URL:-http://localhost:3000}
+      - JWT_SECRET=${JWT_SECRET}
+      - RECOMMENDATION_HMAC_SECRET=${RECOMMENDATION_HMAC_SECRET:?RECOMMENDATION_HMAC_SECRET must be configured}
+      - INTERNAL_SERVICE_KEY=${INTERNAL_SERVICE_KEY:?INTERNAL_SERVICE_KEY must be configured}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET:-}
+      - EMAIL_USER=${EMAIL_USER:-}
+      - EMAIL_PASS=${EMAIL_PASS:-}
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME:-}
+      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY:-}
+      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET:-}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY:-}
+      - GOOGLE_CSE_ID=${GOOGLE_CSE_ID:-}
+      - GENERATIVE_API_KEY=${GENERATIVE_API_KEY:-}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - RAZORPAY_KEY_ID=${RAZORPAY_KEY_ID:-}
+      - RAZORPAY_KEY_SECRET=${RAZORPAY_KEY_SECRET:-}
+      - RAZORPAY_WEBHOOK_SECRET=${RAZORPAY_WEBHOOK_SECRET:-}
+    volumes:
+      - server_uploads_prod:/app/uploads
+      - server_logs_prod:/app/logs
+    networks:
+      - auctionx-prod-network
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      recommendation-service:
+        condition: service_healthy
+
+  # ============================================================================
+  # Client — Production Nginx Same-Origin Reverse Proxy on Port 80 (Published to Host Port 3000)
+  # ============================================================================
+  client:
+    build:
+      context: ./client
+      target: production
+      args:
+        - VITE_API_URL=${VITE_API_URL:-}
+        - VITE_RECOMMENDATION_API_URL=${VITE_RECOMMENDATION_API_URL:-}
+        - VITE_RAZORPAY_API_KEY=${VITE_RAZORPAY_API_KEY:-}
+    container_name: auctionx-client-prod
+    restart: always
+    ports:
+      - "${CLIENT_PORT:-3000}:80"
+    environment:
+      - BACKEND_UPSTREAM_URL=${BACKEND_UPSTREAM_URL:-http://server:5000}
+    networks:
+      - auctionx-prod-network
+    depends_on:
+      server:
+        condition: service_healthy
+
+volumes:
+  mongodb_data_prod:
+    name: auctionx_mongodb_data_prod
+  redis_data_prod:
+    name: auctionx_redis_data_prod
+  server_uploads_prod:
+    name: auctionx_server_uploads_prod
+  server_logs_prod:
+    name: auctionx_server_logs_prod
+
+networks:
+  auctionx-prod-network:
+    name: auctionx-prod-network
+    driver: bridge
+  auctionx-prod-rec-network:
+    name: auctionx-prod-rec-network
+    driver: bridge
+    internal: true

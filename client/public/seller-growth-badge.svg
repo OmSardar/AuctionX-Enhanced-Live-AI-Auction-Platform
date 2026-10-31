@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="100%" height="100%" fill="none">
+  <defs>
+    <filter id="badgeShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <rect width="240" height="180" rx="16" fill="#FFFFFF" stroke="#E6DFD7" stroke-width="2" filter="url(#badgeShadow)"/>
+
+  <!-- Partner Verification Badge -->
+  <g transform="translate(24, 24)">
+    <circle cx="20" cy="20" r="20" fill="#ECFDF5"/>
+    <path d="M12 20 L17 25 L28 14" stroke="#059669" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="50" y="16" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#111827">Partner Settled</text>
+    <text x="50" y="32" font-family="system-ui, sans-serif" font-size="10" fill="#6B7280">Instant Bank Payout</text>
+  </g>
+
+  <line x1="24" y1="78" x2="216" y2="78" stroke="#F3F4F6" stroke-width="1.5"/>
+
+  <!-- Transaction Details -->
+  <g transform="translate(24, 96)">
+    <text x="0" y="12" font-family="system-ui, sans-serif" font-size="10" fill="#9CA3AF">Winning Bid Settlement</text>
+    <text x="0" y="36" font-family="system-ui, sans-serif" font-size="20" font-weight="800" fill="#059669">₹4,25,000</text>
+    <rect x="120" y="18" width="72" height="22" rx="6" fill="#D1FAE5"/>
+    <text x="156" y="33" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" font-weight="700" fill="#065F46">T+0 Verified</text>
+  </g>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="guideGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#362F2A"/>
+      <stop offset="60%" stop-color="#24201D"/>
+      <stop offset="100%" stop-color="#191614"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#guideGrad)" rx="12"/>
+  <!-- Minimalist Decorative Auction Still Life -->
+  <g transform="translate(180, 70)" stroke="#6E6156" stroke-width="2" fill="none">
+    <ellipse cx="120" cy="200" rx="90" ry="16" fill="#1F1B19" stroke="#423932"/>
+    <!-- Minimalist Chair / Furniture geometry -->
+    <path d="M70 200 L70 110 C70 90 90 70 120 70 C150 70 170 90 170 110 L170 200" stroke="#C25E38" stroke-width="4" stroke-linecap="round"/>
+    <path d="M70 140 L170 140" stroke="#C25E38" stroke-width="3"/>
+    <line x1="90" y1="200" x2="90" y2="230" stroke="#8C7D73" stroke-width="3"/>
+    <line x1="150" y1="200" x2="150" y2="230" stroke="#8C7D73" stroke-width="3"/>
+    <!-- Floating auction appraisal tag -->
+    <g transform="translate(170, 50)">
+      <circle cx="20" cy="20" r="16" fill="#D97706"/>
+      <text x="20" y="24" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" font-weight="800" fill="#FFFFFF">LOT</text>
+    </g>
+  </g>
+</svg>

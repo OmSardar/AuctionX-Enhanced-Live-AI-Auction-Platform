@@ -1,0 +1,11 @@
+# AuctionX Gitleaks Baseline Exceptions (Current Active Repository Baseline)
+# Commit: 30309140e0f6887a6ee56e118ad3523052d3176b
+30309140e0f6887a6ee56e118ad3523052d3176b:server/tests/integration/admin/adminStage21Reliability.test.js:generic-api-key:105
+30309140e0f6887a6ee56e118ad3523052d3176b:server/tests/unit/stage1_security_validation.test.js:generic-api-key:155
+30309140e0f6887a6ee56e118ad3523052d3176b:server/tests/unit/stage3_lifecycle_scheduler.test.js:generic-api-key:669
+30309140e0f6887a6ee56e118ad3523052d3176b:server/tests/unit/stage4_payment_settlement.test.js:generic-api-key:381
+30309140e0f6887a6ee56e118ad3523052d3176b:server/tests/unit/stage4_payment_settlement.test.js:generic-api-key:431
+30309140e0f6887a6ee56e118ad3523052d3176b:server/tests/unit/stage4_wallet_payment.test.js:generic-api-key:3180
+30309140e0f6887a6ee56e118ad3523052d3176b:server/tests/unit/stage4_wallet_payment.test.js:generic-api-key:3250
+30309140e0f6887a6ee56e118ad3523052d3176b:server/tests/unit/stage4_wallet_payment.test.js:generic-api-key:3412
+30309140e0f6887a6ee56e118ad3523052d3176b:server/tests/unit/stage4_wallet_payment.test.js:generic-api-key:3413

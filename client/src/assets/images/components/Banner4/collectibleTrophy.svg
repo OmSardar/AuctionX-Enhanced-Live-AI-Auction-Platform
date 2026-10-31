@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradients -->
+    <radialGradient id="trophyBg" cx="50%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#21153b"/>
+      <stop offset="45%" stop-color="#110d24"/>
+      <stop offset="85%" stop-color="#080612"/>
+      <stop offset="100%" stop-color="#020108"/>
+    </radialGradient>
+    <linearGradient id="beamLeft" x1="0%" y1="100%" x2="70%" y2="0%">
+      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.25"/>
+      <stop offset="60%" stop-color="#6366f1" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="beamRight" x1="100%" y1="100%" x2="30%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.22"/>
+      <stop offset="60%" stop-color="#eab308" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#ca8a04" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- 24K Polished Gold Gradients -->
+    <linearGradient id="gold24k" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#b45309"/>
+      <stop offset="15%" stop-color="#f59e0b"/>
+      <stop offset="35%" stop-color="#fef08a"/>
+      <stop offset="50%" stop-color="#ffffff"/>
+      <stop offset="65%" stop-color="#fde047"/>
+      <stop offset="85%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#78350f"/>
+    </linearGradient>
+    <linearGradient id="goldStem" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#78350f"/>
+      <stop offset="30%" stop-color="#fbbf24"/>
+      <stop offset="60%" stop-color="#fef08a"/>
+      <stop offset="90%" stop-color="#b45309"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </linearGradient>
+    <linearGradient id="marbleBase" x1="0%" y1="0%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#18181b"/>
+      <stop offset="40%" stop-color="#27272a"/>
+      <stop offset="80%" stop-color="#09090b"/>
+      <stop offset="100%" stop-color="#040405"/>
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="trophyGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="20" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1024" height="1024" fill="url(#trophyBg)"/>
+
+  <!-- Stadium Light Beams -->
+  <polygon points="120,950 420,0 560,0 260,950" fill="url(#beamLeft)"/>
+  <polygon points="904,950 604,0 464,0 764,950" fill="url(#beamRight)"/>
+
+  <!-- Core Ambient Glow Halo Behind Cup -->
+  <circle cx="512" cy="420" r="340" fill="#fbbf24" opacity="0.08" filter="url(#trophyGlow)"/>
+  <circle cx="512" cy="420" r="220" fill="#a855f7" opacity="0.06" filter="url(#trophyGlow)"/>
+
+  <!-- Celebratory Golden Particles / Confetti -->
+  <g fill="#fde047" opacity="0.6">
+    <circle cx="280" cy="220" r="3"/>
+    <circle cx="740" cy="200" r="4"/>
+    <circle cx="340" cy="380" r="2.5"/>
+    <circle cx="690" cy="360" r="3.5"/>
+    <circle cx="240" cy="500" r="3"/>
+    <circle cx="780" cy="520" r="4"/>
+    <circle cx="410" cy="160" r="2"/>
+    <circle cx="610" cy="140" r="3"/>
+    <!-- Confetti ribbons -->
+    <rect x="220" y="320" width="8" height="16" rx="2" transform="rotate(25, 220, 320)" fill="#fbbf24" opacity="0.5"/>
+    <rect x="760" y="280" width="10" height="18" rx="2" transform="rotate(-35, 760, 280)" fill="#fde047" opacity="0.5"/>
+    <rect x="310" y="580" width="7" height="14" rx="2" transform="rotate(45, 310, 580)" fill="#c084fc" opacity="0.4"/>
+    <rect x="710" y="600" width="8" height="16" rx="2" transform="rotate(-20, 710, 600)" fill="#fbbf24" opacity="0.5"/>
+  </g>
+
+  <!-- Ground Shadows -->
+  <ellipse cx="512" cy="860" rx="360" ry="70" fill="#000000" opacity="0.95"/>
+
+  <!-- Marble Pedestal Base -->
+  <!-- Bottom Marble Slab -->
+  <polygon points="272,830 332,780 692,780 752,830 692,880 332,880" fill="url(#marbleBase)" stroke="#52525b" stroke-width="1.5"/>
+  <polygon points="272,830 752,830 752,850 692,900 332,900 272,850" fill="#09090b"/>
+  <!-- Gold Ring Accent on Base -->
+  <polygon points="312,790 352,760 672,760 712,790 672,820 352,820" fill="url(#gold24k)" stroke="#b45309" stroke-width="1.5"/>
+  <!-- Top Marble Tier -->
+  <polygon points="342,760 382,730 642,730 682,760 642,790 382,790" fill="url(#marbleBase)" stroke="#52525b" stroke-width="1.5"/>
+
+  <!-- Inscribed Plaque on Base -->
+  <g transform="translate(362, 820)">
+    <rect width="300" height="46" rx="6" fill="#18181b" stroke="url(#gold24k)" stroke-width="2"/>
+    <text x="150" y="21" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#fef08a" text-anchor="middle" letter-spacing="2">LOT #10 • WORLD CHAMPION</text>
+    <text x="150" y="37" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="600" fill="#e2e8f0" text-anchor="middle" letter-spacing="1.5">GRAND TRIUMPH CUP</text>
+  </g>
+
+  <!-- CHAMPIONSHIP TROPHY CUP -->
+  <g id="grandTrophy">
+    <!-- Trophy Handles (Ornate Neoclassical S-Curves) -->
+    <!-- Left Handle -->
+    <path d="M370,300 C240,300 210,440 270,520 C320,580 380,560 380,560 C360,530 330,510 310,470 C280,410 320,335 370,335 Z" fill="url(#gold24k)" stroke="#78350f" stroke-width="2"/>
+    <!-- Right Handle -->
+    <path d="M654,300 C784,300 814,440 754,520 C704,580 644,560 644,560 C664,530 694,510 714,470 C744,410 704,335 654,335 Z" fill="url(#gold24k)" stroke="#78350f" stroke-width="2"/>
+
+    <!-- Trophy Foot & Stem -->
+    <!-- Stem Base Flare -->
+    <path d="M432,730 L592,730 L562,670 L462,670 Z" fill="url(#goldStem)" stroke="#92400e" stroke-width="2"/>
+    <ellipse cx="512" cy="730" rx="80" ry="14" fill="url(#gold24k)"/>
+    <!-- Slender Stem Column -->
+    <path d="M482,670 L542,670 L532,560 L492,560 Z" fill="url(#goldStem)" stroke="#78350f" stroke-width="1.5"/>
+    <!-- Stem Central Knop / Orb -->
+    <ellipse cx="512" cy="615" rx="34" ry="20" fill="url(#gold24k)" stroke="#92400e" stroke-width="1.5"/>
+
+    <!-- Main Trophy Cup Body (Bowl) -->
+    <!-- Lower Calyx -->
+    <path d="M472,560 L552,560 C582,530 622,460 622,400 L402,400 C402,460 442,530 472,560 Z" fill="url(#gold24k)" stroke="#78350f" stroke-width="2.5"/>
+    <!-- Upper Bowl Body -->
+    <path d="M402,400 L622,400 L642,270 L382,270 Z" fill="url(#gold24k)" stroke="#78350f" stroke-width="2.5"/>
+    <!-- Rim Collar -->
+    <ellipse cx="512" cy="270" rx="130" ry="22" fill="url(#gold24k)" stroke="#fef08a" stroke-width="2"/>
+    <!-- Inner Bowl Cavity -->
+    <ellipse cx="512" cy="270" rx="122" ry="17" fill="#451a03"/>
+
+    <!-- Laurel Wreath & Victory Insignia Embossed on Cup Face -->
+    <g transform="translate(512, 380)">
+      <!-- Laurel Wreath -->
+      <path d="M-55,-20 C-65,10 -55,45 -30,65 C-15,75 0,78 0,78 C0,78 15,75 30,65 C55,45 65,10 55,-20" fill="none" stroke="#fef08a" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M-55,-20 C-45,-40 -25,-55 0,-60 C25,-55 45,-40 55,-20" fill="none" stroke="#fef08a" stroke-width="2.5" stroke-dasharray="4,4"/>
+      <!-- Embossed Five-Pointed Star -->
+      <polygon points="0,-25 7,-10 23,-8 11,4 14,20 0,11 -14,20 -11,4 -23,-8 -7,-10" fill="url(#goldStem)" stroke="#ffffff" stroke-width="1"/>
+      <text x="0" y="32" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="900" fill="#fef08a" text-anchor="middle" letter-spacing="2">TRIUMPH</text>
+    </g>
+
+    <!-- Starburst Lens Flare / Specular Glint -->
+    <g transform="translate(420, 290)">
+      <line x1="-35" y1="0" x2="35" y2="0" stroke="#ffffff" stroke-width="2.5" filter="url(#trophyGlow)"/>
+      <line x1="0" y1="-35" x2="0" y2="35" stroke="#ffffff" stroke-width="2.5" filter="url(#trophyGlow)"/>
+      <circle cx="0" cy="0" r="6" fill="#ffffff"/>
+    </g>
+  </g>
+
+  <!-- Top Badges -->
+  <g transform="translate(64, 56)">
+    <rect width="320" height="42" rx="21" fill="#110d24" stroke="url(#gold24k)" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="26" cy="21" r="5" fill="#f59e0b" filter="url(#trophyGlow)"/>
+    <text x="44" y="26" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="800" fill="#f8fafc" letter-spacing="2">WORLD TROPHY COLLECTION</text>
+  </g>
+
+  <g transform="translate(680, 56)">
+    <rect width="280" height="42" rx="8" fill="#110d24" stroke="#6366f1" stroke-width="1" opacity="0.9"/>
+    <text x="140" y="26" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#a5b4fc" text-anchor="middle" letter-spacing="1.5">AUCTIONX MASTERWORKS</text>
+  </g>
+</svg>

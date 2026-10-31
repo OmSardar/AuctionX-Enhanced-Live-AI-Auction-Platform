@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 500" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="podiumGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#C25E38"/>
+      <stop offset="100%" stop-color="#9C4322"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F7F4F0"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#2D2824" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Background decorative circular arcs -->
+  <circle cx="300" cy="260" r="190" stroke="#E6DFD7" stroke-width="2" stroke-dasharray="6 6"/>
+  <circle cx="300" cy="260" r="140" fill="#FBF9F6"/>
+
+  <!-- Masterclass Metric Card 1 (Top Left) -->
+  <g transform="translate(60, 80)" filter="url(#shadow)">
+    <rect width="180" height="90" rx="14" fill="url(#cardGrad)" stroke="#E8E2DA" stroke-width="1.5"/>
+    <circle cx="36" cy="36" r="16" fill="#FEEFE7"/>
+    <path d="M30 36 L34 40 L42 32" stroke="#C25E38" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="62" y="34" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#7D6F62">Consignor Margin</text>
+    <text x="62" y="52" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="#2D2824">+34.8%</text>
+    <rect x="24" y="66" width="132" height="6" rx="3" fill="#EFE9E2"/>
+    <rect x="24" y="66" width="98" height="6" rx="3" fill="#C25E38"/>
+  </g>
+
+  <!-- Masterclass Metric Card 2 (Top Right) -->
+  <g transform="translate(360, 60)" filter="url(#shadow)">
+    <rect width="180" height="90" rx="14" fill="url(#cardGrad)" stroke="#E8E2DA" stroke-width="1.5"/>
+    <circle cx="36" cy="36" r="16" fill="#FEF3C7"/>
+    <path d="M36 26 L38 32 L44 33 L39 37 L41 43 L36 39 L31 43 L33 37 L28 33 L34 32 Z" fill="#D97706"/>
+    <text x="62" y="34" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#7D6F62">Verified Reserve</text>
+    <text x="62" y="52" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="#2D2824">100% Rate</text>
+    <text x="24" y="74" font-family="system-ui, sans-serif" font-size="10" fill="#9C8E80">Certified Authenticity</text>
+  </g>
+
+  <!-- Central Auction Pedestal & Gavel -->
+  <g transform="translate(200, 210)" filter="url(#shadow)">
+    <!-- Pedestal Base -->
+    <path d="M40 180 L160 180 L140 110 L60 110 Z" fill="url(#podiumGrad)"/>
+    <rect x="20" y="180" width="160" height="18" rx="6" fill="#7A3217"/>
+    <rect x="50" y="100" width="100" height="14" rx="4" fill="#E8A388"/>
+
+    <!-- Collectible Vase on Stand -->
+    <path d="M90 50 C70 65 75 90 85 100 L115 100 C125 90 130 65 110 50 C118 35 112 25 100 25 C88 25 82 35 90 50 Z" fill="#D97706" opacity="0.9"/>
+    <circle cx="100" cy="55" r="8" fill="#FDE68A"/>
+
+    <!-- Floating Gavel -->
+    <g transform="translate(10, 20) rotate(-25 30 40)">
+      <rect x="15" y="25" width="45" height="24" rx="5" fill="#2D2824"/>
+      <rect x="20" y="22" width="6" height="30" rx="2" fill="#C25E38"/>
+      <path d="M37 49 L37 105" stroke="#C25E38" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="37" cy="108" r="5" fill="#7A3217"/>
+    </g>
+  </g>
+
+  <!-- Bottom Interactive Badge -->
+  <g transform="translate(180, 420)" filter="url(#shadow)">
+    <rect width="240" height="50" rx="25" fill="#2D2824"/>
+    <circle cx="28" cy="25" r="14" fill="#C25E38"/>
+    <path d="M24 25 L27 28 L33 22" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+    <text x="52" y="29" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#FFFFFF">Certified Auction Advisors</text>
+  </g>
+</svg>

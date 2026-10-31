@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradients -->
+    <radialGradient id="artifactBg" cx="50%" cy="36%" r="65%">
+      <stop offset="0%" stop-color="#182a47"/>
+      <stop offset="50%" stop-color="#0e1729"/>
+      <stop offset="100%" stop-color="#04060d"/>
+    </radialGradient>
+    <linearGradient id="museumBeam" x1="50%" y1="0%" x2="50%" y2="85%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.22"/>
+      <stop offset="50%" stop-color="#0284c7" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#0369a1" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Porcelain Glaze Gradient -->
+    <linearGradient id="porcelainGlaze" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="20%" stop-color="#1e3a8a"/>
+      <stop offset="45%" stop-color="#38bdf8"/>
+      <stop offset="55%" stop-color="#60a5fa"/>
+      <stop offset="75%" stop-color="#1d4ed8"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <!-- Gold Kintsugi & Trim -->
+    <linearGradient id="kintsugiGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="35%" stop-color="#f59e0b"/>
+      <stop offset="70%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#78350f"/>
+    </linearGradient>
+
+    <!-- Carved Wood Stand Gradient -->
+    <linearGradient id="rosewood" x1="0%" y1="0%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#26120e"/>
+      <stop offset="50%" stop-color="#3f1d16"/>
+      <stop offset="100%" stop-color="#190a07"/>
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="artifactGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1024" height="1024" fill="url(#artifactBg)"/>
+
+  <!-- Museum Key Spotlight -->
+  <polygon points="512,15 180,830 844,830" fill="url(#museumBeam)"/>
+
+  <!-- Ambient Museum Aura -->
+  <circle cx="512" cy="460" r="320" fill="#38bdf8" opacity="0.08" filter="url(#artifactGlow)"/>
+  <circle cx="512" cy="460" r="200" fill="#f59e0b" opacity="0.06" filter="url(#artifactGlow)"/>
+
+  <!-- Floating Museum Dust Particles -->
+  <circle cx="330" cy="240" r="3.5" fill="#bae6fd" opacity="0.5"/>
+  <circle cx="690" cy="210" r="4.5" fill="#bae6fd" opacity="0.55"/>
+  <circle cx="280" cy="450" r="2.5" fill="#fde047" opacity="0.4"/>
+  <circle cx="730" cy="490" r="4" fill="#bae6fd" opacity="0.45"/>
+  <circle cx="440" cy="160" r="3" fill="#fde047" opacity="0.6"/>
+
+  <!-- Holographic Provenance Ring Surrounding Vase -->
+  <ellipse cx="512" cy="480" rx="270" ry="80" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="12,10,30,8" opacity="0.35" filter="url(#artifactGlow)"/>
+  <ellipse cx="512" cy="480" rx="240" ry="70" fill="none" stroke="#f59e0b" stroke-width="1" stroke-dasharray="6,14" opacity="0.25"/>
+
+  <!-- Pedestal Base Shadow -->
+  <ellipse cx="512" cy="850" rx="350" ry="65" fill="#000000" opacity="0.95"/>
+
+  <!-- Carved Rosewood Pedestal Stand -->
+  <!-- Base Table -->
+  <polygon points="232,820 302,770 722,770 792,820 722,870 302,870" fill="url(#rosewood)" stroke="url(#kintsugiGold)" stroke-width="1.5"/>
+  <polygon points="232,820 792,820 792,840 722,890 302,890 232,840" fill="#120705"/>
+  <!-- Curved Feet on Pedestal -->
+  <path d="M280,840 Q260,880 290,895 L310,890 Q290,875 300,840 Z" fill="#190a07"/>
+  <path d="M744,840 Q764,880 734,895 L714,890 Q734,875 724,840 Z" fill="#190a07"/>
+  <!-- Stand Top Inlay Plinth -->
+  <polygon points="312,775 362,745 662,745 712,775 662,805 362,805" fill="#1a0b08" stroke="#f59e0b" stroke-width="1.5"/>
+
+  <!-- Plaque on Front of Pedestal -->
+  <g transform="translate(362, 815)">
+    <rect width="300" height="46" rx="6" fill="#18181b" stroke="url(#kintsugiGold)" stroke-width="2"/>
+    <text x="150" y="21" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#fef08a" text-anchor="middle" letter-spacing="2">LOT #01 • DYNASTY CELESTIAL</text>
+    <text x="150" y="37" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="600" fill="#bae6fd" text-anchor="middle" letter-spacing="1.5">GILDED PORCELAIN VASE</text>
+  </g>
+
+  <!-- IMPERIAL DYNASTY GILDED PORCELAIN VASE -->
+  <g id="imperialVase">
+    <!-- Vase Shadow on Stand -->
+    <ellipse cx="512" cy="745" rx="110" ry="22" fill="#000000" opacity="0.75" filter="url(#artifactGlow)"/>
+
+    <!-- Vase Silhouette / Main Body -->
+    <!--
+      Symmetrical amphora curve:
+      Top Lip: 462,220 to 562,220
+      Neck: curves inward to 482,300 and 542,300
+      Shoulder: swells outward to 372,440 and 652,440
+      Belly: tapers down to 432,680 and 592,680
+      Foot: curves out slightly to 422,745 and 602,745
+    -->
+    <path d="
+      M462,220
+      C450,230 472,280 482,310
+      C432,360 372,410 372,480
+      C372,580 432,670 442,735
+      L582,735
+      C592,670 652,580 652,480
+      C652,410 592,360 542,310
+      C552,280 574,230 562,220
+      Z
+    " fill="url(#porcelainGlaze)" stroke="url(#kintsugiGold)" stroke-width="2.5"/>
+
+    <!-- Vase Foot Rim -->
+    <ellipse cx="512" cy="735" rx="72" ry="14" fill="url(#kintsugiGold)" stroke="#78350f" stroke-width="1.5"/>
+
+    <!-- Vase Neck & Flared Lip -->
+    <ellipse cx="512" cy="220" rx="54" ry="12" fill="url(#kintsugiGold)" stroke="#fef08a" stroke-width="2"/>
+    <ellipse cx="512" cy="220" rx="46" ry="9" fill="#0c1222"/>
+
+    <!-- Decorative Gold Filigree Bands -->
+    <!-- Neck Collar Band -->
+    <path d="M478,300 Q512,312 546,300 Q512,318 478,300 Z" fill="url(#kintsugiGold)"/>
+    <!-- Shoulder Band -->
+    <path d="M400,420 Q512,460 624,420 Q512,470 400,420 Z" fill="url(#kintsugiGold)" opacity="0.9"/>
+    <!-- Lower Belly Band -->
+    <path d="M420,620 Q512,655 604,620 Q512,665 420,620 Z" fill="url(#kintsugiGold)" opacity="0.9"/>
+
+    <!-- Imperial Dragon / Celestial Wave Motifs on Vase Face -->
+    <g transform="translate(512, 490)">
+      <!-- Ornamental Wave Arcs -->
+      <path d="M-90,40 Q-50,10 -10,40 Q30,10 70,40 Q110,10 130,40" fill="none" stroke="url(#kintsugiGold)" stroke-width="2" stroke-linecap="round"/>
+      <path d="M-80,60 Q-40,30 0,60 Q40,30 80,60 Q120,30 140,60" fill="none" stroke="url(#kintsugiGold)" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Stylized Cloud / Lotus Medallion -->
+      <path d="M0,-80 C-40,-80 -50,-40 0,0 C50,-40 40,-80 0,-80 Z" fill="none" stroke="url(#kintsugiGold)" stroke-width="2.5"/>
+      <circle cx="0" cy="-45" r="14" fill="none" stroke="url(#kintsugiGold)" stroke-width="2"/>
+      <circle cx="0" cy="-45" r="5" fill="#fde047"/>
+    </g>
+
+    <!-- Intricate Kintsugi Golden Veins (Repaired Gold Seams Across Ceramic) -->
+    <g stroke="url(#kintsugiGold)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M440,280 L460,330 L450,380 L490,430 L480,480 L520,530 L505,600 L530,680 L520,735"/>
+      <path d="M490,430 L540,410 L570,440 L610,430"/>
+      <path d="M480,480 L430,510 L410,540 L415,580"/>
+      <path d="M520,530 L560,560 L580,600"/>
+    </g>
+
+    <!-- Ceramic Specular Highlights -->
+    <path d="M410,380 C390,430 390,520 420,620 C405,530 405,440 420,380 Z" fill="#ffffff" opacity="0.3" filter="url(#artifactGlow)"/>
+    <ellipse cx="440" cy="350" rx="18" ry="40" transform="rotate(-15, 440, 350)" fill="#ffffff" opacity="0.25"/>
+  </g>
+
+  <!-- Top Badges -->
+  <g transform="translate(64, 56)">
+    <rect width="320" height="42" rx="21" fill="#0e1729" stroke="url(#kintsugiGold)" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="26" cy="21" r="5" fill="#38bdf8" filter="url(#artifactGlow)"/>
+    <text x="44" y="26" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="800" fill="#f8fafc" letter-spacing="2">FINE ART &amp; ANTIQUITIES</text>
+  </g>
+
+  <g transform="translate(680, 56)">
+    <rect width="280" height="42" rx="8" fill="#0e1729" stroke="#0284c7" stroke-width="1" opacity="0.9"/>
+    <text x="140" y="26" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#7dd3fc" text-anchor="middle" letter-spacing="1.5">AUCTIONX MUSEUM</text>
+  </g>
+</svg>

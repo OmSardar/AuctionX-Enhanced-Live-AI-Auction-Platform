@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+@import "./styles/tokens.css";
+@import "./styles/themes.css";
+@import "./styles/utilities.css";

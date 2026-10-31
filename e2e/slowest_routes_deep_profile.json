@@ -1,0 +1,388 @@
+[
+  {
+    "label": "Public - Product Details",
+    "url": "http://localhost:3000/product/6ad8f994f50bcdb83ed041d8",
+    "isCold": true,
+    "docLoadMs": 1725,
+    "fcpMs": 1808,
+    "domInteractiveMs": 1452,
+    "dataUsableMs": 5216,
+    "totalDurationMs": 6218,
+    "apiCount": 3,
+    "slowestApi": {
+      "url": "products/6ad8f994f50bcdb83ed041d8",
+      "durationMs": 66,
+      "status": 200
+    },
+    "apiRequests": [
+      {
+        "endpoint": "auth/check",
+        "durationMs": 5,
+        "sizeBytes": 53
+      },
+      {
+        "endpoint": "products/6ad8f994f50bcdb83ed041d8",
+        "durationMs": 66,
+        "sizeBytes": 1508
+      },
+      {
+        "endpoint": "auth/seller/profile-pic?email=seller_1%40auctionx.demo",
+        "durationMs": 12,
+        "sizeBytes": 134
+      }
+    ],
+    "jsChunkCount": 43,
+    "totalJsSizeBytes": 11457507
+  },
+  {
+    "label": "Public - Product Details (Warm)",
+    "url": "http://localhost:3000/product/6ad8f994f50bcdb83ed041d8",
+    "isCold": false,
+    "docLoadMs": 1586,
+    "fcpMs": 1744,
+    "domInteractiveMs": 1436,
+    "dataUsableMs": 1983,
+    "totalDurationMs": 2986,
+    "apiCount": 3,
+    "slowestApi": {
+      "url": "auth/check",
+      "durationMs": 77,
+      "status": 200
+    },
+    "apiRequests": [
+      {
+        "endpoint": "auth/check",
+        "durationMs": 77,
+        "sizeBytes": 53
+      },
+      {
+        "endpoint": "products/6ad8f994f50bcdb83ed041d8",
+        "durationMs": 13,
+        "sizeBytes": 1508
+      },
+      {
+        "endpoint": "auth/seller/profile-pic?email=seller_1%40auctionx.demo",
+        "durationMs": 15,
+        "sizeBytes": 134
+      }
+    ],
+    "jsChunkCount": 36,
+    "totalJsSizeBytes": 11213782
+  },
+  {
+    "label": "Admin - Dashboard Overview",
+    "url": "http://localhost:3000/admin/dashboard",
+    "isCold": true,
+    "docLoadMs": 1630,
+    "fcpMs": 1856,
+    "domInteractiveMs": 1479,
+    "dataUsableMs": 1764,
+    "totalDurationMs": 2774,
+    "apiCount": 5,
+    "slowestApi": {
+      "url": "admin/dashboard/stats",
+      "durationMs": 72,
+      "status": 200
+    },
+    "apiRequests": [
+      {
+        "endpoint": "auth/user/user/admin_perf%40auctionx.com",
+        "durationMs": 26,
+        "sizeBytes": 0
+      },
+      {
+        "endpoint": "admin/dashboard/stats",
+        "durationMs": 58,
+        "sizeBytes": 0
+      },
+      {
+        "endpoint": "auth/check",
+        "durationMs": 61,
+        "sizeBytes": 340
+      },
+      {
+        "endpoint": "auth/user/user/admin_perf%40auctionx.com",
+        "durationMs": 19,
+        "sizeBytes": 616
+      },
+      {
+        "endpoint": "admin/dashboard/stats",
+        "durationMs": 72,
+        "sizeBytes": 10617
+      }
+    ],
+    "jsChunkCount": 30,
+    "totalJsSizeBytes": 5153199
+  },
+  {
+    "label": "Admin - Dashboard Overview (Warm)",
+    "url": "http://localhost:3000/admin/dashboard",
+    "isCold": false,
+    "docLoadMs": 1657,
+    "fcpMs": 1804,
+    "domInteractiveMs": 1503,
+    "dataUsableMs": 1723,
+    "totalDurationMs": 2726,
+    "apiCount": 3,
+    "slowestApi": {
+      "url": "admin/dashboard/stats",
+      "durationMs": 60,
+      "status": 200
+    },
+    "apiRequests": [
+      {
+        "endpoint": "auth/check",
+        "durationMs": 17,
+        "sizeBytes": 340
+      },
+      {
+        "endpoint": "auth/user/user/admin_perf%40auctionx.com",
+        "durationMs": 15,
+        "sizeBytes": 616
+      },
+      {
+        "endpoint": "admin/dashboard/stats",
+        "durationMs": 60,
+        "sizeBytes": 10617
+      }
+    ],
+    "jsChunkCount": 30,
+    "totalJsSizeBytes": 5153199
+  },
+  {
+    "label": "Admin - Analytics",
+    "url": "http://localhost:3000/admin/dashboard/analytics",
+    "isCold": true,
+    "docLoadMs": 1570,
+    "fcpMs": 2032,
+    "domInteractiveMs": 1349,
+    "dataUsableMs": 2022,
+    "totalDurationMs": 3036,
+    "apiCount": 4,
+    "slowestApi": {
+      "url": "auth/user/user/admin_perf%40auctionx.com",
+      "durationMs": 31,
+      "status": 200
+    },
+    "apiRequests": [
+      {
+        "endpoint": "auth/check",
+        "durationMs": 8,
+        "sizeBytes": 340
+      },
+      {
+        "endpoint": "auth/user/user/admin_perf%40auctionx.com",
+        "durationMs": 31,
+        "sizeBytes": 616
+      },
+      {
+        "endpoint": "graphql"
+      },
+      {
+        "endpoint": "graphql"
+      }
+    ],
+    "jsChunkCount": 47,
+    "totalJsSizeBytes": 7153983
+  },
+  {
+    "label": "Admin - Analytics (Warm)",
+    "url": "http://localhost:3000/admin/dashboard/analytics",
+    "isCold": false,
+    "docLoadMs": 1591,
+    "fcpMs": 2012,
+    "domInteractiveMs": 1431,
+    "dataUsableMs": 1990,
+    "totalDurationMs": 2998,
+    "apiCount": 4,
+    "slowestApi": {
+      "url": "graphql",
+      "durationMs": 157,
+      "status": 200
+    },
+    "apiRequests": [
+      {
+        "endpoint": "auth/check",
+        "durationMs": 52,
+        "sizeBytes": 340
+      },
+      {
+        "endpoint": "auth/user/user/admin_perf%40auctionx.com",
+        "durationMs": 89,
+        "sizeBytes": 616
+      },
+      {
+        "endpoint": "graphql",
+        "durationMs": 129,
+        "sizeBytes": 3226
+      },
+      {
+        "endpoint": "graphql",
+        "durationMs": 157,
+        "sizeBytes": 3226
+      }
+    ],
+    "jsChunkCount": 47,
+    "totalJsSizeBytes": 7153983
+  },
+  {
+    "label": "Seller - Dashboard Overview",
+    "url": "http://localhost:3000/seller/dashboard",
+    "isCold": true,
+    "docLoadMs": 1976,
+    "fcpMs": 2472,
+    "domInteractiveMs": 1827,
+    "dataUsableMs": 2111,
+    "totalDurationMs": 3113,
+    "apiCount": 5,
+    "slowestApi": {
+      "url": "products/email/seller_1%40auctionx.demo",
+      "durationMs": 92,
+      "status": 200
+    },
+    "apiRequests": [
+      {
+        "endpoint": "products/email/seller_1%40auctionx.demo",
+        "durationMs": 92,
+        "sizeBytes": 0
+      },
+      {
+        "endpoint": "orders/seller/seller_1%40auctionx.demo",
+        "durationMs": 54,
+        "sizeBytes": 0
+      },
+      {
+        "endpoint": "auth/check",
+        "durationMs": 58,
+        "sizeBytes": 558
+      },
+      {
+        "endpoint": "products/email/seller_1%40auctionx.demo",
+        "durationMs": 46,
+        "sizeBytes": 10661
+      },
+      {
+        "endpoint": "orders/seller/seller_1%40auctionx.demo",
+        "durationMs": 31,
+        "sizeBytes": 2230
+      }
+    ],
+    "jsChunkCount": 46,
+    "totalJsSizeBytes": 7135800
+  },
+  {
+    "label": "Seller - Dashboard Overview (Warm)",
+    "url": "http://localhost:3000/seller/dashboard",
+    "isCold": false,
+    "docLoadMs": 1536,
+    "fcpMs": 2020,
+    "domInteractiveMs": 1392,
+    "dataUsableMs": 1634,
+    "totalDurationMs": 2638,
+    "apiCount": 3,
+    "slowestApi": {
+      "url": "products/email/seller_1%40auctionx.demo",
+      "durationMs": 61,
+      "status": 200
+    },
+    "apiRequests": [
+      {
+        "endpoint": "auth/check",
+        "durationMs": 34,
+        "sizeBytes": 558
+      },
+      {
+        "endpoint": "products/email/seller_1%40auctionx.demo",
+        "durationMs": 61,
+        "sizeBytes": 10661
+      },
+      {
+        "endpoint": "orders/seller/seller_1%40auctionx.demo",
+        "durationMs": 46,
+        "sizeBytes": 2230
+      }
+    ],
+    "jsChunkCount": 38,
+    "totalJsSizeBytes": 6917614
+  },
+  {
+    "label": "Seller - Settings MyAccount",
+    "url": "http://localhost:3000/seller/dashboard/settings/myAccount",
+    "isCold": true,
+    "docLoadMs": 1826,
+    "fcpMs": 1976,
+    "domInteractiveMs": 1679,
+    "dataUsableMs": 1994,
+    "totalDurationMs": 3014,
+    "apiCount": 4,
+    "slowestApi": {
+      "url": "auth/seller/user/seller_1@auctionx.demo",
+      "durationMs": 59,
+      "status": 200
+    },
+    "apiRequests": [
+      {
+        "endpoint": "auth/check",
+        "durationMs": 33,
+        "sizeBytes": 558
+      },
+      {
+        "endpoint": "csrf-token",
+        "durationMs": 22,
+        "sizeBytes": 52
+      },
+      {
+        "endpoint": "csrf-token",
+        "durationMs": 27,
+        "sizeBytes": 52
+      },
+      {
+        "endpoint": "auth/seller/user/seller_1@auctionx.demo",
+        "durationMs": 59,
+        "sizeBytes": 1028
+      }
+    ],
+    "jsChunkCount": 30,
+    "totalJsSizeBytes": 5153199
+  },
+  {
+    "label": "Seller - Settings MyAccount (Warm)",
+    "url": "http://localhost:3000/seller/dashboard/settings/myAccount",
+    "isCold": false,
+    "docLoadMs": 1507,
+    "fcpMs": 1628,
+    "domInteractiveMs": 1349,
+    "dataUsableMs": 1633,
+    "totalDurationMs": 2639,
+    "apiCount": 4,
+    "slowestApi": {
+      "url": "csrf-token",
+      "durationMs": 70,
+      "status": 200
+    },
+    "apiRequests": [
+      {
+        "endpoint": "auth/check",
+        "durationMs": 24,
+        "sizeBytes": 558
+      },
+      {
+        "endpoint": "csrf-token",
+        "durationMs": 8,
+        "sizeBytes": 52
+      },
+      {
+        "endpoint": "csrf-token",
+        "durationMs": 70,
+        "sizeBytes": 52
+      },
+      {
+        "endpoint": "auth/seller/user/seller_1@auctionx.demo",
+        "durationMs": 24,
+        "sizeBytes": 1028
+      }
+    ],
+    "jsChunkCount": 36,
+    "totalJsSizeBytes": 5359135
+  }
+]

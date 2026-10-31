@@ -1,0 +1,163 @@
+name: auction-x
+
+services:
+  # ============================================================================
+  # MongoDB — Primary Database Service
+  # ============================================================================
+  mongodb:
+    image: mongo:7.0
+    container_name: auctionx-mongodb
+    restart: unless-stopped
+    ports:
+      - "${MONGO_PORT:-27017}:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - auctionx-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # ============================================================================
+  # Redis — Cache & Recommendation Store
+  # ============================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: auctionx-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - auctionx-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  # ============================================================================
+  # Recommendation Service — FastAPI Python Microservice (Development Target)
+  # ============================================================================
+  recommendation-service:
+    build:
+      context: ./recommendation_service
+      target: development
+    container_name: auctionx-recommendation-service
+    restart: unless-stopped
+    ports:
+      - "${REC_SERVICE_PORT:-8000}:8000"
+    environment:
+      - MONGODB_URI=${MONGODB_URI:-mongodb://mongodb:27017}
+      - MONGODB_DB=${MONGODB_DB:-Auction-X}
+      - REDIS_URL=${REDIS_URL:-redis://redis:6379/0}
+      - CLIENT_URL=${CLIENT_URL:-http://localhost:3000}
+      - PORT=8000
+      - RECOMMENDATION_HMAC_SECRET=${RECOMMENDATION_HMAC_SECRET:?RECOMMENDATION_HMAC_SECRET must be configured}
+      - INTERNAL_SERVICE_KEY=${INTERNAL_SERVICE_KEY:?INTERNAL_SERVICE_KEY must be configured}
+    volumes:
+      - ./recommendation_service:/app
+    networks:
+      - auctionx-network
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # ============================================================================
+  # Server — Node.js Express & Socket.io Backend (Development Target)
+  # ============================================================================
+  server:
+    build:
+      context: ./server
+      target: development
+    container_name: auctionx-server
+    restart: unless-stopped
+    ports:
+      - "${SERVER_PORT:-5000}:5000"
+    environment:
+      - PORT=5000
+      - NODE_ENV=${NODE_ENV:-development}
+      - MONGODB_URL=${MONGODB_URL:-mongodb://mongodb:27017/Auction-X}
+      - RECOMMENDATION_SERVICE_URL=${RECOMMENDATION_SERVICE_URL:-http://recommendation-service:8000}
+      - CLIENT_URL=${CLIENT_URL:-http://localhost:3000}
+      - JWT_SECRET=${JWT_SECRET:-auctionx_dev_jwt_secret_key_123456789}
+      - RECOMMENDATION_HMAC_SECRET=${RECOMMENDATION_HMAC_SECRET:?RECOMMENDATION_HMAC_SECRET must be configured}
+      - INTERNAL_SERVICE_KEY=${INTERNAL_SERVICE_KEY:?INTERNAL_SERVICE_KEY must be configured}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET:-}
+      - EMAIL_USER=${EMAIL_USER:-}
+      - EMAIL_PASS=${EMAIL_PASS:-}
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME:-}
+      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY:-}
+      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET:-}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY:-}
+      - GOOGLE_CSE_ID=${GOOGLE_CSE_ID:-}
+      - GENERATIVE_API_KEY=${GENERATIVE_API_KEY:-}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - RAZORPAY_KEY_ID=${RAZORPAY_KEY_ID:-}
+      - RAZORPAY_KEY_SECRET=${RAZORPAY_KEY_SECRET:-}
+      - RAZORPAY_WEBHOOK_SECRET=${RAZORPAY_WEBHOOK_SECRET:-}
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+      - server_uploads:/app/uploads
+      - server_logs:/app/logs
+    networks:
+      - auctionx-network
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      recommendation-service:
+        condition: service_healthy
+
+  # ============================================================================
+  # Client — React & Vite Frontend (Development Target)
+  # ============================================================================
+  client:
+    build:
+      context: ./client
+      target: development
+      args:
+        - VITE_API_URL=${VITE_API_URL:-http://localhost:5000}
+        - VITE_RECOMMENDATION_API_URL=${VITE_RECOMMENDATION_API_URL:-http://localhost:8000/api}
+        - VITE_RAZORPAY_API_KEY=${VITE_RAZORPAY_API_KEY:-}
+    container_name: auctionx-client
+    restart: unless-stopped
+    ports:
+      - "${CLIENT_PORT:-3000}:3000"
+    environment:
+      - VITE_API_URL=${VITE_API_URL:-http://localhost:5000}
+      - VITE_RECOMMENDATION_API_URL=${VITE_RECOMMENDATION_API_URL:-http://localhost:8000/api}
+      - VITE_RAZORPAY_API_KEY=${VITE_RAZORPAY_API_KEY:-}
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    networks:
+      - auctionx-network
+    depends_on:
+      server:
+        condition: service_healthy
+
+volumes:
+  mongodb_data:
+    name: auctionx_mongodb_data
+  redis_data:
+    name: auctionx_redis_data
+  server_uploads:
+    name: auctionx_server_uploads
+  server_logs:
+    name: auctionx_server_logs
+
+networks:
+  auctionx-network:
+    name: auctionx-network
+    driver: bridge

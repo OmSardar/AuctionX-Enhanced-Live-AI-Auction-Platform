@@ -1,0 +1,26 @@
+# AuctionX Robots Policy
+# Allow crawling of public showcase and informational portfolio pages
+# Disallow authenticated, administrative, user account, and private API routes
+# Note: robots.txt is a search crawler directive, not an access-control or security barrier.
+
+User-agent: *
+Allow: /
+Allow: /about
+Allow: /contact
+Allow: /whyus
+Allow: /terms
+Allow: /privacy
+Allow: /security
+Allow: /payment
+Allow: /shipping
+Allow: /faq
+Allow: /report
+Allow: /category/
+
+# Disallow private user account, billing, administrative, and seller management routes
+Disallow: /admin/
+Disallow: /seller/
+Disallow: /profile/
+Disallow: /orders/
+Disallow: /auth/
+Disallow: /api/

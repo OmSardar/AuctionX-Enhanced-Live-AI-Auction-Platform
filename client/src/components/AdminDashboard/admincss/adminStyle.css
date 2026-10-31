@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=fallback');
+
+@import 'tailwindcss';
+@import './additional-styles/utility-patterns.css' layer(components);
+
+@plugin "@tailwindcss/forms" {
+  strategy: base;
+}
+
+@custom-variant dark (&:is(.dark *));
+@custom-variant sidebar-expanded (&:is(.sidebar-expanded *));
+
+@theme {
+  --shadow-sm: 0 1px 1px 0 rgb(0 0 0 / 0.05), 0 1px 2px 0 rgb(0 0 0 / 0.02);
+
+  --color-gray-50: #FAF8F5;
+  --color-gray-100: #F0EBE5;
+  --color-gray-200: #E2DAD1;
+  --color-gray-300: #CFC4B8;
+  --color-gray-400: #A69888;
+  --color-gray-500: #7D6F62;
+  --color-gray-600: #5E524A;
+  --color-gray-700: #443A34;
+  --color-gray-800: #302824;
+  --color-gray-900: #231D19;
+  --color-gray-950: #0F0D0B;
+
+  --color-violet-50: #FFF5EE;
+  --color-violet-100: #FFE8D8;
+  --color-violet-200: #FFD0B0;
+  --color-violet-300: #FFB080;
+  --color-violet-400: #E89058;
+  --color-violet-500: #C06A35;
+  --color-violet-600: #A3562A;
+  --color-violet-700: #864520;
+  --color-violet-800: #6A3518;
+  --color-violet-900: #4E2612;
+  --color-violet-950: #33180A;
+
+  --color-sky-50: #EFF6FF;
+  --color-sky-100: #DBEAFE;
+  --color-sky-200: #BDDAF9;
+  --color-sky-300: #93C4F0;
+  --color-sky-400: #5B9FDD;
+  --color-sky-500: #3568A8;
+  --color-sky-600: #2B5690;
+  --color-sky-700: #234577;
+  --color-sky-800: #1C365E;
+  --color-sky-900: #152845;
+  --color-sky-950: #0D1A2E;
+
+  --color-green-50: #EEFAF2;
+  --color-green-100: #D3F1DE;
+  --color-green-200: #A8E3BF;
+  --color-green-300: #74CF99;
+  --color-green-400: #43B573;
+  --color-green-500: #287A4B;
+  --color-green-600: #21673F;
+  --color-green-700: #1B5433;
+  --color-green-800: #154128;
+  --color-green-900: #0F2E1C;
+  --color-green-950: #081B10;
+
+  --color-red-50: #FEF2F2;
+  --color-red-100: #FEE2E2;
+  --color-red-200: #FECACA;
+  --color-red-300: #F79090;
+  --color-red-400: #E05858;
+  --color-red-500: #B93838;
+  --color-red-600: #9B2C2C;
+  --color-red-700: #822525;
+  --color-red-800: #6B1F1F;
+  --color-red-900: #521919;
+  --color-red-950: #330F0F;
+
+  --color-yellow-50: #FFF8EB;
+  --color-yellow-100: #FFEFC7;
+  --color-yellow-200: #FFDE8A;
+  --color-yellow-300: #FFCA4D;
+  --color-yellow-400: #E8A81A;
+  --color-yellow-500: #C68A0E;
+  --color-yellow-600: #A65D0A;
+  --color-yellow-700: #864B08;
+  --color-yellow-800: #663906;
+  --color-yellow-900: #462704;
+  --color-yellow-950: #2C1903;
+
+  --font-inter: "Inter", "sans-serif";
+
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.5;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.5715;
+  --text-base: 1rem;
+  --text-base--line-height: 1.5;
+  --text-base--letter-spacing: -0.01em;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.5;
+  --text-lg--letter-spacing: -0.01em;
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 1.5;
+  --text-xl--letter-spacing: -0.01em;
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: 1.33;
+  --text-2xl--letter-spacing: -0.01em;
+  --text-3xl: 1.88rem;
+  --text-3xl--line-height: 1.33;
+  --text-3xl--letter-spacing: -0.01em;
+  --text-4xl: 2.25rem;
+  --text-4xl--line-height: 1.25;
+  --text-4xl--letter-spacing: -0.02em;
+  --text-5xl: 3rem;
+  --text-5xl--line-height: 1.25;
+  --text-5xl--letter-spacing: -0.02em;
+  --text-6xl: 3.75rem;
+  --text-6xl--line-height: 1.2;
+  --text-6xl--letter-spacing: -0.02em;
+
+  --breakpoint-xs: 480px;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}

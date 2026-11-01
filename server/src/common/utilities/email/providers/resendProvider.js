@@ -39,9 +39,17 @@ class ResendProvider {
    */
   async sendMail({ to, subject, html, text, from, replyTo }) {
     const recipientList = Array.isArray(to) ? to : [to];
+    const maskedRecipients = recipientList.map((r) =>
+      typeof r === "string" ? r.replace(/(?<=.{2}).(?=.*@)/g, "*") : "unknown"
+    ).join(", ");
+
+    const fromAddress = from || this.config.from;
+    console.info(
+      `[Resend Diagnostic] Dispatching email to ${maskedRecipients} | From: ${fromAddress} | Subject: "${subject}"`
+    );
 
     const payload = {
-      from: from || this.config.from,
+      from: fromAddress,
       to: recipientList,
       subject,
       html,
@@ -64,10 +72,14 @@ class ResendProvider {
           typeof response.error === "object"
             ? response.error.message || JSON.stringify(response.error)
             : String(response.error);
+        console.error(`[Resend Diagnostic] API rejected email: ${errorMsg}`);
         throw new Error(`Resend API error: ${errorMsg}`);
       }
 
       const messageId = response.data?.id || `resend-${Date.now()}`;
+      console.info(
+        `[Resend Diagnostic] Delivery succeeded | MessageId: ${messageId}`
+      );
       return {
         success: true,
         messageId,
@@ -79,10 +91,12 @@ class ResendProvider {
         this.config.resendApiKey,
         "***"
       );
+      console.error(
+        `[Resend Diagnostic] Delivery attempt failed: ${safeMessage}`
+      );
       throw new Error(`Resend email delivery failed: ${safeMessage}`);
     }
   }
 }
 
 module.exports = ResendProvider;
-

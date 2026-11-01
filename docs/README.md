@@ -82,6 +82,9 @@ Infrastructure management, cloud deployments, and runtime runbooks.
 | [Environment Configuration](./operations/environment-configuration.md) | Variable definitions, sensitive credential boundaries, and configuration matrices for all services. |
 | [Deployment & Rollback](./operations/deployment-and-rollback.md) | Render PaaS CD deployment, Docker Compose production orchestration, pre-flight gates, and rollback plans. |
 | [Staging Deployment Runbook](./operations/staging-deployment-runbook.md) | Isolated cloud staging deployment procedure with strict, allowlisted guarded cleanup routines. |
+| [Nginx Reverse Proxy Guide](./operations/nginx-reverse-proxy-guide.md) | Single public origin reverse proxy architecture, SSL termination, and private networking. |
+| [SDLC & Observability Readiness](./operations/sdlc-devsecops-observability-readiness.md) | DevSecOps maturity matrix, Prometheus telemetry, and observability standards. |
+| [Public Release Documentation Plan](./operations/public-release-documentation-plan.md) | Public release documentation governance, publication allowlist, and license compliance. |
 
 ---
 
@@ -100,7 +103,7 @@ Validation strategies, test suites, and browser automation.
 
 The repository maintains an authoritative, continuous audit sequence ([Audit Index](./audits/README.md)) documenting verification evidence, security hardening, and architecture milestones from project inception to public release:
 
-- **Authoritative Audit Index:** [Complete Audit Index (Audit-001 through Audit-087)](./audits/README.md)
+- **Authoritative Audit Index:** [Complete Audit Index (Audit-001 through Audit-092)](./audits/README.md)
 - **Architecture & Baseline (`Audit-001` – `Audit-003`):** Implementation plans, testing walkthroughs, and initial security validations.
 - **Bidding Engine & Real-Time Lifecycle (`Audit-004` – `Audit-014`):** CAS atomic bidding correctness, WebSocket timing, and synthesized Web Audio diagnostics.
 - **Frontend Refactoring & Design System (`Audit-015` – `Audit-034`):** Phase 2 through Phase 5E component library audits, layout hardening, and design token consistency.
@@ -108,4 +111,5 @@ The repository maintains an authoritative, continuous audit sequence ([Audit Ind
 - **Integration, Staging & Recommendation (`Audit-047` – `Audit-050`):** End-to-end integration, staging validation gates, and recommendation service readiness.
 - **Public Release Hardening & Media Security (`Audit-051` – `Audit-085`):** Gitleaks CI baselines, GPL removal, local vector asset rights, and `sharp` image sanitization pipelines.
 - **Release Consolidation & Publication Governance (`Audit-086` – `Audit-087`):** Public release consolidation report and owner decision checklist.
+- **Release Governance & Interoperability (`Audit-088` – `Audit-092`):** Final release gates, Cloudflare review, security findings closure, network protocols, and web service interoperability audits.
 

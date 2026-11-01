@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const crypto = require("crypto");
 const sendOtpEmail = require("../../../common/utilities/emailSender.js");
+const { isProductionEnvironment } = require("../../../common/utilities/email");
 const { sendLoginSecurityAlert } = require("../../../infrastructure/security/securityAlertService");
 const auditService = require("../../analytics/services/auditService.js");
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -226,7 +227,7 @@ const Login = async (req, res) => {
         await sendOtpEmail(user.email, otp);
       } catch (mailError) {
         console.warn(`[Login OTP] Email delivery failed for ${user.email}: ${mailError.message}`);
-        const isProduction = process.env.NODE_ENV === "production";
+        const isProduction = isProductionEnvironment();
         const isResend = (process.env.EMAIL_PROVIDER || "").toLowerCase() === "resend";
         if (isProduction || isResend) {
           await Otp.deleteOne({ email: user.email, otp });
@@ -333,7 +334,7 @@ const Login = async (req, res) => {
 // authController.js
 const Logout = async (req, res) => {
   try {
-    const isProduction = process.env.NODE_ENV === "production";
+    const isProduction = isProductionEnvironment();
     const cookieOptions = {
       httpOnly: true,
       secure: isProduction,

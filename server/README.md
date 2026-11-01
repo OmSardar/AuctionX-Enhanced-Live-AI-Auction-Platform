@@ -93,12 +93,12 @@ The backend subsystem is built on Node.js LTS and uses production-grade dependen
 | **Rate Limiting** | `express-rate-limit` | `^7.5.0` | Tiered IP and account rate limiting against brute-force and DoS. |
 | **Authentication** | `jsonwebtoken` | `^9.0.2` | Signed JWT session generation and cryptographic verification. |
 | **Password Hashing** | `bcrypt` / `bcryptjs` | `^5.1.1` | Salted SHA-512 password hashing with 10 salt rounds. |
-| **OAuth 2.0 Provider** | `passport` / `passport-google-oauth20` | `^0.7.0` | Google Identity federated authentication strategy. |
+| **OAuth 2.0 Provider** | `passport` / `passport-google-oauth20` | `^0.7.0` | Google Identity federated authentication strategy with reverse-proxy trust (`proxy: true`) and canonical HTTPS redirect resolution. |
 | **Media Processing** | `sharp` | `^0.35.5` | In-process native C++ pixel decoding, WebP transcoding, EXIF strip. |
 | **Multipart Ingestion**| `multer` | `^1.4.5-lts.2` | Temporary disk storage for file uploads with size bounds. |
 | **Cloud Media Storage**| `cloudinary` | `^2.6.0` | Off-site asset hosting, image transformations, public ID tracking. |
 | **Payment REST Client**| `axios` | `^1.8.4` | Razorpay REST API communication, order creation, refunds. |
-| **Email Dispatcher** | `nodemailer` | `^6.9.15` | SMTP email transport for OTPs, win notifications, and reports. |
+| **Email Dispatcher** | `resend` / `nodemailer` | `^6.37.0` / `^6.9.15` | Dual-provider transactional email: Resend HTTPS API (port 443) in production; Nodemailer SMTP in local development. |
 | **PDF Rendering** | `pdfkit` | `^0.17.0` | Server-side invoice generation and receipts. |
 | **Structured Logging** | `winston` / `morgan` | `^3.17.0` | JSON log emission, file transports, correlation ID tracking. |
 | **Test Framework** | `jest` / `supertest` | `^30.5.2` | Test pyramid runner, HTTP endpoint assertion, mock transports. |
@@ -126,7 +126,8 @@ server/
 │   ├── common/                            # Shared utilities and error primitives
 │   │   ├── errors/errorHandler.js         # Centralized error middleware & AppError class
 │   │   ├── types/                         # Common data type definitions
-│   │   └── utilities/                     # Formatting, time calculation helpers
+│   │   └── utilities/                     # Formatting, time calculation helpers, and email/
+│   │       └── email/                     # Centralized dual-provider email service (Resend + SMTP)
 │   ├── config/                            # Environment and payment configuration
 │   │   ├── environment/validateEnv.js     # Strict startup environment variable schema check
 │   │   └── payments/razorpayConfig.js     # Razorpay API client initialization
@@ -629,7 +630,7 @@ npm run dr:verify
 AuctionX features an extensive test pyramid implemented in Jest:
 
 ```powershell
-# Execute core unit and concurrency test suites (360 tests)
+# Execute core unit and concurrency test suites (590 tests across 44 suites)
 npm run test:unit
 
 # Execute integration API tests with live Mongoose connection
@@ -685,6 +686,21 @@ npm run test:all
 - **Symptom**: Razorpay webhooks return HTTP 400 "Invalid signature".
 - **Root Cause**: Request body parser modified JSON whitespace before HMAC calculation.
 - **Resolution**: Verify that the Express JSON middleware captures `req.rawBody` buffer before body parsing.
+
+### 4. Production Email Delivery Failure (Render Outbound SMTP Blocking)
+- **Symptom**: OTP requests hang for ~120 seconds and fail, or Resend dashboard registers zero API calls.
+- **Root Cause**: Render hosting policy blocks outbound SMTP connections on ports 25, 465, and 587. If `EMAIL_PROVIDER` is missing or defaults to SMTP in production, Nodemailer connection hangs until socket timeout.
+- **Resolution**:
+  - Configure `EMAIL_PROVIDER=resend` and set `RESEND_API_KEY` (must match verified domain `mail.omslabs.tech`) in Render Dashboard environment variables.
+  - The backend runtime automatically uses the Resend HTTPS SDK over port 443.
+  - Verify live status using the safe diagnostics endpoint: `GET /health/email`.
+
+### 5. Google OAuth 400 Error: "redirect_uri_mismatch"
+- **Symptom**: Google OAuth login redirects to Google error page with `Error 400: redirect_uri_mismatch`.
+- **Root Cause**: Cloud hosting edge proxies terminate TLS. Without reverse-proxy trust, Passport generates `http://.../auth/google/callback` rather than `https://...`.
+- **Resolution**:
+  - Passport `GoogleStrategy` is configured with `proxy: true` in `passportGoogleStrategy.js`.
+  - Set `GOOGLE_CALLBACK_URL=https://<server-domain>/auth/google/callback` in Render environment variables and ensure the identical HTTPS URL is authorized in Google Cloud Console.
 
 ---
 

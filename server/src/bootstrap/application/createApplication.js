@@ -280,7 +280,13 @@ function createApplication(options = {}) {
       "Accept",
       "Origin",
     ],
-    exposedHeaders: ["x-csrf-token", "X-CSRF-Token", "Content-Disposition"],
+    exposedHeaders: [
+      "x-csrf-token",
+      "X-CSRF-Token",
+      "Content-Disposition",
+      "x-rtb-fingerprint-id",
+      "request-id",
+    ],
     credentials: true,
     maxAge: 86400,
   };

@@ -97,6 +97,12 @@ Before triggering a deployment, verify:
    - [ ] `RAZORPAY_KEY_ID` and `RAZORPAY_KEY_SECRET` match intended environment (Test mode for staging; Live mode for production).
    - [ ] `RAZORPAY_WEBHOOK_SECRET` matches the webhook secret configured in the Razorpay Dashboard.
    - [ ] `INTERNAL_SERVICE_KEY` and `RECOMMENDATION_HMAC_SECRET` set and distinct.
+   - [ ] `EMAIL_PROVIDER` explicitly set to `resend` on backend web service.
+   - [ ] `RESEND_API_KEY` configured with production API key (`re_...`) corresponding to verified domain `mail.omslabs.tech`.
+   - [ ] `EMAIL_FROM` configured to `AuctionX <notifications@mail.omslabs.tech>`.
+   - [ ] `EMAIL_REPLY_TO` configured to `support@mail.omslabs.tech`.
+   - [ ] `GOOGLE_CALLBACK_URL` configured to canonical HTTPS URL `https://<server-domain>/auth/google/callback` matching Google Cloud Console.
+   - [ ] `NODE_ENV` set to `production`.
 3. **Database Pre-requisites:**
    - Verify required indexes exist (e.g., unique index on `WebhookEvent.event_id`, compound indexes on `Bids`, `Products`, `Orders`).
    - MongoDB replica set is operational (required for transactions if replica set is configured).
@@ -155,6 +161,28 @@ curl -f -s -S https://<recommendation-domain>/health
 
 ### 5.5 Real-time Socket.IO Connection Test (Same-Origin)
 Verify browser or client connection to `wss://<client-domain>/socket.io/?EIO=4&transport=websocket` via Nginx reverse proxy.
+
+### 5.6 Transactional Email Health Verification
+```bash
+# Verify email subsystem reports healthy status and selects Resend in production
+curl -f -s -S https://<server-domain>/health/email
+# Expected JSON payload:
+# {
+#   "status": "healthy",
+#   "provider": "resend",
+#   "configured": true,
+#   "environment": "production",
+#   "from": "AuctionX <notifications@mail.omslabs.tech>"
+# }
+```
+
+### 5.7 Google OAuth Redirect URI Resolution Verification
+```bash
+# Verify Google OAuth initiation returns 302 redirect with canonical HTTPS redirect_uri
+curl -I https://<server-domain>/auth/google
+# Verify the Location header starts with https://accounts.google.com/o/oauth2/v2/auth
+# and includes redirect_uri=https%3A%2F%2F<server-domain>%2Fauth%2Fgoogle%2Fcallback
+```
 
 ---
 

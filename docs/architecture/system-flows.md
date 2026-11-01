@@ -61,12 +61,42 @@
 
 - `POST /api/auth/logout` — clears the cookie.
 
-#### 1.6 OTP Verification
+#### 1.6 OTP Verification & Transactional Email Delivery
 
-- `POST /api/auth/send-otp` — generates OTP, stores in OTP collection (TTL 3000 seconds ≈ 50 minutes), sends via email (Nodemailer).
-- `POST /api/auth/verify-otp` — validates OTP against stored value.
-- OTP collection has unique constraint on `email` (one active OTP per email).
-- Previous audit removed `GET /get-otp/:email` (CRIT-01 fix).
+AuctionX implements segregated, specialized endpoints for distinct authentication workflows:
+- **User Registration Email Verification:** `POST /api/auth/user/send-otp` and `POST /api/auth/user/verify-otp`.
+- **Seller Account Email Verification:** `POST /api/auth/seller/send-otp` and `POST /api/auth/seller/verify-otp`.
+- **Login Two-Factor Authentication (2FA):** `POST /api/auth/2fa/send-otp` and `POST /api/auth/2fa/verify-otp`.
+- **Legacy Compatibility Routes:** `POST /api/auth/send-otp` and `POST /api/auth/verify-otp` (maintained as backward-compatible proxies).
+
+```mermaid
+flowchart TD
+    ClientReq[Client requests email workflow] --> Ctrl[Express Controller]
+    Ctrl --> PersistOTP[Persist OTP record in MongoDB]
+    PersistOTP --> CentralEmail[Central Email Service Facade]
+    CentralEmail --> ValidatePayload{Validate to, subject, html}
+    ValidatePayload -->|Invalid| ReturnError[Throw ValidationError]
+    ValidatePayload -->|Valid| CheckProvider{Provider Selection}
+
+    CheckProvider -->|EMAIL_PROVIDER=smtp or Local Dev| SmtpProv[Nodemailer SMTP Transporter]
+    CheckProvider -->|EMAIL_PROVIDER=resend or Render Prod| ResendProv[Resend HTTPS API Port 443]
+
+    SmtpProv --> SmtpResult{SMTP Result}
+    ResendProv --> ResendResult{Resend HTTPS Result}
+
+    SmtpResult -->|Success| SuccessHandler[Return 200 OK to Client]
+    ResendResult -->|Success: 200/201| SuccessHandler
+
+    SmtpResult -->|Failure / Timeout| HandleFailure[Catch Block: Cleanup & Fail]
+    ResendResult -->|Failure: 4xx/5xx| HandleFailure
+
+    HandleFailure --> CleanupOTP[Targeted Delete: Otp.deleteOne by exact _id]
+    CleanupOTP --> FailResponse[Return 500 Internal Server Error<br/>Swallowing disabled in prod]
+```
+
+- **Targeted Document Deletion:** If delivery throws an exception after OTP document creation, the controller deletes only the failed record by its exact MongoDB document `_id` (`Otp.deleteOne({ _id: otpDoc._id })`). This prevents race conditions where an unrelated newer OTP generated concurrently could be wiped by a simple `{ email }` filter.
+- **OTP Non-Retry Invariant:** Bounded retries with backoff are disabled for OTP messages (`category: "otp"`). This prevents users from receiving duplicate OTP codes during transient network delays.
+- **Production Error Transparency:** In production environments (`NODE_ENV === "production"` or `RENDER === "true"`), email failures reject immediately with HTTP 500. Silencing failures with false-positive HTTP 200s is strictly forbidden.
 
 #### 1.7 User Verification
 
@@ -728,8 +758,8 @@ See HLD §21 and LLD §J for failure modes, recovery mechanisms, and observabili
 | MongoDB Atlas | Primary database | `MONGODB_URL` env var |
 | Cloudinary | Image storage | SDK configuration in middleware |
 | Razorpay | Payments | Client-side key only, no server SDK |
-| Google OAuth | Authentication | Client ID, Secret, Callback URL |
-| Nodemailer | Email (OTP, contact) | SMTP configuration |
+| Google OAuth | Authentication (Reverse-Proxy Trust) | Client ID, Secret, `GOOGLE_CALLBACK_URL` (`proxy: true`) |
+| Email Delivery | Dual-Provider Email Infrastructure | Resend HTTPS API (`RESEND_API_KEY`) in prod; Nodemailer SMTP in dev |
 | Redis (optional) | Recommendation cache | `REDIS_URL` in recommendation service |
 
 ---

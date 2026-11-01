@@ -33,6 +33,16 @@ services:
         sync: false
       - key: GOOGLE_CLIENT_SECRET
         sync: false
+      - key: GOOGLE_CALLBACK_URL
+        value: https://auctionx-enhanced-live-server.onrender.com/auth/google/callback
+      - key: EMAIL_PROVIDER
+        value: resend
+      - key: RESEND_API_KEY
+        sync: false
+      - key: EMAIL_FROM
+        value: "AuctionX <notifications@mail.omslabs.tech>"
+      - key: EMAIL_REPLY_TO
+        sync: false
       - key: EMAIL_USER
         sync: false
       - key: EMAIL_PASS

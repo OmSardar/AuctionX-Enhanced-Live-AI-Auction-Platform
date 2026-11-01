@@ -184,9 +184,9 @@ The following matrix documents the operational capabilities implemented across A
 - **WebSocket Engine:** Socket.IO 4.8.1 (in-process event routing and room management)
 - **Database ODM:** Mongoose 8.7.2 (connected to MongoDB 7.0)
 - **Security Middlewares:** Helmet 8.1.0, Express-Rate-Limit 7.5.0, Express-Mongo-Sanitize 2.2.0, Cookie-Parser 1.4.7
-- **Authentication & Tokens:** JSONWebToken (JWT) 9.0.2, Passport 0.7.0, Passport-Google-OAuth20 2.0.0, Bcrypt 5.1.1
+- **Authentication & Tokens:** JSONWebToken (JWT) 9.0.2, Passport 0.7.0, Passport-Google-OAuth20 2.0.0 (configured with reverse-proxy trust `proxy: true` and canonical HTTPS callback resolution), Bcrypt 5.1.1
 - **Media Processing:** Sharp 0.35.5, Multer 1.4.5-lts.2, Cloudinary SDK 2.6.0
-- **Notifications:** Nodemailer 6.9.15
+- **Email Delivery Infrastructure:** Dual-provider architecture supporting Resend SDK (official `resend` ^6.37.0, production HTTPS REST API with DNS-verified sending domain) and Nodemailer 6.9.15 (local development SMTP)
 - **Document Generation:** PDFKit 0.17.0
 - **Logging & Diagnostics:** Winston 3.17.0, Morgan 1.10.0
 - **Testing Framework:** Jest 30.5.2, Supertest 7.2.2
@@ -217,7 +217,7 @@ The architecture centers around the **Server Gateway**, which acts as the author
 2. **Reverse Proxy / Ingress:** An NGINX proxy routes traffic to ensure both client and server operate under a unified domain, eliminating cross-site cookie restrictions.
 3. **Database Layer:** MongoDB stores user profiles, product catalogs, bid ledgers, payment logs, and telemetry events. Read queries utilize targeted composite indices, while state updates use atomic operators.
 4. **Recommendation Engine:** The Python FastAPI microservice runs independently. Telemetry flows asynchronously from Express to FastAPI via an HMAC-secured internal route and a durable outbox queue. If FastAPI is unavailable, the core auction platform continues operating without disruption.
-5. **Third-Party Gateways:** External integrations (Razorpay for payments, Google for OAuth, Cloudinary for media storage) terminate exclusively at the backend server. No API secrets are exposed to the client application.
+5. **Third-Party Gateways:** External integrations (Razorpay for payments, Google for OAuth 2.0 with reverse-proxy trust, Resend for production transactional email dispatch, Cloudinary for media storage) terminate exclusively at the backend server. No API secrets are exposed to the client application.
 
 ---
 
@@ -236,8 +236,9 @@ graph TD
     MongoDB[("MongoDB 7.0 Database<br/>(Primary Store & Outbox)")]
     Redis[("Redis 7 Cache<br/>(Optional Vector/Score Cache)")]
     Razorpay["Razorpay Payment Gateway<br/>(External API & Webhooks)"]
-    Google["Google Identity Services<br/>(OAuth 2.0 Provider)"]
+    Google["Google Identity Services<br/>(OAuth 2.0 Provider with Proxy Trust)"]
     Cloudinary["Cloudinary Media CDN<br/>(Asset Storage)"]
+    ResendMail["Resend Email Service<br/>(Production HTTPS API Port 443)"]
 
     Client -->|HTTPS REST / WSS Events| NGINX
     NGINX -->|HTTP Reverse Proxy| Server
@@ -250,6 +251,7 @@ graph TD
     Razorpay -->|POST /api/payment/webhook| Server
     Server -->|OAuth 2.0 Auth Code Flow| Google
     Server -->|Sanitized WebP Uploads| Cloudinary
+    Server -->|HTTPS Port 443 REST Dispatch| ResendMail
 ```
 
 ### B. Deployment and Runtime Topology
@@ -599,7 +601,7 @@ Testing spans multiple levels of isolation, verifying business logic, authorizat
 ```mermaid
 flowchart TD
     subgraph "Testing Pyramid"
-        Unit["Unit Tests (Jest & PyTest)<br/>- 360 Server Tests (bidService, payment, csrf)<br/>- 68 FastAPI Tests (ranking, decay, fallbacks)<br/>- 29 Client Tests (geoData, assets, contracts)"]
+        Unit["Unit Tests (Jest & PyTest)<br/>- 590 Server Tests (bidService, payment, email, transactions, csrf)<br/>- 68 FastAPI Tests (ranking, decay, fallbacks)<br/>- 29 Client Tests (geoData, assets, contracts)"]
         Integration["Integration Tests (Supertest)<br/>- Admin RBAC & Financial Ledgers<br/>- IDOR Security Boundaries<br/>- Stage 5 Multi-Document Settlement"]
         Graybox["Graybox & Concurrency Tests<br/>- CAS Lock Contention Simulations<br/>- Outbox Sweeper Reconciliation"]
         E2E["Browser E2E Tests (Playwright)<br/>- Live Bid Placement Walkthroughs<br/>- Auction Expiry State Transitions"]
@@ -869,19 +871,19 @@ The repository includes a comprehensive automated test pyramid spanning unit, in
 --------------------------------------------------------------------------------
 Test Scope                       Framework       Suites    Tests    Status
 --------------------------------------------------------------------------------
-Server Unit & Concurrency        Jest 30         28        360      100% Passed
+Server Unit & Concurrency        Jest 30         44        590      100% Passed
 FastAPI Recommendation Engine    Pytest 9        1         68       100% Passed
 Client Contract & Form Logic     Node Native     4         29       100% Passed
 --------------------------------------------------------------------------------
-Total Automated Invariants                       33        457      100% Passed
+Total Automated Invariants                       49        687      100% Passed
 --------------------------------------------------------------------------------
 ```
 
 ### Verified Test Executions
 - **Server Unit & Concurrency Suite:**
   - Command: `npm run test:unit --prefix server`
-  - Scope: Bid CAS updates, anti-sniping timer extensions, Razorpay test-mode orders, webhook deduplication leases, CSRF cookie/header lifecycle, IDOR authorization barriers, and Cloudinary retry backoff.
-  - Result: 28 suites passed, 360 tests passed.
+  - Scope: Bid CAS updates, anti-sniping dynamic soft-close extensions, Razorpay test-mode orders, webhook deduplication leases, cross-document wallet settlement protocols, crash recovery windows, dual-provider email resolution (Resend API + Nodemailer SMTP), user vs admin transaction query scoping, CSRF cookie/header lifecycle, IDOR authorization barriers, and Google OAuth proxy handling.
+  - Result: 44 suites passed, 590 tests passed (100% pass rate with zero open handles).
 - **FastAPI Recommendation Suite:**
   - Command: `pytest tests/` (in `recommendation_service/`)
   - Scope: Interaction weighting, temporal decay formulas, category affinity vectors, anti-clustering penalties, and cold-start fallback sorting.

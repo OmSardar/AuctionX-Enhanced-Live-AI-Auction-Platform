@@ -1,3 +1,4 @@
+const { getEmailConfig, isProductionEnvironment } = require("../../common/utilities/email/emailConfig");
 const express = require("express");
 const mongoose = require("mongoose");
 
@@ -77,6 +78,43 @@ router.get(["/ready", "/health/ready"], async (req, res) => {
   };
 
   res.status(statusCode).json(payload);
+});
+
+
+/**
+ * Email Health & Diagnostics: GET /health/email (and /api/health/email)
+ *
+ * Verifies email provider resolution, configuration state, and sender identity
+ * WITHOUT exposing raw credentials, secrets, or API keys.
+ */
+router.get(["/health/email", "/api/health/email"], (req, res) => {
+  try {
+    const config = getEmailConfig();
+    res.status(200).json({
+      status: "ok",
+      provider: config.provider,
+      isProduction: config.isProduction,
+      sender: config.from,
+      replyTo: config.replyTo || null,
+      credentialsConfigured:
+        config.provider === "resend"
+          ? Boolean(config.resendApiKey)
+          : Boolean(config.smtpUser && config.smtpPass),
+      resendConfigured: Boolean(config.resendApiKey),
+      smtpConfigured: Boolean(config.smtpUser && config.smtpPass),
+      outboundSmtpAllowed: !config.isProduction,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (err) {
+    res.status(503).json({
+      status: "error",
+      message: err.message,
+      provider: (process.env.EMAIL_PROVIDER || "").trim().toLowerCase() || "unresolved",
+      isProduction: isProductionEnvironment(),
+      resendConfigured: Boolean(process.env.RESEND_API_KEY),
+      timestamp: new Date().toISOString(),
+    });
+  }
 });
 
 module.exports = router;

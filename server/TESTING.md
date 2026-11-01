@@ -75,8 +75,13 @@ server/
 │   │   │   ├── checkTimeRestriction.test.js     # Bidding time restriction regression unit test
 │   │   │   ├── csrfMiddleware.test.js           # Double-submit cookie CSRF validation
 │   │   │   └── errorHandler.test.js             # Global error formatting
-│   │   └── utils/
-│   │       └── emailSender.test.js              # Transporter & OTP email dispatch
+│   │   ├── utils/
+│   │   │   ├── emailSender.test.js              # Transporter & OTP email dispatch
+│   │   │   └── passportGoogleStrategy.test.js   # Google OAuth proxy, callback URL & fallback tests
+│   │   ├── email/
+│   │   │   └── emailService.test.js             # Dual-provider resolution, Resend API, bounded retries
+│   │   └── transactions/
+│   │       └── userTransactionAccess.test.js   # Transaction ledger access control & route order tests
 │   └── integration/
 │       ├── admin/
 │       │   ├── adminRoutes.test.js              # Admin RBAC & /check-admin endpoint
@@ -162,15 +167,28 @@ Tests execute under:
 - **Root Cause**: Both `capitalizeFirstLetter` and `calculateCommission` were declared twice in the same module scope, causing Babel parser `SyntaxError: Identifier 'capitalizeFirstLetter' has already been declared`.
 - **Fix**: Removed duplicate declarations.
 
+### 6. Render Outbound SMTP Port Restriction & Silent Controller Swallowing
+- **Files**: `server/src/common/utilities/email/emailConfig.js`, `server/src/modules/users/controllers/userVerificationController.js`, `sellerVerificationController.js`, `twoFactorController.js`, `userLoginController.js`
+- **Root Cause**: Render blocks outbound SMTP connections on ports 25, 465, and 587. Because `EMAIL_PROVIDER` was not defined in the deployed environment and `NODE_ENV` was not recognized as production, `emailConfig.js` defaulted to SMTP. Nodemailer connection hung for 120 seconds before socket timeout. Furthermore, verification controllers swallowed the SMTP error in development mode and returned a false-positive HTTP 200, preventing any email dispatch to Resend while giving users a misleading success message.
+- **Fix**:
+  1. Added `isProductionEnvironment()` in `emailConfig.js` to reliably detect Render environment markers (`RENDER=true`, `RENDER_EXTERNAL_URL`, `RENDER_SERVICE_ID`) in addition to `NODE_ENV === "production"`.
+  2. Implemented automatic provider fallback to `resend` whenever executing on Render or when `RESEND_API_KEY` is present.
+  3. Hardened controllers to reject with HTTP 500 in production, log sanitized diagnostics, and delete the failed OTP record by its exact document `_id` (`Otp.deleteOne({ _id: otpDoc._id })`).
+  4. Added `/health/email` diagnostic probe endpoint.
+- **Regression Tests**: `tests/unit/email/emailService.test.js` (20 unit tests).
+
+### 7. Google OAuth 2.0 Reverse-Proxy Protocol Downgrade (redirect_uri_mismatch)
+- **Files**: `server/src/infrastructure/security/passportGoogleStrategy.js`, `render.yaml`
+- **Root Cause**: Render terminates TLS at the edge reverse proxy. Without `proxy: true`, Passport generates `http://.../auth/google/callback`. Google Cloud strictly matches registered redirect URIs, resulting in Error 400: `redirect_uri_mismatch`.
+- **Fix**: Added `proxy: true` to `GoogleStrategy`, configured canonical HTTPS callback URL resolution (`GOOGLE_CALLBACK_URL`), and normalized non-localhost production URLs to `https://`.
+- **Regression Tests**: `tests/unit/utils/passportGoogleStrategy.test.js`.
+
 ---
 
 ## 8. Test Execution Commands
 
 ```bash
-# Run complete test suite (26 suites, 153 tests)
-npm test
-
-# Run unit tests only (12 suites, 58 tests)
+# Run unit tests only (44 suites, 590 tests passed)
 npm run test:unit
 
 # Run integration tests only (14 suites, 95 tests)

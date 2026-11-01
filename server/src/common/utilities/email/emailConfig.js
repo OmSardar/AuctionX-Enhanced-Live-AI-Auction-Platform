@@ -12,17 +12,40 @@
 const DEFAULT_SENDER = "AuctionX <notifications@mail.omslabs.tech>";
 
 /**
+ * Robust production/Render environment detection.
+ * Detects standard production flags as well as Render hosting environment variables.
+ */
+function isProductionEnvironment() {
+  return Boolean(
+    process.env.NODE_ENV === "production" ||
+    process.env.ENVIRONMENT === "production" ||
+    process.env.RENDER === "true" ||
+    process.env.RENDER_EXTERNAL_URL ||
+    process.env.RENDER_SERVICE_ID ||
+    process.env.RENDER_INSTANCE_ID
+  );
+}
+
+/**
  * Validates and retrieves the active email configuration.
  * Never logs or returns raw credentials.
  */
 function getEmailConfig() {
-  const isProduction = process.env.NODE_ENV === "production";
+  const isProduction = isProductionEnvironment();
 
-  // Provider resolution: explicit EMAIL_PROVIDER or default based on environment
+  // Provider resolution:
+  // 1. Explicit EMAIL_PROVIDER if set
+  // 2. If RESEND_API_KEY is configured, default to resend
+  // 3. If running in production or on Render, default to resend (SMTP ports are blocked)
+  // 4. Otherwise, default to smtp for local development
   let provider = (process.env.EMAIL_PROVIDER || "").trim().toLowerCase();
 
   if (!provider) {
-    provider = isProduction ? "resend" : "smtp";
+    if (process.env.RESEND_API_KEY || isProduction) {
+      provider = "resend";
+    } else {
+      provider = "smtp";
+    }
   }
 
   if (provider !== "smtp" && provider !== "resend") {
@@ -93,6 +116,6 @@ function getEmailConfig() {
 
 module.exports = {
   getEmailConfig,
+  isProductionEnvironment,
   DEFAULT_SENDER,
 };
-

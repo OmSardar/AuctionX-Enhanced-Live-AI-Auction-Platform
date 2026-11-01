@@ -171,16 +171,47 @@ class UnconfiguredGoogleStrategy extends passport.Strategy {
 const configureGoogleStrategy = (options = {}) => {
   const clientID = (options.clientID || process.env.GOOGLE_CLIENT_ID || "").trim();
   const clientSecret = (options.clientSecret || process.env.GOOGLE_CLIENT_SECRET || "").trim();
-  const callbackURL =
-    options.callbackURL ||
-    process.env.GOOGLE_CALLBACK_URL ||
-    "/auth/google/callback";
+
+  // Production-resilient callback resolution:
+  // 1. Explicit injection via options.callbackURL
+  // 2. Explicit GOOGLE_CALLBACK_URL from environment
+  // 3. Render or Production: Canonical production HTTPS callback URL (never plain HTTP or localhost fallback)
+  // 4. Development fallback: /auth/google/callback
+  const isProduction = Boolean(
+    process.env.NODE_ENV === "production" ||
+    process.env.ENVIRONMENT === "production" ||
+    process.env.RENDER === "true" ||
+    process.env.RENDER_EXTERNAL_URL ||
+    process.env.RENDER_SERVICE_ID
+  );
+
+  let callbackURL = (options.callbackURL || process.env.GOOGLE_CALLBACK_URL || "").trim();
+  if (!callbackURL) {
+    if (isProduction) {
+      const canonicalHost =
+        process.env.RENDER_EXTERNAL_URL ||
+        "https://auctionx-enhanced-live-server.onrender.com";
+      callbackURL = `${canonicalHost.replace(/\/+$/, "")}/auth/google/callback`;
+    } else {
+      callbackURL = "/auth/google/callback";
+    }
+  }
+
+  // Enforce HTTPS in production: never allow plain http:// redirect URI for public domains
+  if (
+    isProduction &&
+    callbackURL.startsWith("http://") &&
+    !callbackURL.includes("localhost") &&
+    !callbackURL.includes("127.0.0.1")
+  ) {
+    callbackURL = callbackURL.replace(/^http:\/\//i, "https://");
+  }
 
   if (!clientID || !clientSecret) {
     const message =
       "Google OAuth credentials not configured (GOOGLE_CLIENT_ID or GOOGLE_CLIENT_SECRET missing); Google authentication strategy is disabled.";
     if (logger && typeof logger.info === "function") {
-      if (process.env.NODE_ENV === "production") {
+      if (isProduction) {
         logger.warn(`[OAuth Warning] ${message}`);
       } else {
         logger.info(`[OAuth Info] ${message}`);
@@ -196,6 +227,7 @@ const configureGoogleStrategy = (options = {}) => {
         clientID,
         clientSecret,
         callbackURL,
+        proxy: true, // Enable proxy support for Render reverse-proxy HTTPS termination
       },
       verifyGoogleProfile
     )

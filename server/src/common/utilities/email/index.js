@@ -5,7 +5,7 @@ const {
   sendOtpEmail,
   DEFAULT_SENDER,
 } = require("./emailService");
-const { getEmailConfig } = require("./emailConfig");
+const { getEmailConfig, isProductionEnvironment } = require("./emailConfig");
 const SmtpProvider = require("./providers/smtpProvider");
 const ResendProvider = require("./providers/resendProvider");
 
@@ -15,8 +15,8 @@ module.exports = {
   sendEmail,
   sendOtpEmail,
   getEmailConfig,
+  isProductionEnvironment,
   DEFAULT_SENDER,
   SmtpProvider,
   ResendProvider,
 };
-

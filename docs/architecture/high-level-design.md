@@ -204,8 +204,8 @@ graph TB
 
     subgraph External["External Services"]
         Razorpay[Razorpay API]
-        Google[Google OAuth]
-        SMTP[SMTP]
+        Google[Google OAuth 2.0 with Proxy Trust]
+        EmailGateway[Email Service: Resend HTTPS / Local SMTP]
     end
 
     subgraph RecSvc["Recommendation Service"]
@@ -221,7 +221,7 @@ graph TB
     Service --> EventBus
     EventBus --> NotificationService
     NotificationService --> SocketServer
-    NotificationService --> SMTP
+    NotificationService --> EmailGateway
     Scheduler --> AuctionService
     PaymentService --> Razorpay
     WebhookRoutes --> PaymentService
@@ -243,6 +243,8 @@ graph TB
 | **Payment Routes** | Payment API endpoints + webhook receiver | NEW |
 | **Order Service** | Winner settlement, order lifecycle | Refactored from current controller |
 | **Notification Service** | Socket broadcast, email, future push | NEW |
+| **Email Delivery Subsystem** | Dual-provider dispatcher (`emailService.js`), Resend HTTPS API in production, Nodemailer SMTP in local development | NEW — Auto-environment detection on Render, masked logging, bounded retries, and OTP safety |
+| **Wallet & Settlement Engine** | Authoritative balance management, atomic bid reservation (`reservedBalance`), and winner capture | NEW — Prevents outbid lockups and settlement delays |
 | **Reconciliation Scheduler** | Periodic auction state transition check | NEW |
 | **Event Emitter** | Decoupled side-effect trigger | NEW (Node.js EventEmitter) |
 
@@ -255,8 +257,8 @@ graph TB
 | **MongoDB Atlas** | Direct driver (Mongoose) | Bidirectional | Connection string |
 | **Cloudinary** | SDK + REST API | Upload images, delete images | API key/secret |
 | **Razorpay** | REST API + Webhooks | Create orders, verify payments, receive events | API key/secret + webhook secret |
-| **Google** | OAuth 2.0 | Authentication delegation | Client ID/Secret |
-| **SMTP** | Nodemailer | Send OTP, notifications | SMTP credentials |
+| **Google** | OAuth 2.0 (with Reverse-Proxy Trust) | Authentication delegation, profile lookup | Client ID/Secret (`GOOGLE_CALLBACK_URL`) |
+| **Email Delivery** | Dual-Provider: Resend SDK (Prod HTTPS API) / Nodemailer (Local SMTP) | Send OTP, registration verification, 2FA, contact inquiries, security alerts | Resend API Key (`RESEND_API_KEY`) / SMTP credentials |
 | **Recommendation Service** | HTTP proxy | Fetch recommendations | Internal network |
 
 ---

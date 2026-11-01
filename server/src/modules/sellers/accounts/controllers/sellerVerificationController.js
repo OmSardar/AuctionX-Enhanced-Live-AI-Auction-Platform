@@ -1,6 +1,7 @@
 const SellerModel = require("../models/seller.js");
 const Otp = require("../../../users/models/otp.js"); // Updated OTP model
 const sendOtpEmail = require("../../../../common/utilities/emailSender.js"); // Assuming you have a utility for sending emails
+const { isProductionEnvironment } = require("../../../../common/utilities/email");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
@@ -61,7 +62,7 @@ const checkAuth = async (req, res) => {
 
     const user = await SellerModel.findById(decoded.id).select("+password");
     if (!user) {
-      const isProduction = process.env.NODE_ENV === "production";
+      const isProduction = isProductionEnvironment();
       res.clearCookie("token", {
         httpOnly: true,
         secure: isProduction,
@@ -80,7 +81,7 @@ const checkAuth = async (req, res) => {
 
     // Authoritative suspension check
     if (user.status === "Suspended") {
-      const isProduction = process.env.NODE_ENV === "production";
+      const isProduction = isProductionEnvironment();
       res.clearCookie("token", {
         httpOnly: true,
         secure: isProduction,
@@ -126,7 +127,7 @@ const checkAuth = async (req, res) => {
     });
   } catch (error) {
     // Clear stale or invalid token cookie
-    const isProduction = process.env.NODE_ENV === "production";
+    const isProduction = isProductionEnvironment();
     res.clearCookie("token", {
       httpOnly: true,
       secure: isProduction,
@@ -309,7 +310,7 @@ const sendOtp = async (req, res) => {
       await sendOtpEmail(email, otp);
     } catch (mailError) {
       console.warn(`[OTP] Email delivery failed for ${email}: ${mailError.message}`);
-      const isProduction = process.env.NODE_ENV === "production";
+      const isProduction = isProductionEnvironment();
       const isResend = (process.env.EMAIL_PROVIDER || "").toLowerCase() === "resend";
 
       if (isProduction || isResend) {
@@ -416,7 +417,7 @@ const resendOtp = async (req, res) => {
       await sendOtpEmail(email, newOtp);
     } catch (mailError) {
       console.warn(`[OTP] Resend email delivery failed for ${email}: ${mailError.message}`);
-      const isProduction = process.env.NODE_ENV === "production";
+      const isProduction = isProductionEnvironment();
       const isResend = (process.env.EMAIL_PROVIDER || "").toLowerCase() === "resend";
 
       if (isProduction || isResend) {

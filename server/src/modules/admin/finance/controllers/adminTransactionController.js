@@ -125,6 +125,19 @@ exports.getTransaction = async (req, res) => {
       });
     }
 
+    const isAdmin = req.admin || ["admin", "super-admin", "editor"].includes(req.user?.role);
+    if (
+      !isAdmin &&
+      transaction.userEmail &&
+      req.user?.email &&
+      transaction.userEmail.toLowerCase() !== req.user.email.toLowerCase()
+    ) {
+      return res.status(403).json({
+        success: false,
+        error: "Access denied: You do not own this transaction",
+      });
+    }
+
     res.json({
       success: true,
       data: transaction,

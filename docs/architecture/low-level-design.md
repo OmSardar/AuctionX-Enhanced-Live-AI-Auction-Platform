@@ -806,7 +806,77 @@ No breaking changes to existing endpoints. New fields are optional additions:
 | Product Model | `Product.js` | — (modify in place) | Add `currentPrice`, `bidCount`, `winnerId`, `startingPrice`; expand `status` enum | — | Data migration script | Backward-compatible additions |
 | Order Model | `orderSchema.js` | — (modify in place) | Add `productId`, `paymentId`, `status` | — | Existing orders get `status: "LEGACY"` | Yes |
 | Notification Service | — | `services/notificationService.js` | Centralize notifications | Socket.IO, Nodemailer | — | Yes |
+| Email Delivery Subsystem | `emailSender.js`, `contactUsEmailSender.js` | `src/common/utilities/email/` | Dual-provider email infrastructure (Resend HTTPS + Nodemailer SMTP) | `resend`, `nodemailer` | Centralized email dispatch | Yes |
+| Wallet Reservation Engine | `user.js` (amount field) | `src/modules/users/models/user.js`, `bidService.js` | Authoritative available balance checks, atomic reservations, and winner captures | MongoDB atomic operators | Adds `reservedBalance` to User schema | Yes |
 | Event System | — | `events/index.js` | Decoupled side effects | — | — | Yes |
+
+---
+
+## M. Detailed Subsystem Implementation Specifications
+
+### M.1 Centralized Dual-Provider Email Subsystem (`server/src/common/utilities/email/`)
+The email subsystem isolates external mail delivery concerns behind a unified provider abstraction:
+
+```
+server/src/common/utilities/email/
+├── emailConfig.js               # Environment-aware provider & sender configuration
+├── emailService.js              # Centralized dispatch facade with validation & retry logic
+├── index.js                     # Public module exports
+└── providers/
+    ├── resendProvider.js        # Production HTTPS API provider (resend)
+    └── smtpProvider.js          # Development SMTP provider (nodemailer)
+```
+
+1. **`emailConfig.js` (Provider Resolution & Environment Invariants):**
+   - Implements `isProductionEnvironment()`, evaluating `NODE_ENV === "production"`, `ENVIRONMENT === "production"`, `RENDER === "true"`, `RENDER_EXTERNAL_URL`, or `RENDER_SERVICE_ID`.
+   - Resolves provider precedence:
+     - Explicit `EMAIL_PROVIDER` (`resend` or `smtp`).
+     - If `EMAIL_PROVIDER` is unset: automatically selects `resend` if `RESEND_API_KEY` is present or executing on Render; otherwise defaults to `smtp`.
+   - Throws descriptive configuration error if running in production with `EMAIL_PROVIDER=smtp` or without `RESEND_API_KEY`.
+2. **`emailService.js` (Facade, Retries & Invariant Fencing):**
+   - Validates required fields (`to`, `subject`, and either `html` or `text`) before invoking provider.
+   - **Bounded Exponential Retry:** Transient 5xx network errors and rate limits (429) retry up to 2 times with jittered backoff (150ms initial delay). Permanent 4xx client errors (400, 401, 403, 422) fail immediately without retry.
+   - **OTP Non-Retry Invariant:** Any email categorized as `category: "otp"` is strictly excluded from retry loops (`if (options.category === "otp") throw error`). This guarantees users never receive duplicate OTP emails due to network jitter.
+3. **`resendProvider.js` (Production Resend Implementation):**
+   - Calls `resend.emails.send()` over HTTPS port 443 with `{ from, to, subject, html, text, reply_to }`.
+   - Emits structured diagnostic logs with masked recipients (`bu***@example.com`).
+   - Sanitizes error payloads before re-throwing, ensuring API keys are never leaked into logs or error stacks.
+4. **`smtpProvider.js` (Development Nodemailer Implementation):**
+   - Connects to SMTP host via Nodemailer transporter.
+   - Redacts credentials from error messages upon delivery failure.
+
+### M.2 Wallet Available Balance Reservation & Settlement Protocol
+To eliminate auction winner payment defaults and race conditions, user wallets implement three-tier balance accounting:
+1. **Balance Accounting Invariants:**
+   - `balance`: Total deposited funds (integer or 2-decimal precision).
+   - `reservedBalance`: Total funds currently held as active high bids in running auctions.
+   - `availableBalance = balance - reservedBalance`: Maximum spendable funds for placing new bids or withdrawing.
+2. **Atomic Bid Reservation:**
+   - When a bidder submits an accepted bid of ₹X, the bid service checks `user.balance - user.reservedBalance >= X`.
+   - Upon acceptance, funds are atomically reserved:
+     ```js
+     await User.updateOne(
+       { _id: bidderId, balance: { $gte: bidderReserved + bidAmount } },
+       { $inc: { reservedBalance: bidAmount } }
+     );
+     ```
+3. **Outbid Instant Release:**
+   - When a higher bid is placed by a different user, the previous high bidder's reserved balance is immediately released:
+     ```js
+     await User.updateOne(
+       { _id: previousBidderId },
+       { $inc: { reservedBalance: -previousBidAmount } }
+     );
+     ```
+4. **Authoritative Finalization & Order Creation:**
+   - Upon auction completion, the scheduler or reconciler finalizes the winning bid:
+     ```js
+     await User.updateOne(
+       { _id: winnerId },
+       { $inc: { balance: -winningBid, reservedBalance: -winningBid } }
+     );
+     ```
+   - A paid `Order` document is atomically generated with `paymentMethod: "WALLET"` and status `PAID`, eliminating post-auction checkout abandonment.
 
 ---
 

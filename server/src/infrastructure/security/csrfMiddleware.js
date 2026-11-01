@@ -86,7 +86,8 @@ function verifySignedToken(token) {
 
   const maxAge = 24 * 60 * 60 * 1000; // 24 hours
   const now = Date.now();
-  if (now < timestamp || now - timestamp > maxAge) {
+  const clockSkewLeeway = 5 * 60 * 1000; // 5-minute clock drift tolerance
+  if (timestamp - now > clockSkewLeeway || now - timestamp > maxAge) {
     return false;
   }
 

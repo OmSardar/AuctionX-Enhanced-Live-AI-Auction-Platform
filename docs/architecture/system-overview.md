@@ -17,6 +17,7 @@
 2. **Deterministic Settlement:** Auction conclusions, order creations, and Razorpay/wallet settlements follow strict state-machine transitions with durable idempotency keys and outbox dispatch.
 3. **Optimistic Concurrency Control:** Standalone MongoDB database environments do not require multi-document distributed transactions. State mutations leverage version-checked atomic Compare-And-Swap (CAS) operations.
 4. **Isolated Microservice Boundaries:** Recommendation computation and offline model evaluation are decoupled into a dedicated Python FastAPI service. The core Express server proxies client traffic, scrubs raw emails, and signs requests with HMAC pseudonyms and internal service keys.
+5. **Wallet-Backed Bidding & Settlement Invariants:** Bids require available balance (`balance - reservedBalance >= bidAmount`). Placing an accepted bid atomically reserves funds in the bidder's wallet (`$inc: { reservedBalance: bidAmount }`); being outbid immediately releases the outbid bidder's reserved funds; and auction closure triggers server-authoritative settlement capturing reserved funds into a paid order invoice without third-party checkout delays.
 
 ---
 
@@ -36,10 +37,11 @@ graph TB
 
     subgraph CoreBackend ["Core Application Backend (Node.js 20 / Express 4.21)"]
         APIGateway["REST API Gateway & Security Perimeter<br/>(Helmet, CORS, Double-Submit CSRF, Rate Limiting)"]
-        RBAC["Authentication & Role Enforcement<br/>(JWT in HttpOnly Cookies, Google OAuth 2.0)"]
-        BidEngine["Bidding Engine & Concurrency Gate<br/>(CAS Atomic Updates, Anti-Sniping Soft-Close)"]
+        RBAC["Authentication & Role Enforcement<br/>(JWT in HttpOnly Cookies, Google OAuth 2.0 with Proxy Trust)"]
+        BidEngine["Bidding Engine & Concurrency Gate<br/>(CAS Atomic Updates, Anti-Sniping Soft-Close, Wallet Balance Fencing)"]
         LifecycleWorker["Auction Lifecycle Scheduler<br/>(Recurring Cron / State Machine Finalization)"]
         PaymentWorker["Razorpay Gateway & Settlement Worker<br/>(HMAC Signature Verification, Webhook Deduplication)"]
+        EmailService["Dual-Provider Email Service<br/>(Resend HTTPS API / Local SMTP Transporter)"]
         RecProxy["Recommendation Gateway Proxy<br/>(HMAC-SHA256 Pseudonymization, Internal Key Dispatch)"]
         SocketServer["Socket.IO Real-Time Engine (v4.8)<br/>(Room Multiplexing, Live Bid Broadcasts)"]
     end
@@ -51,10 +53,12 @@ graph TB
     end
 
     subgraph Persistence ["Persistence & External Cloud Services"]
-        MongoDBPrimary[("MongoDB 7.0 Primary Store<br/>(Users, Products, Bids, Orders, Outbox)")]
+        MongoDBPrimary[("MongoDB 7.0 Primary Store<br/>(Users, Products, Bids, Orders, Outbox, Transactions)")]
         RedisStore[("Redis 7.0 Managed Cache<br/>(Cache Keys, Nonce Invalidation)")]
         CloudinaryCDN["Cloudinary Asset Storage<br/>(Product Images, Banners, Avatars)"]
         RazorpayGateway["Razorpay Payment Gateway<br/>(Payment Orders, Webhooks, Verification)"]
+        ResendAPI["Resend Email API<br/>(Production HTTPS Transactional Mail)"]
+        GoogleIdentity["Google Identity Service<br/>(OAuth 2.0 Federated Authentication)"]
     end
 
     UserWeb -->|HTTPS REST / CSRF| NginxProxy
@@ -67,12 +71,15 @@ graph TB
     RBAC --> BidEngine
     RBAC --> LifecycleWorker
     RBAC --> PaymentWorker
+    RBAC --> EmailService
     RBAC --> RecProxy
 
     BidEngine -->|Atomic CAS / Version Check| MongoDBPrimary
     LifecycleWorker -->|State Machine Updates| MongoDBPrimary
     PaymentWorker -->|Order Settlement / Transactions| MongoDBPrimary
     PaymentWorker <-->|REST Basic Auth / Webhooks| RazorpayGateway
+    EmailService -->|HTTPS REST / Port 443| ResendAPI
+    RBAC <-->|OAuth 2.0 HTTPS Handshake| GoogleIdentity
     APIGateway -->|Asset Uploads| CloudinaryCDN
 
     SocketServer -->|Broadcast Events| UserWeb
@@ -100,8 +107,11 @@ graph TB
 ### 3.2 Core Backend Server (`server/`)
 - **Technology:** Node.js 20 (LTS), Express 4.21, Socket.IO 4.8, Mongoose 8.7.
 - **Role Enforcement:** Multi-tier authorization checking User, Seller, and Admin collections; strict IDOR protection enforcing email/ID ownership matching on all resources.
-- **Auction Engine:** Atomic version-checked bid placement, minimum increments (+₹50 canonical), anti-sniping dynamic soft-close (+2 minutes on last-minute bids, capped at +15 minutes).
-- **Payment Settlement:** Razorpay order creation in server-authoritative integer paise, HMAC-SHA256 checkout and webhook verification, 24-hour payment deadlines with automated expiration workers.
+- **Auction Engine & Wallet Fencing:** Atomic version-checked bid placement, minimum increments (+₹50 canonical), anti-sniping dynamic soft-close (+2 minutes on last-minute bids, capped at +15 minutes). Bids are fenced by available wallet balance (`balance - reservedBalance`), atomically reserving funds on active high bids and releasing on outbid.
+- **Payment & Wallet Settlement:** Razorpay order creation in server-authoritative integer paise, HMAC-SHA256 checkout and webhook verification, 24-hour payment deadlines with automated expiration workers. Winning auction invoices capture reserved wallet funds directly into paid orders.
+- **Email Delivery Infrastructure:** Dual-provider architecture utilizing the Resend SDK over HTTPS (port 443) in production environments (`EMAIL_PROVIDER=resend`), and Nodemailer SMTP in local development (`EMAIL_PROVIDER=smtp`). Features safe recipient masking, non-retry invariant on OTP dispatches, and targeted `_id` cleanup on failed delivery.
+- **Google OAuth Federation:** Passport GoogleStrategy configured with `proxy: true` to trust edge TLS termination (Render, Nginx), enforcing canonical HTTPS callback URLs to prevent redirect URI mismatch errors.
+- **Observability:** Health endpoints (`GET /health`, `GET /health/email`) and Prometheus performance metrics (`GET /metrics`).
 
 ### 3.3 Recommendation Service (`recommendation_service/`)
 - **Technology:** Python 3.10, FastAPI 0.115, Uvicorn, PyMongo, Redis-py, NumPy.

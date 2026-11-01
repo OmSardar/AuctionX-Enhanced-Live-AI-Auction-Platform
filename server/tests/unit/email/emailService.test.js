@@ -86,6 +86,36 @@ describe("Email Infrastructure Unit Tests", () => {
       const config = getEmailConfig();
       expect(config.from).toBe(DEFAULT_SENDER);
     });
+
+    it("should automatically select Resend when RESEND_API_KEY is present even if EMAIL_PROVIDER is unset", () => {
+      delete process.env.EMAIL_PROVIDER;
+      process.env.RESEND_API_KEY = "re_auto_detected_key_123456";
+      process.env.NODE_ENV = "test";
+
+      const config = getEmailConfig();
+      expect(config.provider).toBe("resend");
+    });
+
+    it("should automatically select Resend and treat as production when RENDER=true even if NODE_ENV is unset", () => {
+      delete process.env.EMAIL_PROVIDER;
+      delete process.env.NODE_ENV;
+      process.env.RENDER = "true";
+      process.env.RESEND_API_KEY = "re_render_detected_key";
+
+      const config = getEmailConfig();
+      expect(config.isProduction).toBe(true);
+      expect(config.provider).toBe("resend");
+    });
+
+    it("should throw in production on Render if RESEND_API_KEY is missing", () => {
+      delete process.env.EMAIL_PROVIDER;
+      delete process.env.RESEND_API_KEY;
+      process.env.RENDER_EXTERNAL_URL = "https://auctionx-enhanced-live-server.onrender.com";
+
+      expect(() => getEmailConfig()).toThrow(
+        /Missing required environment variable RESEND_API_KEY/
+      );
+    });
   });
 
   // ============================================================================

@@ -24,8 +24,12 @@
 | `POST` | `/api/auth/login` | Public (Rate-limited) | Authenticate user credentials and issue JWT cookie. |
 | `POST` | `/api/auth/logout` | Authenticated | Invalidate session and clear auth cookie. |
 | `GET` | `/api/auth/check` | Authenticated | Validate session and retrieve authenticated profile. |
-| `POST` | `/api/auth/send-otp` | Public | Generate and email OTP verification token. |
-| `POST` | `/api/auth/verify-otp` | Public | Verify submitted OTP token. |
+| `POST` | `/api/auth/send-otp` | Public | Legacy fallback endpoint for OTP verification token generation. |
+| `POST` | `/api/auth/verify-otp` | Public | Legacy fallback endpoint for verifying submitted OTP token. |
+| `POST` | `/api/auth/user/send-otp` | Public | Generate and email user registration OTP token (Resend in prod / SMTP in dev). |
+| `POST` | `/api/auth/user/verify-otp` | Public | Verify submitted user registration OTP token. |
+| `POST` | `/api/auth/2fa/send-otp` | Public / Session | Generate and email login two-factor authentication (2FA) OTP. |
+| `POST` | `/api/auth/2fa/verify-otp` | Public / Session | Verify login 2FA OTP and issue authenticated session cookie. |
 | `PATCH` | `/api/auth/verify-user` | Authenticated | Mark account as verified. |
 | `PATCH` | `/api/auth/updateUserProfile/:email` | Owner only | Update profile fields (enforces ownership check). |
 | `PATCH` | `/api/auth/updateUserProfileImage/:email` | Owner only | Update avatar selection or custom Cloudinary image. |
@@ -43,6 +47,14 @@
 | `PATCH` | `/api/auth/seller/updateUserProfileImage/:email` | Owner only | Update seller store branding image. |
 | `PATCH` | `/api/auth/seller/resetProfileImage/:email` | Owner only | Reset seller avatar to default. |
 | `PATCH` | `/api/auth/seller/update-password` | Authenticated | Change seller account password. |
+| `POST` | `/api/auth/seller/send-otp` | Public | Generate and email seller onboarding OTP verification token. |
+| `POST` | `/api/auth/seller/verify-otp` | Public | Verify submitted seller onboarding OTP token. |
+
+### Federated Google OAuth 2.0 (`/auth/google`)
+| Method | Endpoint | Access | Description |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/auth/google` | Public | Initiate Google OAuth 2.0 authentication flow with email/profile scopes. |
+| `GET` | `/auth/google/callback` | Public | Google authorization callback. Resolves canonical HTTPS redirect, validates profile, sets JWT cookie, and redirects to client. |
 
 ---
 
@@ -73,6 +85,15 @@
 | `POST` | `/api/payment/wallet/verify` | Authenticated | Verify Razorpay checkout signature and credit balance. |
 | `POST` | `/api/payment/webhook` | Gateway HMAC | Authoritative webhook receiver for asynchronous settlement. |
 | `GET` | `/api/payment/order/:orderId` | Buyer / Admin | Settlement diagnostics and payment transaction state. |
+
+### Wallet Transactions Ledger (`/api/transactions`)
+| Method | Endpoint | Access | Description |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/api/transactions` | Authenticated | Fetch transaction ledger history (strictly scoped to authenticated user or global for admin). |
+| `POST` | `/api/transactions` | Authenticated | Record new ledger entry for own account (IDOR-protected against imposter user assignment). |
+| `GET` | `/api/transactions/:id` | Owner / Admin | Retrieve detailed transaction ledger record by ID (IDOR-protected). |
+| `PUT` | `/api/transactions/:id` | Admin only | Administrative status and reconciliation update on transaction record. |
+| `DELETE` | `/api/transactions/:id` | Admin only | Administrative audit deletion of transaction record. |
 
 ---
 
@@ -122,3 +143,13 @@ Clients connect to the WebSocket gateway at `/socket`:
 | `productData` | Full product document | Initial product state upon joining room. |
 | `bidUpdate` | `{ currentPrice, highestBidder, bidCount, endTime }` | Broadcast to all room subscribers on new accepted bid. |
 | `auctionEnded` | `{ productId, winner, finalPrice }` | Broadcast when auction timer concludes. |
+
+---
+
+## 8. Health, Diagnostics & Observability Endpoints
+
+| Method | Endpoint | Access | Description |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/health` | Public | Basic HTTP liveness probe confirming server process uptime. |
+| `GET` | `/health/email` | Public | Safe email infrastructure health check reporting active provider (`resend` / `smtp`), configuration status, environment, and sender address without exposing secrets. (Also aliased at `/api/health/email`). |
+| `GET` | `/metrics` | Protected (Prod) / Public (Dev) | Prometheus application performance and latency telemetry. Requires `METRICS_AUTH_TOKEN` in production. |

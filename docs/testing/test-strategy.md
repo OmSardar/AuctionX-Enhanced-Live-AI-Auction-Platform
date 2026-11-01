@@ -28,7 +28,7 @@ This document establishes the comprehensive automated testing strategy for **Auc
 | **Database Fixture** | MongoDB (Local Test DB or MongoMemoryServer) | Isolated document-level integration tests |
 | **Real-Time WebSockets** | `socket.io-client` v4 | Real-time event broadcasting, room authorization, resync testing |
 | **Load & Stress Testing** | Autocannon v8 | High-concurrency benchmark and bidding contention analysis |
-| **Mocking & Spies** | Jest Spies + Custom Mock Modules | Third-party isolation (Razorpay, Cloudinary, Nodemailer) |
+| **Mocking & Spies** | Jest Spies + Custom Mock Modules | Third-party isolation (Razorpay, Cloudinary, Resend SDK, Nodemailer) |
 
 ### 2.2 Environment Configuration & Isolation
 Automated tests execute with `NODE_ENV=test`. Database state is isolated per test suite:
@@ -49,7 +49,8 @@ Automated payment tests bypass external Razorpay network calls using a determini
 
 ### 3.2 Media & Email Mocks
 - **Cloudinary (`mocks/cloudinaryMock.js`):** Intercepts `uploader.upload()` and returns deterministic secure URLs (`https://res.cloudinary.com/demo/image/upload/sample.jpg`) without internet egress.
-- **Nodemailer (`mocks/emailMock.js`):** Intercepts `transporter.sendMail()`, capturing outgoing emails in an in-memory array for assertion.
+- **Resend SDK (`tests/unit/email/emailService.test.js`):** Intercepts `resend.emails.send()`, verifying structured HTTPS payload contracts, sender domain authorization headers, recipient masking, and simulated API error responses without external network requests.
+- **Nodemailer (`mocks/emailMock.js`):** Intercepts `transporter.sendMail()`, capturing outgoing emails in an in-memory array for assertion and verifying password sanitization.
 - **FastAPI Recommendation Service:** Mock HTTP server or `axios-mock-adapter` responding with pre-configured recommendation product IDs (`["prod_1", "prod_2"]`).
 
 ### 3.3 Clocks & Time Simulation
@@ -70,6 +71,8 @@ Because auctions are strictly time-bound, time testing uses deterministic clock 
   2. `verifyRazorpaySignature(orderId, paymentId, signature, secret)`: Validates true for valid HMAC; false for altered paymentId, altered orderId, or wrong secret.
   3. `verifyWebhookSignature(rawBodyBuffer, signature, webhookSecret)`: Validates byte-accurate HMAC matching; rejects stringified JSON mismatches.
   4. Input sanitization: Strips MongoDB query operators (`$gt`, `$ne`, `$where`) from user inputs.
+  5. Email provider resolution & invariants (`emailService.test.js`): Automatically selects Resend on Render (`RENDER=true`) or when `RESEND_API_KEY` is present; asserts password masking on SMTP failure; enforces non-retry invariant on OTP dispatches; executes bounded retry on transient 5xx errors.
+  6. Transaction access control & route order (`userTransactionAccess.test.js`): Rejects unauthenticated requests (401); strictly scopes user query results to authenticated user; blocks imposter assignments (403); allows administrator global ledger mutations.
 
 ### 4.2 Service & Repository Integration Testing
 - **Target:** Business domain services interacting with MongoDB.

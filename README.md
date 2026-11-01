@@ -24,6 +24,20 @@ AuctionX is an advanced software engineering demonstration and portfolio platfor
 
 ---
 
+## Live Demo
+
+Experience the live deployed AuctionX platform across our production and preview environments:
+
+| Deployment Environment | URL | Architecture & Role | Hosting Infrastructure |
+| :--- | :--- | :--- | :--- |
+| **Primary Production Website** | [https://auctionx-enhanced.omslabs.tech/](https://auctionx-enhanced.omslabs.tech/) | Canonical full-stack production platform running the complete decoupled architecture — React 18 SPA frontend, Express API gateway, real-time Socket.IO bidding engine, MongoDB Atlas persistence, and FastAPI recommendation microservice. | Custom Domain (Cloudflare DNS + Render Web Services) |
+| **Alternative Vercel Deployment** | [https://auction-x-enhanced-live-ai-auction.vercel.app/](https://auction-x-enhanced-live-ai-auction.vercel.app/) | Secondary edge frontend mirror providing high-availability global CDN delivery with direct connection to the live backend services. | Vercel Global Edge Network |
+
+> [!TIP]
+> **Recruiter & Interviewer Access:** Both deployments are fully operational and connected to the live backend infrastructure. For the complete end-to-end experience including custom domain routing, SSL termination, and authenticated API endpoints, use the **[Primary Production Website](https://auctionx-enhanced.omslabs.tech/)**.
+
+---
+
 ## Subsystem Documentation
 
 Detailed engineering references are available for each of the primary AuctionX subsystems:
@@ -39,6 +53,7 @@ Detailed engineering references are available for each of the primary AuctionX s
 
 ## Table of Contents
 
+- [Live Demo](#live-demo)
 - [Subsystem Documentation](#subsystem-documentation)
 
 - [1. Project Overview](#1-project-overview)
